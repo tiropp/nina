@@ -1,0 +1,61 @@
+#!/bin/bash
+
+MAIN_DIR=`pwd`
+BUILD_DIR=_build
+
+NUM_CONFIGURATIONS=2
+CONFIGURATION[0]=linux
+CONFIGURATION[1]=windows
+TOOLCHAIN[0]=toolchain_gcc.cmake
+TOOLCHAIN[1]=toolchain_mingw32.cmake
+
+
+function usage
+{
+    echo "usage: build <configuration>"
+    echo "with configuration beeing:"
+    i=0
+    while (( i < NUM_CONFIGURATIONS )); do
+	echo "   ${CONFIGURATION[$i]}"
+	((++i))
+    done
+}
+
+## CHECK PARAMETERS
+configuration=$1
+if [[ "${configuration}" == "" ]]; then
+    echo "No configuration given"
+    usage
+    exit 1
+fi
+
+
+## RUN CMAKE
+i=0
+while(( i < NUM_CONFIGURATIONS )); do
+    if [[ "${configuration}" != "${CONFIGURATION[$i]}" ]]; then
+	((++i))
+	continue
+    fi
+
+    options="$options -DCMAKE_TOOLCHAIN_FILE=${MAIN_DIR}/${TOOLCHAIN[$i]}"
+    dir_base="${MAIN_DIR}/${BUILD_DIR}/${CONFIGURATION[$i]}"
+
+    ## debug
+    dir="${dir_base}/debug"
+    mkdir -p "$dir"
+    cd "$dir"
+    cmake -DCMAKE_BUILD_TYPE=Debug ${options} ${MAIN_DIR}
+
+    ## release
+    dir="${dir_base}/release"
+    mkdir -p "$dir"
+    cd "$dir"
+    cmake -DCMAKE_BUILD_TYPE=Release ${options} ${MAIN_DIR}
+
+    ## Loop counter
+    ((++i))
+done
+    
+
+
