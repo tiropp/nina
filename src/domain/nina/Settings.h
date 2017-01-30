@@ -1,6 +1,11 @@
 #ifndef NINA_DOMAIN_SETTINGS_H
 #define NINA_DOMAIN_SETTINGS_H
 
+// STL includes
+#include <cstddef>
+
+
+
 namespace nina {
 namespace domain {
 
