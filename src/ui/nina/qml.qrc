@@ -10,7 +10,5 @@
         <file>PositionForm.ui.qml</file>
         <file>PositionStandard.qml</file>
         <file>PositionStandardForm.ui.qml</file>
-        <file>InvoiceTest.qml</file>
-        <file>InvoiceTestForm.ui.qml</file>
     </qresource>
 </RCC>
