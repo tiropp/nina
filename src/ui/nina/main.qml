@@ -39,7 +39,6 @@ ApplicationWindow {
     }
     */
 
-    /*
     Flickable {
         anchors.fill: parent
         contentHeight: invoice.height
@@ -49,11 +48,6 @@ ApplicationWindow {
         Invoice {
             id: invoice
         }
-    }
-    */
-
-    InvoiceTest {
-
-    }
+    }    
 
 }
