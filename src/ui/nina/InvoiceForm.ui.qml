@@ -343,7 +343,7 @@ Item {
                 y: -862
                 width: 60
                 height: 40
-                text: "12"
+                text: "0"
                 anchors.top: parent.top
                 anchors.topMargin: 92
                 placeholderText: qsTr("")
@@ -355,7 +355,7 @@ Item {
                 y: 46
                 width: 60
                 height: 40
-                text: "12"
+                text: "18"
                 placeholderText: qsTr("")
             }
 
