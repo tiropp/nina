@@ -12,6 +12,7 @@
 #include <receivermodel.h>
 #include <positionmodel.h>
 #include <positioncontainermodel.h>
+#include <vatmodel.h>
 #include <invoicemodel.h>
 #include <filesavedialog.h>
 #include <fileopendialog.h>
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<ReceiverModel>("com.nina.ui", 1, 0, "ReceiverModel");
     qmlRegisterType<PositionModel>("com.nina.ui", 1, 0, "PositionModel");
     qmlRegisterType<PositionContainerModel>("com.nina.ui", 1, 0, "PositionContainerModel");
+    qmlRegisterType<VatModel>("com.nina.ui", 1, 0, "VatModel");
     qmlRegisterType<InvoiceModel>("com.nina.ui", 1, 0, "InvoiceModel");
     qmlRegisterType<FileSaveDialog>("com.nina.ui", 1, 0, "FileSaveDialog");
     qmlRegisterType<FileOpenDialog>("com.nina.ui", 1, 0, "FileOpenDialog");

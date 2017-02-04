@@ -19,6 +19,7 @@ InvoiceModel::InvoiceModel()
     , m_sender( new SenderModel() )
     , m_receiver( new ReceiverModel() )
     , m_positions( new PositionContainerModel() )
+    , m_vat( new VatModel() )
 {
 }
 
@@ -32,6 +33,7 @@ InvoiceModel::createDomain() const
     invoice.setSender( m_sender->createDomain() );
     invoice.setReceiver( m_receiver->createDomain() );
     invoice.setPositions( m_positions->createDomain() );
+    invoice.setVat( m_vat->createDomain() );
     invoice.setTextAfterPositions( toString(m_textAfterPositions) );
     invoice.setTextBeforePositions( toString(m_textBeforePositions) );
     return invoice;
@@ -74,6 +76,7 @@ InvoiceModel::set(const nina::domain::Invoice& invoice)
     m_sender   ->set( invoice.getSender()    );
     m_receiver ->set( invoice.getReceiver()  );
     m_positions->set( invoice.getPositions() );
+    m_vat      ->set( invoice.getVat()       );
     setTextBeforePositions( QString::fromStdString(invoice.getTextBeforePositions()) );
     setTextAfterPositions ( QString::fromStdString(invoice.getTextAfterPositions ()) );
 }
@@ -84,5 +87,6 @@ NINA_SETPROPERTY(InvoiceModel, setDate,                DateModel*,              
 NINA_SETPROPERTY(InvoiceModel, setSender,              SenderModel*,            sender)
 NINA_SETPROPERTY(InvoiceModel, setReceiver,            ReceiverModel*,          receiver)
 NINA_SETPROPERTY(InvoiceModel, setPositions,           PositionContainerModel*, positions)
+NINA_SETPROPERTY(InvoiceModel, setVat,                 VatModel*,               vat)
 NINA_SETPROPERTY(InvoiceModel, setTextBeforePositions, const QString&,          textBeforePositions)
 NINA_SETPROPERTY(InvoiceModel, setTextAfterPositions,  const QString&,          textAfterPositions)

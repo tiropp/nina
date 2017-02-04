@@ -18,6 +18,7 @@
 #include <sendermodel.h>
 #include <receivermodel.h>
 #include <positioncontainermodel.h>
+#include <vatmodel.h>
 
 
 
@@ -30,8 +31,10 @@ class InvoiceModel: public QObject
     Q_PROPERTY(SenderModel* sender READ sender WRITE setSender NOTIFY senderChanged)
     Q_PROPERTY(ReceiverModel* receiver READ receiver WRITE setReceiver NOTIFY receiverChanged)
     Q_PROPERTY(PositionContainerModel* positions READ positions WRITE setPositions NOTIFY positionsChanged)
+    Q_PROPERTY(VatModel* vat READ vat WRITE setVat NOTIFY vatChanged)
     Q_PROPERTY(QString textBeforePositions READ textBeforePositions WRITE setTextBeforePositions NOTIFY textBeforePositionsChanged)
     Q_PROPERTY(QString textAfterPositions READ textAfterPositions WRITE setTextAfterPositions NOTIFY textAfterPositionsChanged)
+
 
   public:
     InvoiceModel();
@@ -56,6 +59,7 @@ class InvoiceModel: public QObject
     SenderModel* sender() const { return m_sender; }
     ReceiverModel* receiver() const { return m_receiver; }
     PositionContainerModel* positions() const { return m_positions; }
+    VatModel* vat() const { return m_vat; }
     QString textBeforePositions() const { return m_textBeforePositions; }
     QString textAfterPositions() const { return m_textAfterPositions; }
 
@@ -67,6 +71,7 @@ class InvoiceModel: public QObject
     void setSender(SenderModel* sender);
     void setReceiver(ReceiverModel* receiver);
     void setPositions(PositionContainerModel* positions);
+    void setVat(VatModel* vat);
     void setTextBeforePositions(const QString& text);
     void setTextAfterPositions(const QString& text);
 
@@ -77,6 +82,7 @@ class InvoiceModel: public QObject
     void senderChanged();
     void receiverChanged();
     void positionsChanged();
+    void vatChanged();
     void textBeforePositionsChanged();
     void textAfterPositionsChanged();
 
@@ -87,6 +93,7 @@ class InvoiceModel: public QObject
     QPointer<SenderModel> m_sender;
     QPointer<ReceiverModel> m_receiver;
     QPointer<PositionContainerModel> m_positions;
+    QPointer<VatModel> m_vat;
     QString m_textBeforePositions;
     QString m_textAfterPositions;
     nina::domain::PdfCreator m_pdfCreator;

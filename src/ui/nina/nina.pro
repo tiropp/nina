@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     datemodel.cpp \
     filesavedialog.cpp \
     filedialogbase.cpp \
-    fileopendialog.cpp
+    fileopendialog.cpp \
+    vatmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -71,7 +72,8 @@ HEADERS += \
     datemodel.h \
     filesavedialog.h \
     filedialogbase.h \
-    fileopendialog.h
+    fileopendialog.h \
+    vatmodel.h
 
 FORMS +=
 
