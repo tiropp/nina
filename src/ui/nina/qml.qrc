@@ -4,8 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>Invoice.qml</file>
         <file>InvoiceForm.ui.qml</file>
-        <file>AddPosition.qml</file>
-        <file>AddPositionForm.ui.qml</file>
         <file>Position.qml</file>
         <file>PositionForm.ui.qml</file>
         <file>PositionStandard.qml</file>
