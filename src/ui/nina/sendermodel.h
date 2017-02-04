@@ -32,12 +32,13 @@ class SenderModel: public QObject
     nina::domain::Sender createDomain() const;
 
   public:
-    void setAddress(AddressModel* address) { m_address = address; }
-    void setBank(BankModel* bank) { m_bank = bank; }
-    void setPhone(const QString& phone) { m_phone = phone; }
-    void setMobilePhone(const QString& mobilePhone) { m_mobilePhone = mobilePhone; }
-    void setSignature(const QString& signature) { m_signature = signature; }
-    void setGreetings(const QString& greetings) { m_greetings = greetings; }
+    void set(const nina::domain::Sender& sender);
+    void setAddress(AddressModel* address);
+    void setBank(BankModel* bank);
+    void setPhone(const QString& phone);
+    void setMobilePhone(const QString& mobilePhone);
+    void setSignature(const QString& signature);
+    void setGreetings(const QString& greetings);
 
   public:
     AddressModel* address() const { return m_address; }

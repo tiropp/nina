@@ -2,6 +2,7 @@
 
 // Nina includes
 #include <conversion.h>
+#include <detail/macros.h>
 
 
 
@@ -25,3 +26,25 @@ AddressModel::createDomain() const
     address.setUsePoBox  ( m_usePoBox );
     return address;
 }
+
+void
+AddressModel::set(const nina::domain::Address& address)
+{
+    setSalutation( QString::fromStdString(address.getSalutation()) );
+    setName      ( QString::fromStdString(address.getName      ()) );
+    setCompany   ( QString::fromStdString(address.getCompany   ()) );
+    setStreet    ( QString::fromStdString(address.getStreet    ()) );
+    setZipCode   ( address.getZipCode() );
+    setPlace     ( QString::fromStdString(address.getPlace     ()) );
+    setCountry   ( QString::fromStdString(address.getCountry   ()) );
+    setUsePoBox  ( address.usePoBox() );
+}
+
+NINA_SETPROPERTY(AddressModel, setSalutation, const QString&, salutation)
+NINA_SETPROPERTY(AddressModel, setName      , const QString&, name)
+NINA_SETPROPERTY(AddressModel, setCompany   , const QString&, company)
+NINA_SETPROPERTY(AddressModel, setStreet    , const QString&, street)
+NINA_SETPROPERTY(AddressModel, setZipCode   , unsigned,       zipCode)
+NINA_SETPROPERTY(AddressModel, setPlace     , const QString&, place)
+NINA_SETPROPERTY(AddressModel, setCountry   , const QString&, country)
+NINA_SETPROPERTY(AddressModel, setUsePoBox  , bool,           usePoBox)

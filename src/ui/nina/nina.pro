@@ -1,4 +1,4 @@
-QT += qml quick
+QT += qml quick widgets
 
 CONFIG += c++11
 
@@ -12,7 +12,10 @@ SOURCES += main.cpp \
     bankmodel.cpp \
     conversion.cpp \
     settingsmodel.cpp \
-    datemodel.cpp
+    datemodel.cpp \
+    filesavedialog.cpp \
+    filedialogbase.cpp \
+    fileopendialog.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,13 +33,13 @@ linux {
     CONFIG(debug):   LIBS += -L$$PWD/../../domain/_build/linux/debug/nina
     CONFIG(release): LIBS += -L$$PWD/../../domain/_build/linux/release/nina
     LIBS += -lnina_domain
-    LIBS += -lboost_system -lboost_filesystem
+    LIBS += -lboost_system -lboost_filesystem -lboost_serialization
 }
 win32 {
     CONFIG(debug):   LIBS += -L$$PWD/../../domain/_build/windows/debug/nina
     CONFIG(release): LIBS += -L$$PWD/../../domain/_build/windows/release/nina
     LIBS += -lnina_domain
-    LIBS += -lboost_system-mt -lboost_filesystem-mt
+    LIBS += -lboost_system-mt -lboost_filesystem-mt -lboost_serialization-mt
 }
 
 # The following define makes your compiler emit warnings if you use
@@ -65,7 +68,10 @@ HEADERS += \
     bankmodel.h \
     conversion.h \
     settingsmodel.h \
-    datemodel.h
+    datemodel.h \
+    filesavedialog.h \
+    filedialogbase.h \
+    fileopendialog.h
 
 FORMS +=
 

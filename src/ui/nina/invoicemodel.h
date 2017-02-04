@@ -43,6 +43,12 @@ class InvoiceModel: public QObject
     /// \return In case of an error a non-empty string is returned
     Q_INVOKABLE QString createPdf();
 
+    /// \brief Store information to file
+    Q_INVOKABLE void save(const QString& filename);
+
+    /// \brief Load information from file
+    Q_INVOKABLE void load(const QString& filename);
+
   public:
     QString title() const { return m_title; }
     SettingsModel* settings() const { return m_settings; }
@@ -54,14 +60,15 @@ class InvoiceModel: public QObject
     QString textAfterPositions() const { return m_textAfterPositions; }
 
   public:
-    void setTitle(const QString& title) { m_title = title; }
-    void setSettings(SettingsModel* settings) { m_settings = settings; }
-    void setDate(DateModel* date) { m_date = date; }
-    void setSender(SenderModel* sender) { m_sender = sender; }
-    void setReceiver(ReceiverModel* receiver) { m_receiver = receiver; }
-    void setPositions(PositionContainerModel* positions) { m_positions = positions; }
-    void setTextBeforePositions(const QString& text) { m_textBeforePositions = text; }
-    void setTextAfterPositions(const QString& text) { m_textAfterPositions = text; }
+    void set(const nina::domain::Invoice& invoice);
+    void setTitle(const QString& title);
+    void setSettings(SettingsModel* settings);
+    void setDate(DateModel* date);
+    void setSender(SenderModel* sender);
+    void setReceiver(ReceiverModel* receiver);
+    void setPositions(PositionContainerModel* positions);
+    void setTextBeforePositions(const QString& text);
+    void setTextAfterPositions(const QString& text);
 
   signals:
     void titleChanged();

@@ -26,7 +26,8 @@ class ReceiverModel: public QObject
     nina::domain::Receiver createDomain() const;
 
   public:
-    void setAddress(AddressModel* address) { m_address = address; }
+    void set(const nina::domain::Receiver& receiver);
+    void setAddress(AddressModel* address);
 
   public:
     AddressModel* address() const { return m_address; }

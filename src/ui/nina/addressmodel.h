@@ -28,14 +28,15 @@ class AddressModel: public QObject
     nina::domain::Address createDomain() const;
 
   public:
-    void setSalutation(const QString& salutation) { m_salutation = salutation; }
-    void setName(const QString& name) { m_name = name; }
-    void setCompany(const QString& company) { m_company = company; }
-    void setStreet(const QString& street) { m_street = street; }
-    void setZipCode(unsigned zipCode) { m_zipCode = zipCode; }
-    void setPlace(const QString& place) { m_place = place; }
-    void setCountry(const QString& country) { m_country = country; }
-    void setUsePoBox(bool poBox) { m_usePoBox = poBox; }
+    void set(const nina::domain::Address& address);
+    void setSalutation(const QString& salutation);
+    void setName(const QString& name);
+    void setCompany(const QString& company);
+    void setStreet(const QString& street);
+    void setZipCode(unsigned zipCode);
+    void setPlace(const QString& place);
+    void setCountry(const QString& country);
+    void setUsePoBox(bool poBox);
 
   public:
     QString salutation() const { return m_salutation; }

@@ -1,5 +1,9 @@
 #include "datemodel.h"
 
+// Nina includes
+#include <detail/macros.h>
+
+
 
 DateModel::DateModel()
     : m_useDateToday( true )
@@ -21,3 +25,28 @@ DateModel::createDomain() const
 
     return nina::domain::Date();
 }
+
+void
+DateModel::set(const nina::domain::Date& date)
+{
+    if( date.useToday() ) {
+        setUseDateToday( true );
+        setUseDateSpecified( false );
+        setDay  ( 0 );
+        setMonth( 0 );
+        setYear ( 0 );
+    }
+    else {
+        setUseDateToday( false );
+        setUseDateSpecified( true );
+        setDay  ( date.getDay() );
+        setMonth( date.getMonth() );
+        setYear ( date.getYear() );
+    }
+}
+
+NINA_SETPROPERTY(DateModel, setUseDateToday    , bool,     useDateToday)
+NINA_SETPROPERTY(DateModel, setUseDateSpecified, bool,     useDateSpecified)
+NINA_SETPROPERTY(DateModel, setDay             , unsigned, day)
+NINA_SETPROPERTY(DateModel, setMonth           , unsigned, month)
+NINA_SETPROPERTY(DateModel, setYear            , unsigned, year)

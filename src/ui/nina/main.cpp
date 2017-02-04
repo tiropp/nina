@@ -1,5 +1,5 @@
 // Qt includes
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
@@ -13,13 +13,17 @@
 #include <positionmodel.h>
 #include <positioncontainermodel.h>
 #include <invoicemodel.h>
+#include <filesavedialog.h>
+#include <fileopendialog.h>
 
 
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
+    app.setApplicationName("nina");
+    app.setOrganizationName("tiropp");
 
     QQmlApplicationEngine engine;
     qmlRegisterType<SettingsModel>("com.nina.ui", 1, 0, "SettingsModel");
@@ -31,6 +35,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<PositionModel>("com.nina.ui", 1, 0, "PositionModel");
     qmlRegisterType<PositionContainerModel>("com.nina.ui", 1, 0, "PositionContainerModel");
     qmlRegisterType<InvoiceModel>("com.nina.ui", 1, 0, "InvoiceModel");
+    qmlRegisterType<FileSaveDialog>("com.nina.ui", 1, 0, "FileSaveDialog");
+    qmlRegisterType<FileOpenDialog>("com.nina.ui", 1, 0, "FileOpenDialog");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     //InvoiceModel invoice;

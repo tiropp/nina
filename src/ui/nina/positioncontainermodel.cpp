@@ -144,3 +144,21 @@ PositionContainerModel::removeRow(unsigned row)
 {
     removeRows(row, 1, QModelIndex());
 }
+
+void
+PositionContainerModel::clear()
+{
+    removeRows(0, m_positions.size(), QModelIndex());
+}
+
+void
+PositionContainerModel::set(const nina::domain::PositionContainer& positions)
+{
+    clear();
+    for(auto& position : positions)
+        append(QString::fromStdString(position.getDescription()),
+               QString::fromStdString(position.getUnit()),
+               position.getNumUnits(),
+               position.getPricePerUnit()
+            );
+}

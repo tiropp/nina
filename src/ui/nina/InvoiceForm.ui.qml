@@ -7,6 +7,8 @@ Item {
     id: invoiceForm
     width: 800
     height: 1200
+    property alias btnLoad: btnLoad
+    property alias btnSave: btnSave
     anchors.fill: parent
 
     property alias invoiceForm: invoiceForm
@@ -46,10 +48,11 @@ Item {
     property alias senderStreet: senderStreet
     property alias senderZipCode: senderZipCode
     property alias senderPlace: senderPlace
-    property alias createPdf: createPdf
+    property alias btnCreatePdf: btnCreatePdf
     property alias positions: positions
 
     Page {
+        id: page
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
@@ -324,9 +327,10 @@ Item {
         GroupBox {
             id: fontSettings
             x: 376
-            y: 922
             width: 241
             height: 183
+            anchors.top: bank.bottom
+            anchors.topMargin: 5
             title: qsTr("Schriftgrösse")
 
             TextField {
@@ -413,8 +417,9 @@ Item {
         GroupBox {
             id: grpPositions
             x: 10
-            y: 283
-            height: 240
+            height: 285
+            anchors.top: sender.bottom
+            anchors.topMargin: 5
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.left: parent.left
@@ -423,7 +428,7 @@ Item {
 
             TableView {
                 id: positions
-                height: 175
+                height: 192
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -485,9 +490,10 @@ Item {
         GroupBox {
             id: bank
             x: 376
-            y: 739
             width: 360
             height: 177
+            anchors.top: texte.bottom
+            anchors.topMargin: 5
             title: qsTr("Bankverbindung")
 
             Label {
@@ -554,9 +560,10 @@ Item {
         GroupBox {
             id: misc
             x: 10
-            y: 870
             width: 360
             height: 202
+            anchors.top: dates.bottom
+            anchors.topMargin: 5
             title: qsTr("Sonstiges")
 
             Label {
@@ -620,9 +627,10 @@ Item {
         GroupBox {
             id: dates
             x: 10
-            y: 739
             width: 360
             height: 125
+            anchors.top: texte.bottom
+            anchors.topMargin: 5
             title: qsTr("Datum")
 
             RadioButton {
@@ -671,9 +679,10 @@ Item {
         GroupBox {
             id: texte
             x: 10
-            y: 528
             width: 780
             height: 205
+            anchors.top: grpPositions.bottom
+            anchors.topMargin: 5
             anchors.left: parent.left
             anchors.leftMargin: 10
             title: qsTr("Texte")
@@ -723,10 +732,24 @@ Item {
         }
 
         Button {
-            id: createPdf
+            id: btnCreatePdf
             x: 10
             y: 1148
             text: qsTr("PDF erzeugen")
+        }
+
+        Button {
+            id: btnSave
+            x: 116
+            y: 1148
+            text: qsTr("Speichern")
+        }
+
+        Button {
+            id: btnLoad
+            x: 222
+            y: 1148
+            text: qsTr("Laden")
         }
     }
 }

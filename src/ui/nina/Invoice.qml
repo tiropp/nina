@@ -72,60 +72,124 @@ InvoiceForm {
         }
     }
 
-
     InvoiceModel {
         id: invoiceModel
 
         title: invoiceForm.title.text
+        onTitleChanged: { invoiceForm.title.text = title }
+
         settings: SettingsModel {
             isPhoneInBottomField: senderPhoneInBottomLine.checked
+            onIsPhoneInBottomFieldChanged: { invoiceForm.senderPhoneInBottomLine.checked = isPhoneInBottomField }
+
             fontSize: parseInt(invoiceForm.fontSize.text)
+            onFontSizeChanged: { invoiceForm.fontSize.text = fontSize }
+
             fontSkip: parseInt(invoiceForm.fontSkip.text)
+            onFontSkipChanged: { invoiceForm.fontSkip.text = fontSkip }
+
             positionSkip: parseInt(invoiceForm.positionSkip.text)
+            onPositionSkipChanged: { invoiceForm.positionSkip.text = positionSkip }
         }
+
         date: DateModel {      
             useDateToday: invoiceForm.useDateToday.checked
+            onUseDateTodayChanged: { invoiceForm.useDateToday.checked = useDateToday }
+
             useDateSpecified: invoiceForm.useDateSpcified.checked
+            onUseDateSpecifiedChanged: { invoiceForm.useDateSpcified.checked = useDateSpcified }
+
             day: parseInt(dateDay.text)
+            onDayChanged: { dateDay.text = day }
+
             month: parseInt(dateMonth.text)
+            onMonthChanged: { dateMonth.text = month }
+
             year: parseInt(dateYear.text)
+            onYearChanged: { dateYear.text = year }
         }
+
         sender: SenderModel {
             address: AddressModel {
                 name: senderName.text
+                onNameChanged: { senderName.text = name }
+
                 company: senderCompany.text
+                onCompanyChanged: { senderCompany.text = company }
+
                 street: senderStreet.text
+                onStreetChanged: { senderStreet.text = street }
+
                 zipCode: parseInt(senderZipCode.text)
+                onZipCodeChanged: { senderZipCode.text = zipCode }
+
                 place: senderPlace.text
+                onPlaceChanged: { senderPlace.text = place }
+
                 country: senderCountry.text
+                onCountryChanged: { senderCountry.text = country }
             }
             bank: BankModel {
                 name: bankName.text
+                onNameChanged: { bankName.text = name }
+
                 bic: bankBic.text
+                onBicChanged: { bankBic.text = bic }
+
                 account: bankAccount.text
+                onAccountChanged: { bankAccount.text = account }
             }
+
             phone: senderPhone.text
+            onPhoneChanged: { senderPhone.text = phone }
+
             mobilePhone: senderMobilePhone.text
+            onMobilePhoneChanged: { senderMobilePhone.text = mobilePhone }
+
             signature: invoiceForm.signature.text
+            onSignatureChanged: { invoiceForm.signature.text = signature }
+
             greetings: invoiceForm.greetings.text
+            onGreetingsChanged: { invoiceForm.greetings.text = greetings }
         }
+
         receiver: ReceiverModel {
             address: AddressModel {
                 salutation: recvSalutation.text
+                onSalutationChanged: { recvSalutation.text = salutation }
+
                 name: recvName.text
+                onNameChanged: { recvName.text = name }
+
                 company: recvCompany.text
+                onCompanyChanged: { recvCompany.text = company }
+
                 street: recvStreet.text
+                onStreetChanged: { recvStreet.text = street }
+
                 zipCode: parseInt(recvZipCode.text)
+                onZipCodeChanged: { recvZipCode.text = zipCode }
+
                 place: recvPlace.text
+                onPlaceChanged: { recvPlace.text = place }
+
                 country: recvCountry.text
+                onCountryChanged: { recvCountry.text = country }
+
                 usePoBox: recvUsePoBox.checked
+                onUsePoBoxChanged: { recvUsePoBox.checked = usePoBox }
             }
         }
+
         positions: PositionContainerModel {
             id: positionContainerModel
         }
+
         textBeforePositions: invoiceForm.textBeforePositions.text
-        textAfterPositions:  invoiceForm.textAfterPositions.text
+        onTextBeforePositionsChanged: { invoiceForm.textBeforePositions.text = textBeforePositions }
+
+        textAfterPositions: invoiceForm.textAfterPositions.text
+        onTextAfterPositionsChanged: { invoiceForm.textAfterPositions.text = textAfterPositions }
     }
 
     btnNewPos.onClicked: {
@@ -156,9 +220,33 @@ InvoiceForm {
         warningDialog.open()
     }
 
-    createPdf.onClicked: {
+    btnCreatePdf.onClicked: {
         var errMsg = invoiceModel.createPdf();
         if( errMsg )
             showWarningDialog("PDF creation", errMsg);
+    }
+
+    FileSaveDialog {
+        id: fileSaveDialog
+        title: qsTr("Speichern als")
+        nameFilters: ["nina files (*.nina)", "All files (*)"]
+        onAccepted: {
+            invoiceModel.save( fileUrl )
+        }
+    }
+    btnSave.onClicked: {
+        fileSaveDialog.open()
+    }
+
+    FileOpenDialog {
+        id: fileOpenDialog
+        title: qsTr("Datei öffnen")
+        nameFilters: ["nina files (*.nina)", "All files (*)"]
+        onAccepted: {
+            invoiceModel.load( fileUrl )
+        }
+    }
+    btnLoad.onClicked: {
+        fileOpenDialog.open()
     }
 }

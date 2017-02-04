@@ -25,11 +25,12 @@ class DateModel: public QObject
     nina::domain::Date createDomain() const;
 
   public:
-    void setUseDateToday(bool useDateToday) { m_useDateToday = useDateToday; }
-    void setUseDateSpecified(bool useDateSpecified) { m_useDateSpecified = useDateSpecified; }
-    void setDay(unsigned day) { m_day = day; }
-    void setMonth(unsigned month) { m_month = month; }
-    void setYear(unsigned year) { m_year = year; }
+    void set(const nina::domain::Date& date);
+    void setUseDateToday(bool useDateToday);
+    void setUseDateSpecified(bool useDateSpecified);
+    void setDay(unsigned day);
+    void setMonth(unsigned month);
+    void setYear(unsigned year);
 
   public:
     bool useDateToday() const { return m_useDateToday; }

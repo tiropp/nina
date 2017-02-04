@@ -19,15 +19,17 @@ class SettingsModel: public QObject
 
   public:
     SettingsModel();
+    SettingsModel(const nina::domain::Settings& settings);
 
   public:
     nina::domain::Settings createDomain() const;
 
   public:
-    void setIsPhoneInBottomField(bool boolean) { m_isPhoneInBottomField = boolean; }
-    void setFontSize(unsigned size) { m_fontSize = size; }
-    void setFontSkip(unsigned size) { m_fontSkip = size; }
-    void setPositionSkip(unsigned posSkip) { m_positionSkip = posSkip; }
+    void set(const nina::domain::Settings& settings);
+    void setIsPhoneInBottomField(bool boolean);
+    void setFontSize(unsigned size);
+    void setFontSkip(unsigned size);
+    void setPositionSkip(unsigned posSkip);
 
   public:
     bool isPhoneInBottomField() const { return m_isPhoneInBottomField; }

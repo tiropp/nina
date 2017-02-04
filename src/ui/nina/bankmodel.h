@@ -25,9 +25,10 @@ class BankModel: public QObject
     nina::domain::Bank createDomain() const;
 
   public:
-    void setName(const QString& name) { m_name = name; }
-    void setBic(const QString& bic) { m_bic = bic; }
-    void setAccount(const QString& account) { m_account = account; }
+    void set(const nina::domain::Bank& bank);
+    void setName(const QString& name);
+    void setBic(const QString& bic);
+    void setAccount(const QString& account);
 
   public:
     QString name() const { return m_name; }

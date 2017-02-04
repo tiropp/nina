@@ -2,6 +2,7 @@
 
 // Nina includes
 #include <conversion.h>
+#include <detail/macros.h>
 
 
 
@@ -13,3 +14,9 @@ PositionModel::createDomain() const
                                   m_numUnits,
                                   m_pricePerUnit);
 }
+
+
+NINA_SETPROPERTY(PositionModel, setDescription,  const QString&, description)
+NINA_SETPROPERTY(PositionModel, setUnit,         const QString&, unit)
+NINA_SETPROPERTY(PositionModel, setNumUnits,     float,          numUnits)
+NINA_SETPROPERTY(PositionModel, setPricePerUnit, float,          pricePerUnit)

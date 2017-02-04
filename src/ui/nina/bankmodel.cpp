@@ -2,6 +2,7 @@
 
 // Nina includes
 #include <conversion.h>
+#include <detail/macros.h>
 
 
 
@@ -22,3 +23,15 @@ BankModel::createDomain() const
     bank.setAccount( toString(m_account) );
     return bank;
 }
+
+void
+BankModel::set(const nina::domain::Bank& bank)
+{
+    setName   ( QString::fromStdString(bank.getName()) );
+    setBic    ( QString::fromStdString(bank.getBic()) );
+    setAccount( QString::fromStdString(bank.getAccount()) );
+}
+
+NINA_SETPROPERTY(BankModel, setName   , const QString&, name)
+NINA_SETPROPERTY(BankModel, setBic    , const QString&, bic)
+NINA_SETPROPERTY(BankModel, setAccount, const QString&, account)

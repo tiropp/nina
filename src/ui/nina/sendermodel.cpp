@@ -3,6 +3,9 @@
 // Nina includes
 #include <conversion.h>
 
+// Nina includes
+#include <detail/macros.h>
+
 
 
 SenderModel::SenderModel()
@@ -23,3 +26,21 @@ SenderModel::createDomain() const
     sender.setGreetings  ( toString(m_greetings) );
     return sender;
 }
+
+void
+SenderModel::set(const nina::domain::Sender& sender)
+{
+    m_address->set( sender.getAddress() );
+    m_bank   ->set( sender.getBank()    );
+    setPhone      ( QString::fromStdString(sender.getPhone()      ) );
+    setMobilePhone( QString::fromStdString(sender.getMobilePhone()) );
+    setSignature  ( QString::fromStdString(sender.getSignature()  ) );
+    setGreetings  ( QString::fromStdString(sender.getGreetings()  ) );
+}
+
+NINA_SETPROPERTY(SenderModel, setAddress    , AddressModel*,  address)
+NINA_SETPROPERTY(SenderModel, setBank       , BankModel*,     bank)
+NINA_SETPROPERTY(SenderModel, setPhone      , const QString&, phone)
+NINA_SETPROPERTY(SenderModel, setMobilePhone, const QString&, mobilePhone)
+NINA_SETPROPERTY(SenderModel, setSignature  , const QString&, signature)
+NINA_SETPROPERTY(SenderModel, setGreetings  , const QString&, greetings)

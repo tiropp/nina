@@ -1,5 +1,9 @@
 #include "settingsmodel.h"
 
+// Nina includes
+#include <detail/macros.h>
+
+
 
 SettingsModel::SettingsModel()
     : m_isPhoneInBottomField( false )
@@ -19,3 +23,17 @@ SettingsModel::createDomain() const
     settings.setPositionSkip( m_positionSkip );
     return settings;
 }
+
+void
+SettingsModel::set(const nina::domain::Settings& settings)
+{
+    setIsPhoneInBottomField( settings.isPhoneInBottomField() );
+    setFontSize            ( settings.getFontSize()          );
+    setFontSkip            ( settings.getFontSkip()          );
+    setPositionSkip        ( settings.getPositionSkip()      );
+}
+
+NINA_SETPROPERTY(SettingsModel, setIsPhoneInBottomField, bool,     isPhoneInBottomField)
+NINA_SETPROPERTY(SettingsModel, setFontSize            , unsigned, fontSize)
+NINA_SETPROPERTY(SettingsModel, setFontSkip            , unsigned, fontSkip)
+NINA_SETPROPERTY(SettingsModel, setPositionSkip        , unsigned, positionSkip)

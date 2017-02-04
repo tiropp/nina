@@ -34,10 +34,10 @@ class PositionModel: public QObject
     nina::domain::Position createDomain() const;
 
   public:
-    void setDescription(const QString& description) { m_description = description; }
-    void setUnit(const QString& unit) { m_unit = unit; }
-    void setNumUnits(float numUnits) { m_numUnits = numUnits; }
-    void setPricePerUnit(float pricePerUnit) { m_pricePerUnit = pricePerUnit; }
+    void setDescription(const QString& description);
+    void setUnit(const QString& unit);
+    void setNumUnits(float numUnits);
+    void setPricePerUnit(float pricePerUnit);
 
   public:
     QString description() const { return m_description; }

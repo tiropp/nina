@@ -4,7 +4,11 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+// Nina domain includes
+#include <nina/Archiver.h>
+
 // Nina includes
+#include <detail/macros.h>
 #include <conversion.h>
 
 
@@ -46,3 +50,39 @@ InvoiceModel::createPdf()
     QDesktopServices::openUrl( QUrl(QString("file://") + QString::fromStdString(pdfFile.native())) );
     return QString();
 }
+
+void
+InvoiceModel::save(const QString& filename)
+{
+    nina::domain::Archiver::save(createDomain(), toString(filename));
+}
+
+void
+InvoiceModel::load(const QString& filename)
+{
+    nina::domain::Invoice invoice = nina::domain::Archiver::load( toString(filename) );
+
+    set( invoice );
+}
+
+void
+InvoiceModel::set(const nina::domain::Invoice& invoice)
+{
+    setTitle( QString::fromStdString(invoice.getTitle()) );
+    m_settings ->set( invoice.getSettings()  );
+    m_date     ->set( invoice.getDate()      );
+    m_sender   ->set( invoice.getSender()    );
+    m_receiver ->set( invoice.getReceiver()  );
+    m_positions->set( invoice.getPositions() );
+    setTextBeforePositions( QString::fromStdString(invoice.getTextBeforePositions()) );
+    setTextAfterPositions ( QString::fromStdString(invoice.getTextAfterPositions ()) );
+}
+
+NINA_SETPROPERTY(InvoiceModel, setTitle,               const QString&,          title)
+NINA_SETPROPERTY(InvoiceModel, setSettings,            SettingsModel*,          settings)
+NINA_SETPROPERTY(InvoiceModel, setDate,                DateModel*,              date)
+NINA_SETPROPERTY(InvoiceModel, setSender,              SenderModel*,            sender)
+NINA_SETPROPERTY(InvoiceModel, setReceiver,            ReceiverModel*,          receiver)
+NINA_SETPROPERTY(InvoiceModel, setPositions,           PositionContainerModel*, positions)
+NINA_SETPROPERTY(InvoiceModel, setTextBeforePositions, const QString&,          textBeforePositions)
+NINA_SETPROPERTY(InvoiceModel, setTextAfterPositions,  const QString&,          textAfterPositions)
