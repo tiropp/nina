@@ -4,8 +4,7 @@ import com.nina.ui 1.0
 
 
 InvoiceForm {
-
-    Dialog {
+     Dialog {
         id: addPositionDialog
         title: qsTr("Neue Position")
 

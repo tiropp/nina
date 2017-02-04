@@ -654,6 +654,7 @@ Item {
                 y: 41
                 width: 43
                 height: 40
+                visible: useDateSpcified.checked
                 placeholderText: qsTr("TT")
             }
 
@@ -663,6 +664,7 @@ Item {
                 y: 41
                 width: 43
                 height: 40
+                visible: useDateSpcified.checked
                 placeholderText: qsTr("MM")
             }
 
@@ -672,6 +674,7 @@ Item {
                 y: 41
                 width: 69
                 height: 40
+                visible: useDateSpcified.checked
                 placeholderText: qsTr("JJJJ")
             }
         }
