@@ -92,6 +92,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
        << "\\usepackage[utf8]{inputenc}\n"
        << "\\usepackage[ngerman]{babel}\n"
        << "\\usepackage{a4wide}\n"
+       << "\\usepackage{units}\n"
        << "\\setlength{\\textheight}{25cm}\n"
        << "\\pagestyle{empty}\n"
        << "\\usepackage{supertabular}\n"
@@ -104,7 +105,12 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     // Title
     fs << "\\subject {\\LARGE\\textbf{" << invoice.getTitle() << "}}\n"
        << "\\renewcommand{\\signmsgnew}{}\n"
-       << "\\renewcommand{\\yourmailmsg}{}\n";
+       << "\\renewcommand{\\yourmailmsg}{}\n"
+       << "\\newcommand{\\thickhline}[1]{%\n"
+       << "  \\noalign{\\global\\arrayrulewidth#1}\\hline\n"
+       << "  \\noalign{\\global\\arrayrulewidth#1}%\n"
+       << "}\n";
+
 
     // Phone, MobilePhone
     if( !invoice.getSettings().isPhoneInBottomField() ) {
@@ -134,6 +140,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     //   bottom = 1 : tel in bottom
     //   bottom = 2 : natel in bottom
     //   bottom = 4 : bankverbindung in bottom
+    //   bottom = 8 : VAT
     int bottom = 0;
     if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getPhone().empty() )
         bottom += 1;
@@ -141,6 +148,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         bottom += 2;
     if( invoice.getSender().getBank().isValid() )
         bottom += 4;
+    if( invoice.getVat().getShowVat() )
+        bottom += 8;
     //
     if( bottom > 0 ) {
         fs << "\\setbottomtexttop{27cm}"
@@ -242,22 +251,26 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     if( !invoice.getTextBeforePositions().empty() )
         fs << invoice.getTextBeforePositions() << "\\\\\n\n";
 
-    fs << "\\newlength{\\beschwidth}"                 // definiere zuerst die Breite
-       << "\\setlength{\\beschwidth}{0.6\\textwidth}" // des Besch-Feldes
-       << "\\newlength{\\beschtmpwidth}"
-       << "\\newlength{\\parindentbesch}"             // def. die Einschublänge
-       << "\\setlength{\\parindentbesch}{5mm}"
+    fs << "\\newlength{\\beschwidth}\n"                 // definiere zuerst die Breite
+       << "\\setlength{\\beschwidth}{0.6\\textwidth}\n" // des Besch-Feldes
+       << "\\newlength{\\beschtmpwidth}\n"
+       << "\\newlength{\\parindentbesch}\n"             // def. die Einschublänge
+       << "\\setlength{\\parindentbesch}{5mm}\n"
 
        // vspace{12pt} erzeugt zusätzlichen Abst. nach Tabellenkopf
-       << "\\tablefirsthead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Anzahl}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Pos.}}\\vspace{12pt}\\\\}"
-       << "\\tablehead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Anzahl}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} &"
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Pos.}}\\vspace{12pt}\\\\}"
-       << "\\begin{supertabular*}{\\textwidth}{@{\\extracolsep{\\fill}}p{\\beschwidth}rrr}";
+       << "\\tablefirsthead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Anzahl}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Fr./Pos.}}\\\\}\n"
+       << "\\tablehead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Anzahl}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Fr./Pos.}}\\\\}\n"
+       << "\\begin{supertabular*}{\\textwidth}{@{\\extracolsep{\\fill}}p{\\beschwidth}rrr}\n"
+
+       // top rule
+       << "\\thickhline{2pt}\n"
+       << "\\rule{0pt}{1.5em}%\n";
 
     size_t posIndex = 0;
     for(const Position& pos : invoice.getPositions()) {
@@ -297,10 +310,24 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     }
 
 
-    fs << "\\cline{4-4}\\\\"  // Zw.einschub
-       << "\\textbf{Total} & & &\\textbf{" << invoice.getPositions().getPrice() << "}\\\\\n"
-       << "\\dline{4-4}\n"
-       << "\\end{supertabular*}\n";
+    fs << "\\thickhline{2pt}\n"  // Zw.einschub
+       << "\\rule{0pt}{1.5em}%\n";
+    if( !invoice.getVat().getShowVat() )
+        fs << "\\textbf{Gesamtbetrag} & & &\\textbf{" << invoice.getPositions().getPrice() << "}\\\\\n";
+    else {
+        if( invoice.getVat().getPricesInclVat() )
+            fs << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{" << invoice.getPositions().getPrice() << "}\\\\\n"
+               << "Enthält \\unit[" << invoice.getVat().getTaxRate() << "]{\\%}  MwSt. & & & "
+               << invoice.getPositions().getPrice() * (invoice.getVat().getTaxRate()/100) << "\\\\\n";
+        else
+            fs << "Gesamtbetrag exkl. MwSt. & & & " << invoice.getPositions().getPrice() << "\\\\\n"
+               << "Mehrwertsteuer \\unit[" << invoice.getVat().getTaxRate() << "]{\\%} & & & "
+               << invoice.getPositions().getPrice() * (invoice.getVat().getTaxRate()/100) << "\\\\\n"
+               << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{"
+               << invoice.getPositions().getPrice() * (1+invoice.getVat().getTaxRate()/100)
+               << "}\\\\\n";
+    }
+    fs << "\\end{supertabular*}\n";
 
     if( !invoice.getTextAfterPositions().empty() )
         fs << "\\\\[.75cm]" << invoice.getTextAfterPositions() << "\\\\\n";
