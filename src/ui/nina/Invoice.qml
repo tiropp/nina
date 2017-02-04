@@ -93,10 +93,10 @@ InvoiceForm {
 
         date: DateModel {      
             useDateToday: invoiceForm.useDateToday.checked
-            onUseDateTodayChanged: { invoiceForm.useDateToday.checked = useDateToday }
-
-            useDateSpecified: invoiceForm.useDateSpcified.checked
-            onUseDateSpecifiedChanged: { invoiceForm.useDateSpcified.checked = useDateSpcified }
+            onUseDateTodayChanged: {
+                invoiceForm.useDateToday.checked = useDateToday
+                invoiceForm.useDateSpcified.checked = !useDateToday
+            }
 
             day: parseInt(dateDay.text)
             onDayChanged: { dateDay.text = day }
