@@ -1,12 +1,16 @@
 import QtQuick 2.5
-import QtQuick.Controls 1.4
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 
 Item {
     id: invoiceForm
     width: 800
-    height: 1200
+    height: 1450
+    property alias pricesExclVat: pricesExclVat
+    property alias vatTaxRate: vatTaxRate
+    property alias pricesInclVat: pricesInclVat
+    property alias vatNumber: vatNumber
+    property alias showVat: showVat
     property alias btnLoad: btnLoad
     property alias btnSave: btnSave
     anchors.fill: parent
@@ -426,34 +430,16 @@ Item {
             anchors.leftMargin: 10
             title: qsTr("Positionen")
 
-            TableView {
+            PositionsTable {
                 id: positions
-                height: 192
-                anchors.right: parent.right
-                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 50
                 anchors.top: parent.top
-                model: positionContainerModel
-
-                TableViewColumn {
-                    role: "description"
-                    title: qsTr("Beschreibung")
-                    width: 400
-                }
-                TableViewColumn {
-                    role: "unit"
-                    title: qsTr("Art")
-                    width: 100
-                }
-                TableViewColumn {
-                    role: "numUnits"
-                    title: qsTr("Anzahl")
-                    width: 100
-                }
-                TableViewColumn {
-                    role: "pricePerUnit"
-                    title: qsTr("Fr./Art")
-                    width: 100
-                }
+                anchors.topMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
             }
 
             Button {
@@ -737,22 +723,103 @@ Item {
         Button {
             id: btnCreatePdf
             x: 10
-            y: 1148
+            y: 1399
             text: qsTr("PDF erzeugen")
         }
 
         Button {
             id: btnSave
             x: 116
-            y: 1148
+            y: 1399
             text: qsTr("Speichern")
         }
 
         Button {
             id: btnLoad
             x: 222
-            y: 1148
+            y: 1399
             text: qsTr("Laden")
+        }
+
+        GroupBox {
+            id: grpVat
+            x: 10
+            y: 1122
+            width: 360
+            height: 265
+            title: qsTr("Mehrwertsteuer")
+
+            CheckBox {
+                id: showVat
+                x: 0
+                y: 0
+                text: qsTr("MwSt anzeigen")
+                checked: false
+            }
+
+            RadioButton {
+                id: pricesExclVat
+                x: 0
+                y: 135
+                text: qsTr("Preise ohne MwSt")
+                visible: showVat.checked
+                checked: true
+            }
+
+            RadioButton {
+                id: pricesInclVat
+                x: 0
+                y: 181
+                text: qsTr("Preise mit MwSt")
+                checked: !pricesExclVat.checked
+                visible: showVat.checked
+            }
+
+            Label {
+                id: label28
+                x: 0
+                y: 56
+                text: qsTr("MwSt-Nummer")
+                visible: showVat.checked
+            }
+
+            TextField {
+                id: vatNumber
+                x: 96
+                y: 43
+                visible: showVat.checked
+                placeholderText: qsTr("MwSt-Nummer")
+            }
+
+            TextField {
+                id: vatTaxRate
+                x: 96
+                y: 90
+                width: 62
+                height: 40
+                text: "8.0"
+                visible: showVat.checked
+                placeholderText: qsTr("")
+                validator: RegExpValidator {
+                    regExp: /[0-9]+\.[0-9]+/
+                }
+            }
+
+            Label {
+                id: label29
+                x: 0
+                y: 103
+                text: qsTr("Steuersatz")
+                visible: showVat.checked
+            }
+
+            Label {
+                id: label30
+                x: 164
+                y: 104
+                text: qsTr("%")
+                visible: showVat.checked
+            }
         }
     }
 }

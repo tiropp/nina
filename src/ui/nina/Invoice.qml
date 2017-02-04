@@ -3,72 +3,14 @@ import QtQuick.Dialogs 1.2
 import com.nina.ui 1.0
 
 
+
 InvoiceForm {
-     Dialog {
+
+    AddPositionDialog {
         id: addPositionDialog
-        title: qsTr("Neue Position")
-
-        contentItem: Position {
-            id: addPosition
-            implicitWidth: childrenRect.width
-            implicitHeight: childrenRect.height
-
-            btnOK.onClicked: {         
-                positionContainerModel.append(addPosition.standard.description.text,
-                                              addPosition.standard.unit.text,
-                                              addPosition.standard.numUnits.text,
-                                              addPosition.standard.pricePerUnit.text)
-                addPositionDialog.click(StandardButton.Ok)
-            }
-            btnCancel.onClicked: {
-                addPositionDialog.click(StandardButton.Cancel)
-            }
-        }
-
-        function reset() {
-            addPosition.reset()
-        }
     }
-
-    Dialog {
+    ModifyPositionDialog {
         id: modifyPositionDialog
-        title: qsTr("Position ändern")
-
-        contentItem: Position {
-            id: modifyPosition
-            implicitWidth: childrenRect.width
-            implicitHeight: childrenRect.height
-
-            btnOK.onClicked: {
-                positionContainerModel.setRow(
-                    rowIndex.text,
-                    modifyPosition.standard.description.text,
-                    modifyPosition.standard.unit.text,
-                    modifyPosition.standard.numUnits.text,
-                    modifyPosition.standard.pricePerUnit.text
-                )
-                modifyPositionDialog.click(StandardButton.Ok)
-            }
-            btnCancel.onClicked: {
-                modifyPositionDialog.click(StandardButton.Cancel)
-            }
-
-        }
-
-        Text {
-            // Dirty way to store the row index from the set() function s.t. it can be used
-            // from the onClicked function.
-            id: rowIndex
-        }
-
-        function set(row) {
-            rowIndex.text = row
-            var pos = positionContainerModel.getRow( row )
-            modifyPosition.standard.description.text  = pos.description
-            modifyPosition.standard.unit.text         = pos.unit
-            modifyPosition.standard.numUnits.text     = pos.numUnits
-            modifyPosition.standard.pricePerUnit.text = pos.pricePerUnit
-        }
     }
 
     InvoiceModel {
@@ -184,6 +126,24 @@ InvoiceForm {
             id: positionContainerModel
         }
 
+        vat: VatModel {
+            id: vatModel
+
+            showVat: invoiceForm.showVat.checked
+            onShowVatChanged: { invoiceForm.showVat.checked = showVat }
+
+            pricesInclVat: invoiceForm.pricesInclVat.checked
+            onPricesInclVatChanged: {
+                invoiceForm.pricesInclVat.checked = pricesInclVat
+                invoiceForm.pricesExclVat.checked = !pricesInclVat
+            }
+
+            vatNumber: invoiceForm.vatNumber.text
+            onVatNumberChanged: { invoiceForm.vatNumber.text = vatNumber }
+
+            onTaxRateChanged: { invoiceForm.vatTaxRate.text = taxRate }
+        }
+
         textBeforePositions: invoiceForm.textBeforePositions.text
         onTextBeforePositionsChanged: { invoiceForm.textBeforePositions.text = textBeforePositions }
 
@@ -191,22 +151,24 @@ InvoiceForm {
         onTextAfterPositionsChanged: { invoiceForm.textAfterPositions.text = textAfterPositions }
     }
 
+    vatTaxRate.onEditingFinished: {
+        var rate = parseFloat( vatTaxRate.text )
+        if( isNaN(rate) )
+            invoiceModel.vat.taxRate = 0
+        else
+            invoiceModel.vat.taxRate = rate
+    }
+
     btnNewPos.onClicked: {
-        addPositionDialog.reset()
         addPositionDialog.open()
     }
 
     btnModifyPos.onClicked: {
-        modifyPositionDialog.set( positions.__currentRow )
-        modifyPositionDialog.open()
-    }
-    positions.onDoubleClicked: {
-        modifyPositionDialog.set( positions.__currentRow )
-        modifyPositionDialog.open()
+        modifyPositionDialog.open( positions.getCurrentRow() )
     }
 
     btnDeletePos.onClicked: {
-        positionContainerModel.removeRow( positions.__currentRow )
+        positionContainerModel.removeRow( positions.getCurrentRow() )
     }
 
     MessageDialog {

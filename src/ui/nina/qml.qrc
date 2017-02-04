@@ -8,5 +8,9 @@
         <file>PositionForm.ui.qml</file>
         <file>PositionStandard.qml</file>
         <file>PositionStandardForm.ui.qml</file>
+        <file>PositionsTable.qml</file>
+        <file>PositionsTableForm.ui.qml</file>
+        <file>AddPositionDialog.qml</file>
+        <file>ModifyPositionDialog.qml</file>
     </qresource>
 </RCC>
