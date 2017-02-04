@@ -5,6 +5,11 @@
 namespace nina {
 namespace domain {
 
+
+Position::Position()
+{
+}
+
 Position::Position(
     const std::string& description,
     const std::string& unit,

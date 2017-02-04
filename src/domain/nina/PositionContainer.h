@@ -4,8 +4,13 @@
 // STL includes
 #include <vector>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/vector.hpp>
+
 // Nina includes
 #include <nina/Position.h>
+#include <nina/detail/SerializationHelper.h>
 
 
 
@@ -38,6 +43,16 @@ class PositionContainer
     const_iterator begin() const { return m_positions.begin(); }
     const_iterator end  () const { return m_positions.end  (); }
     size_t getPrice() const;
+
+
+    /*********************/
+    /*** SERIALIZATION ***/
+    /*********************/
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, positions);
+    }
 
 
     /***************/

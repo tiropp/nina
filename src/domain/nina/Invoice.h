@@ -1,17 +1,23 @@
 #ifndef NINA_DOMAIN_INVOICE_H
 #define NINA_DOMAIN_INVOICE_H
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
 // Nina includes
 #include <nina/Settings.h>
 #include <nina/Date.h>
 #include <nina/Sender.h>
 #include <nina/Receiver.h>
 #include <nina/PositionContainer.h>
+#include <nina/detail/SerializationHelper.h>
 
 
 
 namespace nina {
 namespace domain {
+
+
 
 class Invoice
 {
@@ -53,6 +59,23 @@ class Invoice
     const std::string getTextBeforePositions() const { return m_textBeforePositions; }
     const std::string getTextAfterPositions() const { return m_textAfterPositions; }
     const PositionContainer& getPositions() const { return m_positions; }
+
+
+    /*********************/
+    /*** SERIALIZATION ***/
+    /*********************/
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, title);
+        NINA_SERIALIZE(ar, settings);
+        NINA_SERIALIZE(ar, date);
+        NINA_SERIALIZE(ar, sender);
+        NINA_SERIALIZE(ar, receiver);
+        NINA_SERIALIZE(ar, positions);
+        NINA_SERIALIZE(ar, textBeforePositions);
+        NINA_SERIALIZE(ar, textAfterPositions);
+    }
     
 
     /***************/

@@ -4,9 +4,13 @@
 // STL includes
 #include <string>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
 // Nina includes
 #include <nina/Address.h>
 #include <nina/Bank.h>
+#include <nina/detail/SerializationHelper.h>
 
 
 
@@ -34,6 +38,17 @@ class Sender
     const std::string& getMobilePhone() const { return m_mobilePhone; }
     const std::string& getSignature() const { return m_signature; }
     const std::string& getGreetings() const { return m_greetings; }
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, address);
+        NINA_SERIALIZE(ar, bank);
+        NINA_SERIALIZE(ar, phone);
+        NINA_SERIALIZE(ar, mobilePhone);
+        NINA_SERIALIZE(ar, signature);
+        NINA_SERIALIZE(ar, greetings);
+    }
 
   private:
     Address m_address;

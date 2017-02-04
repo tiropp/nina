@@ -4,6 +4,12 @@
 // STL includes
 #include <string>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
+// Nina includes
+#include <nina/detail/SerializationHelper.h>
+
 
 
 namespace nina {
@@ -35,6 +41,19 @@ class Address
     void setPlace     (const std::string& place)   { m_place = place; }
     void setCountry   (const std::string& country) { m_country = country; }
     void setUsePoBox  (bool use)                   { m_usePoBox = use; }
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, salutation);
+        NINA_SERIALIZE(ar, name);
+        NINA_SERIALIZE(ar, company);
+        NINA_SERIALIZE(ar, street);
+        NINA_SERIALIZE(ar, zipCode);
+        NINA_SERIALIZE(ar, place);
+        NINA_SERIALIZE(ar, country);
+        NINA_SERIALIZE(ar, usePoBox);
+    }
 
   private:
     std::string m_salutation;

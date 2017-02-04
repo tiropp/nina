@@ -1,8 +1,12 @@
 #ifndef NINA_DOMAIN_RECEIVER_H
 #define NINA_DOMAIN_RECEIVER_H
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
 // Nina includes
 #include <nina/Address.h>
+#include <nina/detail/SerializationHelper.h>
 
 
 
@@ -20,6 +24,12 @@ class Receiver
 
   public:
     const Address& getAddress() const { return m_address; }
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, address);
+    }
 
   private:
     Address m_address;

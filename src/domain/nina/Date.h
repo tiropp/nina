@@ -4,6 +4,12 @@
 // STL includes
 #include <string>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
+// Nina includes
+#include <nina/detail/SerializationHelper.h>
+
 
 
 namespace nina {
@@ -20,9 +26,21 @@ class Date
 
   public:
     bool useToday() const { return m_useToday; }
+    size_t getDay() const { return m_day; }
+    size_t getMonth() const { return m_month; }
+    size_t getYear() const { return m_year; }
 
   public:
     std::string toString() const;
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, useToday);
+        NINA_SERIALIZE(ar, day);
+        NINA_SERIALIZE(ar, month);
+        NINA_SERIALIZE(ar, year);
+    }
 
   private:
     bool m_useToday;

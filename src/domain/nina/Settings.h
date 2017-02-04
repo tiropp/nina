@@ -4,10 +4,18 @@
 // STL includes
 #include <cstddef>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
+// Nina includes
+#include <nina/detail/SerializationHelper.h>
+
 
 
 namespace nina {
 namespace domain {
+
+
 
 class Settings
 {
@@ -30,6 +38,15 @@ class Settings
     size_t getFontSize() const { return m_fontSize; }
     size_t getFontSkip() const { return m_fontSkip; }
     size_t getPositionSkip() const { return m_positionSkip; }
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, isPhoneInBottomField);
+        NINA_SERIALIZE(ar, fontSize);
+        NINA_SERIALIZE(ar, fontSkip);
+        NINA_SERIALIZE(ar, positionSkip);
+    }
 
   private:
     bool m_isPhoneInBottomField;

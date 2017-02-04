@@ -41,11 +41,11 @@ void
 bottombank(std::ofstream& fs, const Bank& bank)
 {
     fs << "\\begin{tabular}{lll}"
-       << "Bankverbindung: & \\multicolumn{2}{l}{" << bank.GetName() << "}\\\\";
-    if( !bank.GetBIC().empty() )
-        fs << "                & BLZ & " << bank.GetBIC() << "\\\\";
-    if( !bank.GetAccount().empty() )
-        fs << "                & Kto. & " << bank.GetAccount() << "\\\\";
+       << "Bankverbindung: & \\multicolumn{2}{l}{" << bank.getName() << "}\\\\";
+    if( !bank.getBic().empty() )
+        fs << "                & BLZ & " << bank.getBic() << "\\\\";
+    if( !bank.getAccount().empty() )
+        fs << "                & Kto. & " << bank.getAccount() << "\\\\";
     fs << "\\end{tabular}";
 }
 

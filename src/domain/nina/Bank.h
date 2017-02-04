@@ -4,6 +4,12 @@
 // STL includes
 #include <string>
 
+// BOOST includes
+#include <boost/serialization/access.hpp>
+
+// Nina includes
+#include <nina/detail/SerializationHelper.h>
+
 
 
 namespace nina {
@@ -29,9 +35,17 @@ class Bank
 
   public:
     bool isValid() const;
-    const std::string& GetName() const { return m_name; }
-    const std::string& GetBIC() const { return m_bic; }
-    const std::string& GetAccount() const { return m_account; }
+    const std::string& getName() const { return m_name; }
+    const std::string& getBic() const { return m_bic; }
+    const std::string& getAccount() const { return m_account; }
+
+  private:
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+        NINA_SERIALIZE(ar, name);
+        NINA_SERIALIZE(ar, bic);
+        NINA_SERIALIZE(ar, account);
+    }
 
   private:
     std::string m_name;

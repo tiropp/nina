@@ -4,5 +4,6 @@ SET(SOURCES
   PdfCreator.cpp
   Position.cpp
   PositionContainer.cpp
+  Archiver.cpp
   )
 add_library(nina_domain ${SOURCES})
