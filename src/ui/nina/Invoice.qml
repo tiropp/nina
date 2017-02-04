@@ -1,4 +1,5 @@
-import QtQuick 2.5
+import QtQuick 2.7
+import QtQuick.Controls 2.0
 import QtQuick.Dialogs 1.2
 import com.nina.ui 1.0
 
@@ -151,7 +152,9 @@ InvoiceForm {
         onTextAfterPositionsChanged: { invoiceForm.textAfterPositions.text = textAfterPositions }
     }
 
-    vatTaxRate.onEditingFinished: {
+    /// \todo Change this to onEditingFinished but shomehow the current qt verion
+    /// has trouble with it.
+    vatTaxRate.onFocusChanged: {
         var rate = parseFloat( vatTaxRate.text )
         if( isNaN(rate) )
             invoiceModel.vat.taxRate = 0
