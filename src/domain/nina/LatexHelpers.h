@@ -9,62 +9,90 @@
 namespace nina {
 namespace domain {
 
-//
-// Bottomfield  functions
-//
+
 inline
-void
-bottomtel(std::ofstream& fs, const std::string& phone)
+std::string
+beginMinipage(unsigned numMinipages)
 {
-    fs << "Telefon: " << phone;
+    std::string result;
+    if( numMinipages )
+        result = "\\begin{minipage}[t]{" + std::to_string(1.0/numMinipages) + "\\textwidth}";
+    return result;
 }
 
 inline
-void
-bottomnatel(std::ofstream& fs, const std::string& mobilePhone)
+std::string
+endMinipage(unsigned numMinipages)
 {
-    fs << "Natel: " << mobilePhone;
+    std::string result;
+    if( numMinipages )
+        result = "\\end{minipage}%\n";
+    return result;
 }
 
 inline
-void
-bottomtelnatel(std::ofstream& fs, const std::string& phone, const std::string& mobilePhone)
+std::string
+bottomtel(const Invoice& invoice, unsigned numMinipages = 0)
 {
-    fs << "\\begin{tabular}{ll}"
-       << "Telefon: & " << phone << "\\\\"
-       << "Natel: & " << mobilePhone << "\\\\"
-       << "\\end{tabular}";
+    return
+        beginMinipage(numMinipages)
+        + "Telefon: " + invoice.getSender().getPhone()
+        + endMinipage(numMinipages);
 }
 
 inline
-void
-bottombank(std::ofstream& fs, const Bank& bank)
+std::string
+bottomnatel(const Invoice& invoice, unsigned numMinipages = 0)
 {
-    fs << "\\begin{tabular}{lll}"
-       << "Bankverbindung: & \\multicolumn{2}{l}{" << bank.getName() << "}\\\\";
+    return
+        beginMinipage(numMinipages)
+        + "Natel: " + invoice.getSender().getMobilePhone()
+        + endMinipage(numMinipages);
+}
+
+inline
+std::string
+bottomtelnatel(const Invoice& invoice, unsigned numMinipages = 0)
+{
+    const Sender& sender = invoice.getSender();
+    return
+        beginMinipage(numMinipages)
+        + "\\begin{tabular}[t]{ll}\n"
+        + std::string("  Telefon: & ") + sender.getPhone() + "\\\\\n"
+        + std::string("  Natel: & ")   + sender.getMobilePhone() + "\\\\\n"
+        + std::string("\\end{tabular}\n")
+        + endMinipage(numMinipages);
+}
+
+inline
+std::string
+bottombank(const Invoice& invoice, unsigned numMinipages = 0)
+{
+    const Bank& bank = invoice.getSender().getBank();
+    std::string result =
+        beginMinipage(numMinipages)
+        + "\nBankverbindung:\\\\\n"
+        + std::string("\\hspace{1em}\\begin{tabular}[t]{ll}\n")
+        + "\\multicolumn{2}{l}{" + bank.getName() + "}\\\\\n";
     if( !bank.getBic().empty() )
-        fs << "                & BLZ & " << bank.getBic() << "\\\\";
+        result += "BLZ & " + bank.getBic() + "\\\\\n";
     if( !bank.getAccount().empty() )
-        fs << "                & Kto. & " << bank.getAccount() << "\\\\";
-    fs << "\\end{tabular}";
+        result += "Kto. & " + bank.getAccount() + "\\\\\n";
+    result +=
+        "\\end{tabular}\n"
+        + endMinipage(numMinipages);
+    return result;
 }
 
-/// \brief Begin minipage
 inline
-void
-bm(std::ofstream& fs)
+std::string
+vatNumber(const Invoice& invoice, unsigned numMinipages = 0)
 {
-    fs << "\\begin{minipage}{0.5\\textwidth}";
+    return
+        beginMinipage(numMinipages)
+        + "MwSt.-Nr.: " + invoice.getVat().getVatNumber()
+        + endMinipage(numMinipages);
 }
-
-/// \brief End minipage
-inline
-void
-em(std::ofstream& fs)
-{
-    fs << "\\end{minipage}";
-}
-
 
 } // End namespace domain
 } // End namespace nina
