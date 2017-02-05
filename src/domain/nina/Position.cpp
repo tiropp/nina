@@ -13,8 +13,8 @@ Position::Position()
 Position::Position(
     const std::string& description,
     const std::string& unit,
-    float              pricePerUnit,
-    float              numUnits
+    double             pricePerUnit,
+    double             numUnits
     )
     : m_description( description )
     , m_unit( unit )
@@ -29,7 +29,7 @@ Position::Position(
 
 Position::Position(
     const std::string& description,
-    float              price
+    double             price
     )
     : m_description( description )
     , m_pricePerUnit( 0 )

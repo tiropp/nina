@@ -18,5 +18,5 @@ PositionModel::createDomain() const
 
 NINA_SETPROPERTY(PositionModel, setDescription,  const QString&, description)
 NINA_SETPROPERTY(PositionModel, setUnit,         const QString&, unit)
-NINA_SETPROPERTY(PositionModel, setNumUnits,     float,          numUnits)
-NINA_SETPROPERTY(PositionModel, setPricePerUnit, float,          pricePerUnit)
+NINA_SETPROPERTY(PositionModel, setNumUnits,     double,         numUnits)
+NINA_SETPROPERTY(PositionModel, setPricePerUnit, double,         pricePerUnit)

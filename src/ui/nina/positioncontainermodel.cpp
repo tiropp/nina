@@ -55,8 +55,8 @@ PositionContainerModel::setData(const QModelIndex& index, const QVariant& value,
     switch( index.column() ) {
     case 0: pos->setDescription ( value.toString() ); break;
     case 1: pos->setUnit        ( value.toString() ); break;
-    case 2: pos->setNumUnits    ( value.toFloat()  ); break;
-    case 3: pos->setPricePerUnit( value.toFloat()  ); break;
+    case 2: pos->setNumUnits    ( value.toDouble()  ); break;
+    case 3: pos->setPricePerUnit( value.toDouble()  ); break;
     default:
         return false;
     }
@@ -102,7 +102,7 @@ PositionContainerModel::removeRows(int row, int count, const QModelIndex& parent
 }
 
 void
-PositionContainerModel::append(const QString& description, const QString& unit, float numUnits, float pricePerUnit)
+PositionContainerModel::append(const QString& description, const QString& unit, double numUnits, double pricePerUnit)
 {
     size_t idx = m_positions.size();
     insertRows(idx, 1, QModelIndex());
@@ -116,7 +116,7 @@ PositionContainerModel::getRow(unsigned row) const
 }
 
 bool
-PositionContainerModel::setRow(unsigned row, const QString &description, const QString &unit, float numUnits, float pricePerUnit)
+PositionContainerModel::setRow(unsigned row, const QString &description, const QString &unit, double numUnits, double pricePerUnit)
 {
     if( !doSetRow(row, description, unit, numUnits, pricePerUnit) )
         return false;
@@ -125,7 +125,7 @@ PositionContainerModel::setRow(unsigned row, const QString &description, const Q
 }
 
 bool
-PositionContainerModel::doSetRow(unsigned row, const QString& description, const QString& unit, float numUnits, float pricePerUnit)
+PositionContainerModel::doSetRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit)
 {
     if( static_cast<int>(row) >= m_positions.size() )
         return false;

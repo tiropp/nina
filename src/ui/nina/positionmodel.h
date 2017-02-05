@@ -15,15 +15,15 @@ class PositionModel: public QObject
     Q_OBJECT
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QString unit READ unit WRITE setUnit NOTIFY unitChanged)
-    Q_PROPERTY(float numUnits READ numUnits WRITE setNumUnits NOTIFY numUnitsChanged)
-    Q_PROPERTY(float pricePerUnit READ pricePerUnit WRITE setPricePerUnit NOTIFY pricePerUnitChanged)
+    Q_PROPERTY(double numUnits READ numUnits WRITE setNumUnits NOTIFY numUnitsChanged)
+    Q_PROPERTY(double pricePerUnit READ pricePerUnit WRITE setPricePerUnit NOTIFY pricePerUnitChanged)
 
   public:
     PositionModel()
         : m_numUnits( 0 )
         , m_pricePerUnit( 0 )
     {}
-    PositionModel(const QString& description, const QString& unit, float numUnits, float pricePerUnit)
+    PositionModel(const QString& description, const QString& unit, double numUnits, double pricePerUnit)
         : m_description( description )
         , m_unit( unit )
         , m_numUnits( numUnits )
@@ -36,14 +36,14 @@ class PositionModel: public QObject
   public:
     void setDescription(const QString& description);
     void setUnit(const QString& unit);
-    void setNumUnits(float numUnits);
-    void setPricePerUnit(float pricePerUnit);
+    void setNumUnits(double numUnits);
+    void setPricePerUnit(double pricePerUnit);
 
   public:
     QString description() const { return m_description; }
     QString unit() const { return m_unit; }
-    float numUnits() const { return m_numUnits; }
-    float pricePerUnit() const { return m_pricePerUnit; }
+    double numUnits() const { return m_numUnits; }
+    double pricePerUnit() const { return m_pricePerUnit; }
 
   signals:
     void descriptionChanged();
@@ -54,8 +54,8 @@ class PositionModel: public QObject
   private:
     QString m_description;
     QString m_unit;
-    float m_numUnits;
-    float m_pricePerUnit;
+    double m_numUnits;
+    double m_pricePerUnit;
 };
 
 #endif // POSITIONMODEL_H

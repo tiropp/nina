@@ -50,9 +50,9 @@ class PositionContainerModel: public QAbstractTableModel
     /*** OPERATIONS ***/
     /******************/
   public:
-    Q_INVOKABLE void append(const QString& description, const QString& unit, float numUnits, float pricePerUnit);
+    Q_INVOKABLE void append(const QString& description, const QString& unit, double numUnits, double pricePerUnit);
     Q_INVOKABLE PositionModel* getRow(unsigned row) const;
-    Q_INVOKABLE bool setRow(unsigned row, const QString& description, const QString& unit, float numUnits, float pricePerUnit);
+    Q_INVOKABLE bool setRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
     Q_INVOKABLE void removeRow(unsigned row);
     Q_INVOKABLE void clear();
 
@@ -71,7 +71,7 @@ class PositionContainerModel: public QAbstractTableModel
     virtual bool removeRows(int row, int count, const QModelIndex& parent) override;
 
   private:
-    bool doSetRow(unsigned row, const QString& description, const QString& unit, float numUnits, float pricePerUnit);
+    bool doSetRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
 
   private:
     QVector<QPointer<PositionModel>> m_positions;
