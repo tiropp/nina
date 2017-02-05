@@ -23,22 +23,12 @@ BottomField::operator()(const Invoice& invoice)
 {
     std::string res;
 
-    // BottomField
-    //   bottom = 1 : tel in bottom
-    //   bottom = 2 : natel in bottom
-    //   bottom = 4 : bankverbindung in bottom
-    //   bottom = 8 : VAT
-    int bottom = 0;
-    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getPhone().empty() )
-        bottom += 1;
-    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getMobilePhone().empty() )
-        bottom += 2;
-    if( invoice.getSender().getBank().isValid() )
-        bottom += 4;
-    if( invoice.getVat().getShowVat() )
-        bottom += 8;
+    int infos = 0;
+    if( haveContactInfos(invoice) ) infos += 1;
+    if( haveBankInfos   (invoice) ) infos += 2;
+    if( haveVatInfos    (invoice) ) infos += 4;
 
-    if( bottom == 0 )
+    if( !infos )
         return res;
 
     res =
@@ -46,28 +36,48 @@ BottomField::operator()(const Invoice& invoice)
         + "\\bottomtext{%\n"
         + "\\fontsize{" + std::to_string(m_fontSize) + "}{" + std::to_string(m_fontSkip) + "}\\selectfont\n"
         + "\\hrule\n";
-    switch( bottom ) {
-        case  1: res += phone              (invoice); break;
-        case  2: res += mobilePhone        (invoice); break;
-        case  3: res += phoneAndMobilePhone(invoice); break;
-        case  4: res += bank               (invoice); break;
-        case  5: res += phone              (invoice, 2) + bank(invoice, 2); break;
-        case  6: res += mobilePhone        (invoice, 2) + bank(invoice, 2); break;
-        case  7: res += phoneAndMobilePhone(invoice, 2) + bank(invoice, 2); break;
-        case  8: res += vatNumber(invoice); break;
-        case  9: res += phone              (invoice, 2) + vatNumber(invoice, 2); break;
-        case 10: res += mobilePhone        (invoice, 2) + vatNumber(invoice, 2); break;
-        case 11: res += phoneAndMobilePhone(invoice, 2) + vatNumber(invoice, 2); break;
-        case 12: res += vatNumber          (invoice, 2) + bank     (invoice, 2); break;
-        case 13: res += phone              (invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
-        case 14: res += mobilePhone        (invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
-        case 15: res += phoneAndMobilePhone(invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
+    switch( infos ) {
+        case 1: res += contactInfos(invoice); break;
+        case 2: res += bankInfos   (invoice); break;
+        case 3: res += contactInfos(invoice, 2) + bankInfos(invoice, 2); break;
+        case 4: res += vatInfos    (invoice); break;
+        case 5: res += contactInfos(invoice, 2) + vatInfos (invoice, 2); break;
+        case 6: res += vatInfos    (invoice, 2) + bankInfos(invoice, 2); break;
+        case 7: res += contactInfos(invoice, 3) + bankInfos(invoice, 3) + vatInfos(invoice, 3); break;
         default:
             throw std::logic_error("invalid bottom information");
-        }
+    }
     res += "}\n";
 
     return res;
+}
+
+bool
+BottomField::haveContactInfos(const Invoice& invoice)
+{
+    if( !invoice.getSettings().isPhoneInBottomField() )
+        return false;
+
+    const Sender& sender = invoice.getSender();
+    if( !sender.getPhone().empty()       ||
+        !sender.getMobilePhone().empty() ||
+        !sender.getEmail().empty()       ||
+        !sender.getWebpage().empty()      )
+        return true;
+
+    return false;
+}
+
+bool
+BottomField::haveBankInfos(const Invoice& invoice)
+{
+    return invoice.getSender().getBank().isValid();
+}
+
+bool
+BottomField::haveVatInfos(const Invoice& invoice)
+{
+    return invoice.getVat().getShowVat();
 }
 
 std::string
@@ -89,38 +99,26 @@ BottomField::endMinipage(unsigned numMinipages)
 }
 
 std::string
-BottomField::phone(const Invoice& invoice, unsigned numMinipages)
-{
-    return
-        beginMinipage(numMinipages)
-        + "Telefon: " + invoice.getSender().getPhone()
-        + endMinipage(numMinipages);
-}
-
-std::string
-BottomField::mobilePhone(const Invoice& invoice, unsigned numMinipages)
-{
-    return
-        beginMinipage(numMinipages)
-        + "Natel: " + invoice.getSender().getMobilePhone()
-        + endMinipage(numMinipages);
-}
-
-std::string
-BottomField::phoneAndMobilePhone(const Invoice& invoice, unsigned numMinipages)
+BottomField::contactInfos(const Invoice& invoice, unsigned numMinipages)
 {
     const Sender& sender = invoice.getSender();
-    return
+
+    std::string result =
         beginMinipage(numMinipages)
-        + "\\begin{tabular}[t]{ll}\n"
-        + std::string("  Telefon: & ") + sender.getPhone() + "\\\\\n"
-        + std::string("  Natel: & ")   + sender.getMobilePhone() + "\\\\\n"
-        + std::string("\\end{tabular}\n")
+        + "\\begin{tabular}[t]{ll}\n";
+    if( !sender.getPhone      ().empty() ) result += "  Telefon: & " + sender.getPhone()       + "\\\\\n";
+    if( !sender.getMobilePhone().empty() ) result += "  Natel: & "   + sender.getMobilePhone() + "\\\\\n";
+    if( !sender.getEmail      ().empty() ) result += "  E-Mail: & "  + sender.getEmail()       + "\\\\\n";
+    if( !sender.getWebpage    ().empty() ) result += "  Webpage: & " + sender.getWebpage()     + "\\\\\n";
+    result +=
+        "\\end{tabular}"
         + endMinipage(numMinipages);
+
+    return result;
 }
 
 std::string
-BottomField::bank(const Invoice& invoice, unsigned numMinipages)
+BottomField::bankInfos(const Invoice& invoice, unsigned numMinipages)
 {
     const Bank& bank = invoice.getSender().getBank();
     std::string result =
@@ -140,7 +138,7 @@ BottomField::bank(const Invoice& invoice, unsigned numMinipages)
 }
 
 std::string
-BottomField::vatNumber(const Invoice& invoice, unsigned numMinipages)
+BottomField::vatInfos(const Invoice& invoice, unsigned numMinipages)
 {
     return
         beginMinipage(numMinipages)

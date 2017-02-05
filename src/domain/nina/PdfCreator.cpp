@@ -140,7 +140,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     fs << bottomField(invoice);
 
     // sender address
-    const Address& addr = invoice.getSender().getAddress();
+    const Sender& sender = invoice.getSender();
+    const Address& addr = sender.getAddress();
     fs << "\\address{\\vspace{40pt}\n";
     if( !addr.getName().empty()    )                             fs << "         " << addr.getName();
     if( !addr.getCompany().empty() )                             fs << "\\\\\n         " << addr.getCompany();
@@ -149,6 +150,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     else if( addr.getZipCode() )                                 fs << "\\\\\n         " << addr.getZipCode();
     else if( !addr.getPlace().empty() )                          fs << "\\\\\n         " << addr.getPlace();
     if( !addr.getCountry().empty() )                             fs << "\\\\\n         " << addr.getCountry();
+    if( !sender.getEmail().empty() )                             fs << "\\\\\n         " << sender.getEmail();
+    if( !sender.getWebpage().empty() )                           fs << "\\\\\n         " << sender.getWebpage();
     fs << "}\n";
 
     // place, signature

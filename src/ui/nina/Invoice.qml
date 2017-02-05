@@ -91,6 +91,12 @@ InvoiceForm {
             mobilePhone: senderMobilePhone.text
             onMobilePhoneChanged: { senderMobilePhone.text = mobilePhone }
 
+            email: senderEmail.text
+            onEmailChanged: { senderEmail.text = email }
+
+            webpage: senderWebpage.text
+            onWebpageChanged: { senderWebpage.text = webpage }
+
             signature: invoiceForm.signature.text
             onSignatureChanged: { invoiceForm.signature.text = signature }
 

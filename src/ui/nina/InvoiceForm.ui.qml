@@ -5,7 +5,9 @@ import QtQuick.Controls.Styles 1.4
 Item {
     id: invoiceForm
     width: 800
-    height: 1450
+    height: 1550
+    property alias senderWebpage: senderWebpage
+    property alias senderEmail: senderEmail
     property alias bankIban: bankIban
     property alias pricesExclVat: pricesExclVat
     property alias vatTaxRate: vatTaxRate
@@ -68,8 +70,8 @@ Item {
             id: sender
             x: 10
             y: 10
-            width: 281
-            height: 267
+            width: 286
+            height: 330
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.top: parent.top
@@ -78,17 +80,16 @@ Item {
 
             TextField {
                 id: senderName
-                x: 57
-                y: 5
+                x: 63
+                y: 6
                 width: 200
                 height: 25
-                text: qsTr("")
             }
 
             TextField {
                 id: senderCompany
-                x: 57
-                y: 30
+                x: 63
+                y: 31
                 width: 200
                 height: 25
                 text: qsTr("")
@@ -96,8 +97,8 @@ Item {
 
             TextField {
                 id: senderStreet
-                x: 57
-                y: 55
+                x: 63
+                y: 56
                 width: 200
                 height: 25
                 text: qsTr("")
@@ -105,8 +106,8 @@ Item {
 
             TextField {
                 id: senderZipCode
-                x: 57
-                y: 80
+                x: 63
+                y: 81
                 width: 50
                 height: 25
                 text: qsTr("")
@@ -114,8 +115,8 @@ Item {
 
             TextField {
                 id: senderPlace
-                x: 107
-                y: 80
+                x: 113
+                y: 81
                 width: 150
                 height: 25
                 text: qsTr("")
@@ -123,8 +124,8 @@ Item {
 
             TextField {
                 id: senderPhone
-                x: 57
-                y: 106
+                x: 63
+                y: 107
                 width: 200
                 height: 25
                 text: qsTr("")
@@ -132,8 +133,8 @@ Item {
 
             TextField {
                 id: senderMobilePhone
-                x: 57
-                y: 132
+                x: 63
+                y: 133
                 width: 200
                 height: 25
                 text: qsTr("")
@@ -141,8 +142,26 @@ Item {
 
             TextField {
                 id: senderCountry
-                x: 57
-                y: 157
+                x: 63
+                y: 158
+                width: 200
+                height: 25
+                text: qsTr("")
+            }
+
+            TextField {
+                id: senderEmail
+                x: 63
+                y: 184
+                width: 200
+                height: 25
+                text: qsTr("")
+            }
+
+            TextField {
+                id: senderWebpage
+                x: 63
+                y: 210
                 width: 200
                 height: 25
                 text: qsTr("")
@@ -151,7 +170,7 @@ Item {
             CheckBox {
                 id: senderPhoneInBottomLine
                 x: 0
-                y: 188
+                y: 246
                 text: qsTr("Telefon, Natel in Bottom-Line")
             }
 
@@ -203,14 +222,29 @@ Item {
                 y: 163
                 text: qsTr("Land")
             }
+
+            Label {
+                id: label32
+                x: 0
+                y: 189
+                text: qsTr("E-Mail")
+            }
+
+            Label {
+                id: label33
+                x: 0
+                y: 215
+                text: qsTr("Webpage")
+            }
         }
 
         GroupBox {
             id: receiver
-            x: 297
             y: 10
             width: 276
             height: 233
+            anchors.left: sender.right
+            anchors.leftMargin: 5
             z: 2
             anchors.top: parent.top
             anchors.topMargin: 10
@@ -742,30 +776,31 @@ Item {
         Button {
             id: btnCreatePdf
             x: 10
-            y: 1399
+            y: 1498
             text: qsTr("PDF erzeugen")
         }
 
         Button {
             id: btnSave
             x: 116
-            y: 1399
+            y: 1498
             text: qsTr("Speichern")
         }
 
         Button {
             id: btnLoad
             x: 222
-            y: 1399
+            y: 1498
             text: qsTr("Laden")
         }
 
         GroupBox {
             id: grpVat
             x: 10
-            y: 1122
             width: 360
             height: 265
+            anchors.top: misc.bottom
+            anchors.topMargin: 5
             title: qsTr("Mehrwertsteuer")
 
             CheckBox {

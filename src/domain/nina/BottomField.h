@@ -28,11 +28,14 @@ class BottomField
     std::string operator()(const Invoice& invoice);
 
   private:
-    std::string phone(const Invoice& invoice, unsigned numMinipages = 0);
-    std::string mobilePhone(const Invoice& invoice, unsigned numMinipages = 0);
-    std::string phoneAndMobilePhone(const Invoice& invoice, unsigned numMinipages = 0);
-    std::string bank(const Invoice& invoice, unsigned numMinipages = 0);
-    std::string vatNumber(const Invoice& invoice, unsigned numMinipages = 0);
+    bool haveContactInfos(const Invoice& invoice);
+    bool haveBankInfos(const Invoice& invoice);
+    bool haveVatInfos(const Invoice& invoice);
+
+    std::string contactInfos(const Invoice& invoice, unsigned numMinipages = 0);
+    std::string bankInfos(const Invoice& invoice, unsigned numMinipages = 0);
+    std::string vatInfos(const Invoice& invoice, unsigned numMinipages = 0);
+
     std::string beginMinipage(unsigned numMinipages);
     std::string endMinipage  (unsigned numMinipages);
 
