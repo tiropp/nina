@@ -75,11 +75,14 @@ InvoiceForm {
                 name: bankName.text
                 onNameChanged: { bankName.text = name }
 
+                account: bankAccount.text
+                onAccountChanged: { bankAccount.text = account }
+
                 bic: bankBic.text
                 onBicChanged: { bankBic.text = bic }
 
-                account: bankAccount.text
-                onAccountChanged: { bankAccount.text = account }
+                iban: bankIban.text
+                onIbanChanged: { bankIban.text = iban }
             }
 
             phone: senderPhone.text

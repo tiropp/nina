@@ -6,6 +6,7 @@ Item {
     id: invoiceForm
     width: 800
     height: 1450
+    property alias bankIban: bankIban
     property alias pricesExclVat: pricesExclVat
     property alias vatTaxRate: vatTaxRate
     property alias pricesInclVat: pricesInclVat
@@ -477,9 +478,9 @@ Item {
             id: bank
             x: 376
             width: 360
-            height: 177
+            height: 220
             anchors.top: texte.bottom
-            anchors.topMargin: 5
+            anchors.topMargin: 6
             title: qsTr("Bankverbindung")
 
             Label {
@@ -492,15 +493,15 @@ Item {
 
             Label {
                 id: label18
-                y: 55
-                text: qsTr("BLZ")
+                y: 101
+                text: qsTr("Swift/BIC")
                 anchors.left: parent.left
                 anchors.leftMargin: 0
             }
 
             Label {
                 id: label19
-                y: 101
+                y: 55
                 text: qsTr("Konto Nr.")
                 anchors.left: parent.left
                 anchors.leftMargin: 0
@@ -521,7 +522,7 @@ Item {
             TextField {
                 id: bankBic
                 x: 74
-                y: 46
+                y: 92
                 width: 262
                 height: 40
                 anchors.right: parent.right
@@ -532,14 +533,32 @@ Item {
             TextField {
                 id: bankAccount
                 x: 74
-                y: 92
+                y: 46
                 width: 262
                 height: 40
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 placeholderText: qsTr("")
+            }
+
+            TextField {
+                id: bankIban
+                x: 74
+                y: 138
+                width: 262
+                height: 40
+                placeholderText: qsTr("")
+                anchors.rightMargin: 0
+                anchors.right: parent.right
+            }
+
+            Label {
+                id: label31
+                x: 8
+                y: 151
+                text: qsTr("IBAN")
+                anchors.left: parent.left
+                anchors.leftMargin: 0
             }
         }
 

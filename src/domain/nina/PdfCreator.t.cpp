@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE( foo )
     senderAddress.setZipCode(9506);
     senderAddress.setPlace("Lommis");
     Sender sender( senderAddress );
-    sender.setBank( Bank("Raffeisen", "BIC77733", "03338-3") );
+    sender.setBank( Bank("UBS AG Zurich", "230-90734525.0", "UBSWCHZH80A", "CH5800230230907345250") );
     sender.setPhone("+41 52 376 13 54");
     sender.setMobilePhone("+41 77 442 84 86");
 

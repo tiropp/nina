@@ -125,13 +125,14 @@ BottomField::bank(const Invoice& invoice, unsigned numMinipages)
     const Bank& bank = invoice.getSender().getBank();
     std::string result =
         beginMinipage(numMinipages)
-        + "\nBankverbindung:\\\\\n"
         + std::string("\\hspace{1em}\\begin{tabular}[t]{ll}\n")
         + "\\multicolumn{2}{l}{" + bank.getName() + "}\\\\\n";
-    if( !bank.getBic().empty() )
-        result += "BLZ & " + bank.getBic() + "\\\\\n";
     if( !bank.getAccount().empty() )
-        result += "Kto. & " + bank.getAccount() + "\\\\\n";
+        result += "Kto.-Nr. & " + bank.getAccount() + "\\\\\n";
+    if( !bank.getBic().empty() )
+        result += "Swift/BIC & " + bank.getBic() + "\\\\\n";
+    if( !bank.getIban().empty() )
+        result += "IBAN & " + bank.getIban() + "\\\\\n";
     result +=
         "\\end{tabular}\n"
         + endMinipage(numMinipages);
