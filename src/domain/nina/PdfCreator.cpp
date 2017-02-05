@@ -276,28 +276,35 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         if( pos.isFreeOfCharge() || pos.hasOnlyDescription() )
             fs << "\\\\\n";
         else if( pos.isFlatPrice() )
-            fs << " & & & " << pos.getPrice() << "\\\\\n";
+            fs << " & & & " << pos.getPrice().toString(0.01) << "\\\\\n";
         else
-            fs << " & " << pos.getNumUnits() << " " << pos.getUnit() << " & " << pos.getPricePerUnit() << " & " << pos.getPrice() << "\\\\\n";
+            fs << " & " << pos.getNumUnits() << " " << pos.getUnit() << " & " << pos.getPricePerUnit().toString(0.01) << " & " << pos.getPrice().toString(0.01) << "\\\\\n";
     }
 
 
     fs << "\\thickhline{2pt}\n"  // Zw.einschub
        << "\\rule{0pt}{1.5em}%\n";
     if( !invoice.getVat().getShowVat() )
-        fs << "\\textbf{Gesamtbetrag} & & &\\textbf{" << invoice.getPositions().getPrice() << "}\\\\\n";
+        fs << "\\textbf{Gesamtbetrag} & & &\\textbf{" << invoice.getPositions().getPrice().toString(0.05) << "}\\\\\n";
     else {
-        if( invoice.getVat().getPricesInclVat() )
-            fs << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{" << invoice.getPositions().getPrice() << "}\\\\\n"
-               << "Enthält \\unit[" << invoice.getVat().getTaxRate() << "]{\\%}  MwSt. & & & "
-               << invoice.getPositions().getPrice() * (invoice.getVat().getTaxRate()/100) << "\\\\\n";
-        else
-            fs << "Gesamtbetrag exkl. MwSt. & & & " << invoice.getPositions().getPrice() << "\\\\\n"
-               << "Mehrwertsteuer \\unit[" << invoice.getVat().getTaxRate() << "]{\\%} & & & "
-               << invoice.getPositions().getPrice() * (invoice.getVat().getTaxRate()/100) << "\\\\\n"
-               << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{"
-               << invoice.getPositions().getPrice() * (1+invoice.getVat().getTaxRate()/100)
-               << "}\\\\\n";
+        const Money  price   = invoice.getPositions().getPrice(0.01);
+        const double taxRate = invoice.getVat().getTaxRate();
+        Money  tax           = (price * (taxRate / 100)).round(0.01);
+        if( invoice.getVat().getPricesInclVat() ) {
+            fs << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{" << price.toString(0.05) << "}\\\\\n"
+               << "Enthält \\unit[" << taxRate << "]{\\%}  MwSt. & & & " << tax.toString(0.01) << "\\\\\n";
+        }
+        else {
+            fs << "Gesamtbetrag exkl. MwSt. & & & " << price.toString(0.01) << "\\\\\n"
+               << "Mehrwertsteuer \\unit[" << taxRate << "]{\\%} & & & " << tax.toString(0.01) << "\\\\\n";
+
+            const Money total = tax + price;
+            const Money roundMistake = total.roundMistake(0.05);
+            if( roundMistake != Money() )
+                fs << "Rundungsbetrag & & & " << roundMistake.toString(0.01) << "\\\\\n";
+
+            fs << "\\textbf{Gesamtbetrag inkl. MwSt.} & & &\\textbf{" << total.toString(0.05) << "}\\\\\n";
+        }
     }
     fs << "\\end{supertabular*}\n";
 

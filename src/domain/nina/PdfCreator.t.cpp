@@ -40,9 +40,9 @@ BOOST_AUTO_TEST_CASE( foo )
     invoice.setTextAfterPositions("some final words");
 
     invoice.add( Position("Monday:12.12.16") );
-    invoice.add( Position("@Latten", "m", 17, 3) );
-    invoice.add( Position("@Arbeit", "h", 50, 10) );
-    invoice.add( Position("@Anfahrt", 100) );
+    invoice.add( Position("@Latten", "m", Money(17), 3) );
+    invoice.add( Position("@Arbeit", "h", Money(50), 10) );
+    invoice.add( Position("@Anfahrt", Money(100)) );
     invoice.add( Position("@Strom", Position::freeOfCharge) );
 
 

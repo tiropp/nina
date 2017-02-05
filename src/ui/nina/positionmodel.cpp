@@ -11,8 +11,8 @@ PositionModel::createDomain() const
 {
     return nina::domain::Position(toString(m_description),
                                   toString(m_unit),
-                                  m_numUnits,
-                                  m_pricePerUnit);
+                                  nina::domain::Money(m_pricePerUnit),
+                                  m_numUnits);
 }
 
 

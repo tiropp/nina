@@ -8,6 +8,7 @@
 #include <boost/serialization/access.hpp>
 
 // Nina includes
+#include <nina/Money.h>
 #include <nina/detail/SerializationHelper.h>
 
 
@@ -31,7 +32,7 @@ class Position
     /*** CTOR, DTOR ***/
     /******************/
   private:
-    /// \brief Default ctor used by serialization
+    /// \brief Default ctor used by serialization only
     Position();
 
   public:
@@ -39,13 +40,13 @@ class Position
     /// price
     Position(const std::string& description,
              const std::string& unit,
-             double pricePerUnit,
-             double numUnits
+             Money              pricePerUnit,
+             double             numUnits
         );
 
     /// \brief Ctor with a flat price
     Position(const std::string& description,
-             double price
+             Money              price
         );
 
     /// \brief Ctor only with description
@@ -58,9 +59,9 @@ class Position
   public:
     const std::string& getDescription()     const { return m_description; }
     const std::string& getUnit()            const { return m_unit; }
-    double             getPricePerUnit()    const { return m_pricePerUnit; }
+    Money              getPricePerUnit()    const { return m_pricePerUnit; }
     double             getNumUnits()        const { return m_numUnits; }
-    double             getPrice()           const { return m_price; }
+    Money              getPrice()           const { return m_price; }
     bool               hasOnlyDescription() const { return m_hasOnlyDescription; }
     bool               isFreeOfCharge()     const { return m_isFreeOfCharge; }
     bool               isFlatPrice()        const { return m_isFlatPrice; }
@@ -89,9 +90,9 @@ class Position
   private:
     std::string m_description;
     std::string m_unit;
-    double      m_pricePerUnit;
+    Money       m_pricePerUnit;
     double      m_numUnits;
-    double      m_price;
+    Money       m_price;
     bool        m_hasOnlyDescription;
     bool        m_isFreeOfCharge;
     bool        m_isFlatPrice;

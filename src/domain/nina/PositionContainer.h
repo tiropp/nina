@@ -10,6 +10,7 @@
 
 // Nina includes
 #include <nina/Position.h>
+#include <nina/Money.h>
 #include <nina/detail/SerializationHelper.h>
 
 
@@ -42,7 +43,12 @@ class PositionContainer
     size_t getSize() const { return m_positions.size(); }
     const_iterator begin() const { return m_positions.begin(); }
     const_iterator end  () const { return m_positions.end  (); }
-    size_t getPrice() const;
+
+    /// \brief Return the total price
+    ///
+    /// Each position price will be rounded according to the \a precision and
+    /// \a digit pair and the summed up.
+    Money getPrice(double precision = 0.01, unsigned digits = 2) const;
 
 
     /*********************/

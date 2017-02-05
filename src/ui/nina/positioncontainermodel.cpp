@@ -159,6 +159,6 @@ PositionContainerModel::set(const nina::domain::PositionContainer& positions)
         append(QString::fromStdString(position.getDescription()),
                QString::fromStdString(position.getUnit()),
                position.getNumUnits(),
-               position.getPricePerUnit()
+               position.getPricePerUnit().toDouble()
             );
 }

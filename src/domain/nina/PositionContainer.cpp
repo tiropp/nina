@@ -5,12 +5,12 @@ namespace nina {
 namespace domain {
 
 
-size_t
-PositionContainer::getPrice() const
+Money
+PositionContainer::getPrice(double precision, unsigned digits) const
 {
-    size_t price = 0;
+    Money price;
     for(const Position& p : m_positions)
-        price += p.getPrice();
+        price += p.getPrice().round(precision, digits);
 
     return price;
 }
