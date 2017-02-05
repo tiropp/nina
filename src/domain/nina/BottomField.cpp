@@ -1,8 +1,10 @@
-#ifndef NINA_DOMAIN_LATEXHELPERS_H
-#define NINA_DOMAIN_LATEXHELPERS_H
+#include "BottomField.h"
 
 // Nina includes
+#include <nina/Invoice.h>
+#include <nina/Sender.h>
 #include <nina/Bank.h>
+#include <nina/Vat.h>
 
 
 
@@ -10,9 +12,8 @@ namespace nina {
 namespace domain {
 
 
-inline
 std::string
-beginMinipage(unsigned numMinipages)
+BottomField::beginMinipage(unsigned numMinipages)
 {
     std::string result;
     if( numMinipages )
@@ -20,9 +21,8 @@ beginMinipage(unsigned numMinipages)
     return result;
 }
 
-inline
 std::string
-endMinipage(unsigned numMinipages)
+BottomField::endMinipage(unsigned numMinipages)
 {
     std::string result;
     if( numMinipages )
@@ -30,9 +30,8 @@ endMinipage(unsigned numMinipages)
     return result;
 }
 
-inline
 std::string
-bottomtel(const Invoice& invoice, unsigned numMinipages = 0)
+BottomField::phone(const Invoice& invoice, unsigned numMinipages)
 {
     return
         beginMinipage(numMinipages)
@@ -40,9 +39,8 @@ bottomtel(const Invoice& invoice, unsigned numMinipages = 0)
         + endMinipage(numMinipages);
 }
 
-inline
 std::string
-bottomnatel(const Invoice& invoice, unsigned numMinipages = 0)
+BottomField::mobilePhone(const Invoice& invoice, unsigned numMinipages)
 {
     return
         beginMinipage(numMinipages)
@@ -50,9 +48,8 @@ bottomnatel(const Invoice& invoice, unsigned numMinipages = 0)
         + endMinipage(numMinipages);
 }
 
-inline
 std::string
-bottomtelnatel(const Invoice& invoice, unsigned numMinipages = 0)
+BottomField::phoneAndMobilePhone(const Invoice& invoice, unsigned numMinipages)
 {
     const Sender& sender = invoice.getSender();
     return
@@ -64,9 +61,8 @@ bottomtelnatel(const Invoice& invoice, unsigned numMinipages = 0)
         + endMinipage(numMinipages);
 }
 
-inline
 std::string
-bottombank(const Invoice& invoice, unsigned numMinipages = 0)
+BottomField::bank(const Invoice& invoice, unsigned numMinipages)
 {
     const Bank& bank = invoice.getSender().getBank();
     std::string result =
@@ -84,9 +80,8 @@ bottombank(const Invoice& invoice, unsigned numMinipages = 0)
     return result;
 }
 
-inline
 std::string
-vatNumber(const Invoice& invoice, unsigned numMinipages = 0)
+BottomField::vatNumber(const Invoice& invoice, unsigned numMinipages)
 {
     return
         beginMinipage(numMinipages)
@@ -96,5 +91,3 @@ vatNumber(const Invoice& invoice, unsigned numMinipages = 0)
 
 } // End namespace domain
 } // End namespace nina
-
-#endif  // NINA_DOMAIN_LATEXHELPERS_H

@@ -6,5 +6,6 @@ SET(SOURCES
   PositionContainer.cpp
   Archiver.cpp
   Vat.cpp
+  BottomField.cpp
   )
 add_library(nina_domain ${SOURCES})

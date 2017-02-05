@@ -8,7 +8,7 @@
 
 // Nina includes
 #include <nina/Invoice.h>
-#include <nina/LatexHelpers.h>
+#include <nina/BottomField.h>
 
 // Namespace aliases
 namespace fs = boost::filesystem;
@@ -157,21 +157,21 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
            << "\\fontsize{9}{9}\\selectfont\n"
            << "\\hrule\n";
         switch( bottom ) {
-        case  1: fs << bottomtel     (invoice); break;
-        case  2: fs << bottomnatel   (invoice); break;
-        case  3: fs << bottomtelnatel(invoice); break;
-        case  4: fs << bottombank    (invoice); break;
-        case  5: fs << bottomtel     (invoice, 2) << bottombank(invoice, 2); break;
-        case  6: fs << bottomnatel   (invoice, 2) << bottombank(invoice, 2); break;
-        case  7: fs << bottomtelnatel(invoice, 2) << bottombank(invoice, 2); break;
-        case  8: fs << vatNumber(invoice); break;
-        case  9: fs << bottomtel     (invoice, 2) << vatNumber(invoice, 2); break;
-        case 10: fs << bottomnatel   (invoice, 2) << vatNumber(invoice, 2); break;
-        case 11: fs << bottomtelnatel(invoice, 2) << vatNumber(invoice, 2); break;
-        case 12: fs << vatNumber(invoice, 2) << bottombank(invoice, 2); break;
-        case 13: fs << bottomtel     (invoice, 3) << bottombank(invoice, 3) << vatNumber(invoice, 3); break;
-        case 14: fs << bottomnatel   (invoice, 3) << bottombank(invoice, 3) << vatNumber(invoice, 3); break;
-        case 15: fs << bottomtelnatel(invoice, 3) << bottombank(invoice, 3) << vatNumber(invoice, 3); break;
+        case  1: fs << BottomField::phone              (invoice); break;
+        case  2: fs << BottomField::mobilePhone        (invoice); break;
+        case  3: fs << BottomField::phoneAndMobilePhone(invoice); break;
+        case  4: fs << BottomField::bank               (invoice); break;
+        case  5: fs << BottomField::phone              (invoice, 2) << BottomField::bank(invoice, 2); break;
+        case  6: fs << BottomField::mobilePhone        (invoice, 2) << BottomField::bank(invoice, 2); break;
+        case  7: fs << BottomField::phoneAndMobilePhone(invoice, 2) << BottomField::bank(invoice, 2); break;
+        case  8: fs << BottomField::vatNumber(invoice); break;
+        case  9: fs << BottomField::phone              (invoice, 2) << BottomField::vatNumber(invoice, 2); break;
+        case 10: fs << BottomField::mobilePhone        (invoice, 2) << BottomField::vatNumber(invoice, 2); break;
+        case 11: fs << BottomField::phoneAndMobilePhone(invoice, 2) << BottomField::vatNumber(invoice, 2); break;
+        case 12: fs << BottomField::vatNumber          (invoice, 2) << BottomField::bank     (invoice, 2); break;
+        case 13: fs << BottomField::phone              (invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
+        case 14: fs << BottomField::mobilePhone        (invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
+        case 15: fs << BottomField::phoneAndMobilePhone(invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
         default: 	break;
         }
         fs << "}\n";
