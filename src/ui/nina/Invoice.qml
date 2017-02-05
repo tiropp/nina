@@ -142,6 +142,7 @@ InvoiceForm {
             vatNumber: invoiceForm.vatNumber.text
             onVatNumberChanged: { invoiceForm.vatNumber.text = vatNumber }
 
+            taxRate: 8.0
             onTaxRateChanged: { invoiceForm.vatTaxRate.text = taxRate }
         }
 
@@ -154,7 +155,7 @@ InvoiceForm {
 
     /// \todo Change this to onEditingFinished but shomehow the current qt verion
     /// has trouble with it.
-    vatTaxRate.onFocusChanged: {
+    vatTaxRate.onTextChanged: {
         var rate = parseFloat( vatTaxRate.text )
         if( isNaN(rate) )
             invoiceModel.vat.taxRate = 0
