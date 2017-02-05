@@ -483,6 +483,51 @@ Item {
             anchors.topMargin: 6
             title: qsTr("Bankverbindung")
 
+            TextField {
+                id: bankName
+                x: 83
+                width: 262
+                height: 40
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                placeholderText: qsTr("")
+            }
+
+            TextField {
+                id: bankAccount
+                x: 74
+                y: 46
+                width: 262
+                height: 40
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                placeholderText: qsTr("")
+            }
+
+            TextField {
+                id: bankBic
+                x: 74
+                y: 92
+                width: 262
+                height: 40
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                placeholderText: qsTr("")
+            }
+
+            TextField {
+                id: bankIban
+                x: 74
+                y: 138
+                width: 262
+                height: 40
+                placeholderText: qsTr("")
+                anchors.rightMargin: 0
+                anchors.right: parent.right
+            }
+
             Label {
                 id: label17
                 y: 9
@@ -505,51 +550,6 @@ Item {
                 text: qsTr("Konto Nr.")
                 anchors.left: parent.left
                 anchors.leftMargin: 0
-            }
-
-            TextField {
-                id: bankName
-                x: 83
-                width: 262
-                height: 40
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                placeholderText: qsTr("")
-            }
-
-            TextField {
-                id: bankBic
-                x: 74
-                y: 92
-                width: 262
-                height: 40
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                placeholderText: qsTr("")
-            }
-
-            TextField {
-                id: bankAccount
-                x: 74
-                y: 46
-                width: 262
-                height: 40
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                placeholderText: qsTr("")
-            }
-
-            TextField {
-                id: bankIban
-                x: 74
-                y: 138
-                width: 262
-                height: 40
-                placeholderText: qsTr("")
-                anchors.rightMargin: 0
-                anchors.right: parent.right
             }
 
             Label {
