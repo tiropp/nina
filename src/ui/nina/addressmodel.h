@@ -12,7 +12,6 @@
 class AddressModel: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString salutation READ salutation WRITE setSalutation NOTIFY salutationChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString company READ company WRITE setCompany NOTIFY companyChanged)
     Q_PROPERTY(QString street READ street WRITE setStreet NOTIFY streetChanged)
@@ -29,7 +28,6 @@ class AddressModel: public QObject
 
   public:
     void set(const nina::domain::Address& address);
-    void setSalutation(const QString& salutation);
     void setName(const QString& name);
     void setCompany(const QString& company);
     void setStreet(const QString& street);
@@ -39,7 +37,6 @@ class AddressModel: public QObject
     void setUsePoBox(bool poBox);
 
   public:
-    QString salutation() const { return m_salutation; }
     QString name() const { return m_name; }
     QString company() const { return m_company; }
     QString street() const { return m_street; }
@@ -49,7 +46,6 @@ class AddressModel: public QObject
     bool usePoBox() const { return m_usePoBox; }
 
   signals:
-    void salutationChanged();
     void nameChanged();
     void companyChanged();
     void streetChanged();
@@ -59,7 +55,6 @@ class AddressModel: public QObject
     void usePoBoxChanged();
 
   private:
-    QString m_salutation;
     QString m_name;
     QString m_company;
     QString m_street;

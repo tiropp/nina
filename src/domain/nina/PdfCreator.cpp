@@ -198,9 +198,10 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
 
     // writing begin letter command
     //----------------------------
-    const Address& recvAddr = invoice.getReceiver().getAddress();
+    const Receiver& recv     = invoice.getReceiver();
+    const Address&  recvAddr = recv.getAddress();
     fs << "\\begin{letter}{\n";
-    if( !recvAddr.getSalutation().empty() ) fs << "               " << recvAddr.getSalutation() << "\\\\\n";
+    if( !recv.getSalutation().empty() )     fs << "               " << recv.getSalutation() << "\\\\\n";
     if( !recvAddr.getName().empty() )       fs << "               " << recvAddr.getName() << "\\\\\n";
     if( !recvAddr.getCompany().empty() )    fs << "               " << recvAddr.getCompany() << "\\\\\n";
     if( !recvAddr.getStreet().empty() )     fs << "               " << recvAddr.getStreet() << "\\\\\n";

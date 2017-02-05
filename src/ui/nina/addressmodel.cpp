@@ -16,7 +16,6 @@ nina::domain::Address
 AddressModel::createDomain() const
 {
     nina::domain::Address address;
-    address.setSalutation( toString(m_salutation) );
     address.setName      ( toString(m_name) );
     address.setCompany   ( toString(m_company) );
     address.setStreet    ( toString(m_street) );
@@ -30,7 +29,6 @@ AddressModel::createDomain() const
 void
 AddressModel::set(const nina::domain::Address& address)
 {
-    setSalutation( QString::fromStdString(address.getSalutation()) );
     setName      ( QString::fromStdString(address.getName      ()) );
     setCompany   ( QString::fromStdString(address.getCompany   ()) );
     setStreet    ( QString::fromStdString(address.getStreet    ()) );
@@ -40,7 +38,6 @@ AddressModel::set(const nina::domain::Address& address)
     setUsePoBox  ( address.usePoBox() );
 }
 
-NINA_SETPROPERTY(AddressModel, setSalutation, const QString&, salutation)
 NINA_SETPROPERTY(AddressModel, setName      , const QString&, name)
 NINA_SETPROPERTY(AddressModel, setCompany   , const QString&, company)
 NINA_SETPROPERTY(AddressModel, setStreet    , const QString&, street)

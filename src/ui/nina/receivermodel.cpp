@@ -1,6 +1,7 @@
 #include "receivermodel.h"
 
 // Nina includes
+#include <detail/conversion.h>
 #include <detail/macros.h>
 
 
@@ -14,7 +15,8 @@ nina::domain::Receiver
 ReceiverModel::createDomain() const
 {
     nina::domain::Receiver receiver;
-    receiver.setAddress( m_address->createDomain() );
+    receiver.setSalutation( toString(m_salutation) );
+    receiver.setAddress   ( m_address->createDomain() );
     return receiver;
 }
 
@@ -22,7 +24,9 @@ ReceiverModel::createDomain() const
 void
 ReceiverModel::set(const nina::domain::Receiver& receiver)
 {
+    setSalutation( QString::fromStdString(receiver.getSalutation()) );
     m_address->set( receiver.getAddress() );
 }
 
+NINA_SETPROPERTY(ReceiverModel, setSalutation, const QString&, salutation)
 NINA_SETPROPERTY(ReceiverModel, setAddress , AddressModel*, address)

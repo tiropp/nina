@@ -25,14 +25,16 @@ BOOST_AUTO_TEST_CASE( foo )
     sender.setMobilePhone("+41 77 442 84 86");
 
     Address receiverAddress;
-    receiverAddress.setSalutation("Herr");
     receiverAddress.setName("Joseph the Great");
     receiverAddress.setCompany("J System");
     receiverAddress.setStreet("J street 12");
     receiverAddress.setZipCode(14552);
     receiverAddress.setPlace("J Town");
     receiverAddress.setCountry("J country");
-    Receiver receiver( receiverAddress );
+    Receiver receiver;
+    receiver.setSalutation("Herr");
+    receiver.setAddress( receiverAddress );
+
 
     Invoice invoice(sender, receiver);
     invoice.setTitle("Rechnung");

@@ -18,7 +18,6 @@ namespace domain {
 class Address
 {
   public:
-    const std::string& getSalutation() const { return m_salutation; }
     const std::string& getName()    const { return m_name; }
     const std::string& getCompany() const { return m_company; }
     const std::string& getStreet()  const { return m_street; }
@@ -33,7 +32,6 @@ class Address
     bool               usePoBox()   const { return m_usePoBox; }
 
   public:
-    void setSalutation(const std::string& s)       { m_salutation = s; }
     void setName      (const std::string& name)    { m_name = name; }
     void setCompany   (const std::string& company) { m_company = company; }
     void setStreet    (const std::string& street)  { m_street = street; }
@@ -45,7 +43,6 @@ class Address
   private:
     friend class boost::serialization::access;
     template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
-        NINA_SERIALIZE(ar, salutation);
         NINA_SERIALIZE(ar, name);
         NINA_SERIALIZE(ar, company);
         NINA_SERIALIZE(ar, street);
@@ -56,7 +53,6 @@ class Address
     }
 
   private:
-    std::string m_salutation;
     std::string m_name;
     std::string m_company;
     std::string m_street;

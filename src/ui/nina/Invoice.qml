@@ -99,10 +99,10 @@ InvoiceForm {
         }
 
         receiver: ReceiverModel {
-            address: AddressModel {
-                salutation: recvSalutation.text
-                onSalutationChanged: { recvSalutation.text = salutation }
+            salutation: recvSalutation.text
+            onSalutationChanged: { recvSalutation.text = salutation }
 
+            address: AddressModel {
                 name: recvName.text
                 onNameChanged: { recvName.text = name }
 
