@@ -10,13 +10,13 @@ SOURCES += main.cpp \
     addressmodel.cpp \
     receivermodel.cpp \
     bankmodel.cpp \
-    conversion.cpp \
     settingsmodel.cpp \
     datemodel.cpp \
     filesavedialog.cpp \
     filedialogbase.cpp \
     fileopendialog.cpp \
-    vatmodel.cpp
+    vatmodel.cpp \
+    detail/conversion.cpp
 
 RESOURCES += qml.qrc
 
@@ -67,13 +67,14 @@ HEADERS += \
     addressmodel.h \
     receivermodel.h \
     bankmodel.h \
-    conversion.h \
     settingsmodel.h \
     datemodel.h \
     filesavedialog.h \
     filedialogbase.h \
     fileopendialog.h \
-    vatmodel.h
+    vatmodel.h \
+    detail/macros.h \
+    detail/conversion.h
 
 FORMS +=
 

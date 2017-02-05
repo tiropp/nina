@@ -1,7 +1,7 @@
 #include "addressmodel.h"
 
 // Nina includes
-#include <conversion.h>
+#include <detail/conversion.h>
 #include <detail/macros.h>
 
 

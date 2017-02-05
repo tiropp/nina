@@ -1,9 +1,7 @@
 #include "sendermodel.h"
 
 // Nina includes
-#include <conversion.h>
-
-// Nina includes
+#include <detail/conversion.h>
 #include <detail/macros.h>
 
 
