@@ -136,46 +136,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         }
     }
 
-    // BottomField
-    //   bottom = 1 : tel in bottom
-    //   bottom = 2 : natel in bottom
-    //   bottom = 4 : bankverbindung in bottom
-    //   bottom = 8 : VAT
-    int bottom = 0;
-    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getPhone().empty() )
-        bottom += 1;
-    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getMobilePhone().empty() )
-        bottom += 2;
-    if( invoice.getSender().getBank().isValid() )
-        bottom += 4;
-    if( invoice.getVat().getShowVat() )
-        bottom += 8;
-    //
-    if( bottom > 0 ) {
-        fs << "\\setbottomtexttop{27cm}\n"
-           << "\\bottomtext{%\n"
-           << "\\fontsize{9}{9}\\selectfont\n"
-           << "\\hrule\n";
-        switch( bottom ) {
-        case  1: fs << BottomField::phone              (invoice); break;
-        case  2: fs << BottomField::mobilePhone        (invoice); break;
-        case  3: fs << BottomField::phoneAndMobilePhone(invoice); break;
-        case  4: fs << BottomField::bank               (invoice); break;
-        case  5: fs << BottomField::phone              (invoice, 2) << BottomField::bank(invoice, 2); break;
-        case  6: fs << BottomField::mobilePhone        (invoice, 2) << BottomField::bank(invoice, 2); break;
-        case  7: fs << BottomField::phoneAndMobilePhone(invoice, 2) << BottomField::bank(invoice, 2); break;
-        case  8: fs << BottomField::vatNumber(invoice); break;
-        case  9: fs << BottomField::phone              (invoice, 2) << BottomField::vatNumber(invoice, 2); break;
-        case 10: fs << BottomField::mobilePhone        (invoice, 2) << BottomField::vatNumber(invoice, 2); break;
-        case 11: fs << BottomField::phoneAndMobilePhone(invoice, 2) << BottomField::vatNumber(invoice, 2); break;
-        case 12: fs << BottomField::vatNumber          (invoice, 2) << BottomField::bank     (invoice, 2); break;
-        case 13: fs << BottomField::phone              (invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
-        case 14: fs << BottomField::mobilePhone        (invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
-        case 15: fs << BottomField::phoneAndMobilePhone(invoice, 3) << BottomField::bank(invoice, 3) << BottomField::vatNumber(invoice, 3); break;
-        default: 	break;
-        }
-        fs << "}\n";
-    }
+    BottomField bottomField(27/*cm*/, 9/*pt*/, 9/*pt*/);
+    fs << bottomField(invoice);
 
     // sender address
     const Address& addr = invoice.getSender().getAddress();

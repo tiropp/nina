@@ -11,6 +11,64 @@
 namespace nina {
 namespace domain {
 
+BottomField::BottomField(size_t vOffset, size_t fontSize, size_t fontSkip)
+    : m_vOffset( vOffset )
+    , m_fontSize( fontSize )
+    , m_fontSkip( fontSkip )
+{
+}
+
+std::string
+BottomField::operator()(const Invoice& invoice)
+{
+    std::string res;
+
+    // BottomField
+    //   bottom = 1 : tel in bottom
+    //   bottom = 2 : natel in bottom
+    //   bottom = 4 : bankverbindung in bottom
+    //   bottom = 8 : VAT
+    int bottom = 0;
+    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getPhone().empty() )
+        bottom += 1;
+    if( invoice.getSettings().isPhoneInBottomField() && !invoice.getSender().getMobilePhone().empty() )
+        bottom += 2;
+    if( invoice.getSender().getBank().isValid() )
+        bottom += 4;
+    if( invoice.getVat().getShowVat() )
+        bottom += 8;
+
+    if( bottom == 0 )
+        return res;
+
+    res =
+        std::string("\\setbottomtexttop{") + std::to_string(m_vOffset) + "cm}\n"
+        + "\\bottomtext{%\n"
+        + "\\fontsize{" + std::to_string(m_fontSize) + "}{" + std::to_string(m_fontSkip) + "}\\selectfont\n"
+        + "\\hrule\n";
+    switch( bottom ) {
+        case  1: res += phone              (invoice); break;
+        case  2: res += mobilePhone        (invoice); break;
+        case  3: res += phoneAndMobilePhone(invoice); break;
+        case  4: res += bank               (invoice); break;
+        case  5: res += phone              (invoice, 2) + bank(invoice, 2); break;
+        case  6: res += mobilePhone        (invoice, 2) + bank(invoice, 2); break;
+        case  7: res += phoneAndMobilePhone(invoice, 2) + bank(invoice, 2); break;
+        case  8: res += vatNumber(invoice); break;
+        case  9: res += phone              (invoice, 2) + vatNumber(invoice, 2); break;
+        case 10: res += mobilePhone        (invoice, 2) + vatNumber(invoice, 2); break;
+        case 11: res += phoneAndMobilePhone(invoice, 2) + vatNumber(invoice, 2); break;
+        case 12: res += vatNumber          (invoice, 2) + bank     (invoice, 2); break;
+        case 13: res += phone              (invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
+        case 14: res += mobilePhone        (invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
+        case 15: res += phoneAndMobilePhone(invoice, 3) + bank(invoice, 3) + vatNumber(invoice, 3); break;
+        default:
+            throw std::logic_error("invalid bottom information");
+        }
+    res += "}\n";
+
+    return res;
+}
 
 std::string
 BottomField::beginMinipage(unsigned numMinipages)
