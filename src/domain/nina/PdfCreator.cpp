@@ -5,6 +5,8 @@
 
 // BOOST includes
 #include <boost/filesystem/fstream.hpp>
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/algorithm/string/trim.hpp>
 
 // Nina includes
 #include <nina/Invoice.h>
@@ -265,8 +267,11 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
                 fs << "\\hspace{5mm}"
                    << "\\addtolength{\\beschtmpwidth}{-\\parindentbesch}";
             else {
+                std::string descr = description.substr(k);
+                boost::trim(descr);
+                boost::replace_all(descr, "\n", "\\\\");
                 fs << "\\begin{minipage}{\\beschtmpwidth}"
-                   << description.substr(k)
+                   << descr
                    << "\\end{minipage}";
                 if( posIndex < invoice.getPositions().getSize() - 1 )                          // nach jedem Posten einen Abst. von
                     fs << "\\vspace{" << invoice.getSettings().getPositionSkip() << "pt}";  // der Grösse posskip einfügen,
