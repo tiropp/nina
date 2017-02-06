@@ -29,22 +29,24 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Find the Qt libraries
 find_package(Qt5 COMPONENTS Quick Qml Widgets)
-set_property(TARGET Qt5::Core
-  APPEND 
-  PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm"
-  )
-set_property(TARGET Qt5::Widgets
-  APPEND 
-  PROPERTY INTERFACE_LINK_LIBRARIES "-luxtheme"
-  )
-set_property(TARGET Qt5::Network
-  APPEND 
-  PROPERTY INTERFACE_LINK_LIBRARIES "-lssl -lcrypto -lz -lcrypt32 -lws2_32 -liphlpapi"
-  )
-set_property(TARGET Qt5::Gui
-  APPEND 
-  PROPERTY INTERFACE_LINK_LIBRARIES "-lharfbuzz -lpng -lpcre16"
-  )
+if( MINGW )
+  set_property(TARGET Qt5::Core
+    APPEND 
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm"
+    )
+  set_property(TARGET Qt5::Widgets
+    APPEND 
+    PROPERTY INTERFACE_LINK_LIBRARIES "-luxtheme"
+    )
+  set_property(TARGET Qt5::Network
+    APPEND 
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lssl -lcrypto -lz -lcrypt32 -lws2_32 -liphlpapi"
+    )
+  set_property(TARGET Qt5::Gui
+    APPEND 
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lharfbuzz -lpng -lpcre16"
+    )
+endif()
 
 
 
