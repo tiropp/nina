@@ -1,6 +1,6 @@
 QT += qml quick widgets
 
-CONFIG += c++11
+CONFIG += c++11 qtquickcompiler
 
 SOURCES += main.cpp \
     invoicemodel.cpp \

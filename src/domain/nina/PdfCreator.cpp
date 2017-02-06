@@ -332,8 +332,8 @@ PdfCreator::CreatePdf(const fs::path& path)
     std::stringstream command;
     command << "pdflatex"
             << " -interaction batchmode"
-            << " -output-directory \"" << path.parent_path().native() << "\""
-            << " \"" + path.native() + "\"";
+            << " -output-directory \"" << path.parent_path().string() << "\""
+            << " \"" + path.string() + "\"";
     int ret= system(command.str().c_str());
     if( ret )
         msg = "pdflatex error: " + std::to_string(ret);

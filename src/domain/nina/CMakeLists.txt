@@ -10,3 +10,7 @@ SET(SOURCES
   Money.cpp
   )
 add_library(nina_domain ${SOURCES})
+target_include_directories(nina_domain
+  PUBLIC ".."
+  )
+target_link_libraries(nina_domain ${Boost_LIBRARIES})
