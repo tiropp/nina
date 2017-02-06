@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 3.1.0)
-project(nina VERSION 0.1 LANGUAGES CXX)
+cmake_minimum_required (VERSION 3.7.0)
+project(nina VERSION 0.1.0 LANGUAGES CXX)
 
 
 ######################
@@ -54,4 +54,14 @@ set_property(TARGET Qt5::Gui
 add_subdirectory(src)
 
 
-
+#############
+## PACKAGE ##
+#############
+set(CPACK_PACKAGE_VENDOR "tiropp")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+if( WIN32 )
+  set(CPACK_GENERATOR "NSIS")
+endif()
+include(CPack)

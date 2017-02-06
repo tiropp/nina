@@ -25,5 +25,7 @@ target_link_libraries(nina
     Qt5::Qml
     Qt5::Widgets
     )
-
-
+  
+install(TARGETS nina
+  DESTINATION bin
+  )
