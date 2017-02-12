@@ -19,9 +19,11 @@
 
 
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::addLibraryPath("./");
     QApplication app(argc, argv);
     app.setApplicationName("nina");
     app.setOrganizationName("tiropp");
