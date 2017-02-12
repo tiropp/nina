@@ -43,9 +43,6 @@ main(int argc, char *argv[])
     qmlRegisterType<FileOpenDialog>("com.nina.ui", 1, 0, "FileOpenDialog");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    //InvoiceModel invoice;
-    //engine.rootContext()->setContextProperty("invoice", &invoice);
-
 
     return app.exec();
 }
