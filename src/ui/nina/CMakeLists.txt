@@ -21,11 +21,11 @@ target_include_directories(nina
   PRIVATE ${CMAKE_SOURCE_DIR}/src/domain
   )
 target_link_libraries(nina
-    nina_domain
-    Qt5::Qml
-    Qt5::Widgets
-    )
-  
+  nina_domain
+  Qt5::Qml
+  Qt5::Widgets
+  )
+
 install(TARGETS nina
   DESTINATION bin
   )
