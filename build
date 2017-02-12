@@ -3,11 +3,13 @@
 MAIN_DIR=`pwd`
 BUILD_DIR=_build
 
-NUM_CONFIGURATIONS=2
+NUM_CONFIGURATIONS=3
 CONFIGURATION[0]=linux
-CONFIGURATION[1]=windows
+CONFIGURATION[1]=windows_static
+CONFIGURATION[2]=windows_shared
 TOOLCHAIN[0]=toolchain_gcc.cmake
-TOOLCHAIN[1]=toolchain_mingw32.cmake
+TOOLCHAIN[1]=toolchain_mingw32_static.cmake
+TOOLCHAIN[2]=toolchain_mingw32_shared.cmake
 
 
 function usage
