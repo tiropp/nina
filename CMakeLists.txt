@@ -32,7 +32,7 @@ find_package(Qt5 COMPONENTS Quick Qml Widgets)
 if( MINGW )
   set_property(TARGET Qt5::Core
     APPEND 
-    PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm"
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm -lpcre16"
     )
   set_property(TARGET Qt5::Widgets
     APPEND 
