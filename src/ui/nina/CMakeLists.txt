@@ -26,6 +26,12 @@ target_link_libraries(nina
   Qt5::Widgets
   )
 
+if( WIN32 )
+  ## mwindows:
+  ##   Make the application a UI app, i.e. no CMD shell is shown
+  set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -mwindows")
+endif()
+
 install(TARGETS nina
   DESTINATION bin
   )
