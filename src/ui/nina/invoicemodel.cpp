@@ -49,7 +49,7 @@ InvoiceModel::createPdf()
     }
 
     // Open PDF
-    QDesktopServices::openUrl( QUrl(QString("file://") + QString::fromStdString(pdfFile.string())) );
+    QDesktopServices::openUrl( QUrl::fromLocalFile( QString::fromStdString(pdfFile.string()) ) );
     return QString();
 }
 
