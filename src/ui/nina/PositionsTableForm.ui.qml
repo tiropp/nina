@@ -12,22 +12,25 @@ Item {
         anchors.fill: parent
         model: positionContainerModel
 
-        TableViewColumn {
+        TableViewColumn {            
             role: "description"
             title: qsTr("Beschreibung")
-            width: 400
+            width: parent.width - colUnit.width - colNumUnits.width - colPricePerUnit.width
         }
         TableViewColumn {
+            id: colUnit
             role: "unit"
             title: qsTr("Art")
             width: 100
         }
         TableViewColumn {
+            id: colNumUnits
             role: "numUnits"
             title: qsTr("Anzahl")
             width: 100
         }
         TableViewColumn {
+            id: colPricePerUnit
             role: "pricePerUnit"
             title: qsTr("Fr./Art")
             width: 100
