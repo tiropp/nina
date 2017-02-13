@@ -34,5 +34,7 @@
         <file>InvoiceSettingsMiscForm.ui.qml</file>
         <file>InvoicePositions.qml</file>
         <file>InvoicePositionsForm.ui.qml</file>
+        <file>Style.qml</file>
+        <file>qmldir</file>
     </qresource>
 </RCC>
