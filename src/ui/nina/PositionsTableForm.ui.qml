@@ -15,7 +15,7 @@ Item {
         TableViewColumn {            
             role: "description"
             title: qsTr("Beschreibung")
-            width: parent.width - colUnit.width - colNumUnits.width - colPricePerUnit.width
+            width: parent.width - colUnit.width - colNumUnits.width - colPricePerUnit.width - 2
         }
         TableViewColumn {
             id: colUnit
