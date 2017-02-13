@@ -63,12 +63,15 @@ Item {
         Rectangle {
             id: contentsContainer
             width: parent.width
-            implicitHeight: placeholder.implicitHeight
+            height: placeholder.height
             clip: true
 
             Item {
                 id: placeholder
-                implicitHeight: childrenRect.height
+                height: childrenRect.height
+                onHeightChanged: {
+                    updateHeight()
+                }
             }
         }
     }
