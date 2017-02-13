@@ -1,6 +1,7 @@
 import QtQuick 2.5
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.0
-
+import QtQuick.Layouts 1.1
 
 Item {
     id: invoiceForm
@@ -11,12 +12,13 @@ Item {
     anchors.fill: parent
 
 
-    Row {
+    SplitView {
         anchors.fill: parent
+        orientation: Qt.Horizontal
 
         InvoicePositions {
             id: positions
-            width: parent.width - flickSettings.width
+            Layout.fillWidth: true
             height: parent.height
 
         }
