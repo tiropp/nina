@@ -167,7 +167,6 @@ InvoiceForm {
     }
 
 
-
     MessageDialog {
         id: warningDialog
         icon: StandardIcon.Warning
@@ -178,7 +177,7 @@ InvoiceForm {
         warningDialog.open()
     }
 
-    btnCreatePdf.onClicked: {
+    function createPdf() {
         var errMsg = invoiceModel.createPdf();
         if( errMsg )
             showWarningDialog("PDF creation", errMsg);
@@ -192,7 +191,7 @@ InvoiceForm {
             invoiceModel.save( fileUrl )
         }
     }
-    btnSave.onClicked: {
+    function save() {
         fileSaveDialog.open()
     }
 
@@ -204,7 +203,7 @@ InvoiceForm {
             invoiceModel.load( fileUrl )
         }
     }
-    btnLoad.onClicked: {
+    function open() {
         fileOpenDialog.open()
     }
 }

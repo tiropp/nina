@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
+import QtQuick.Controls 1.4
+
 
 ApplicationWindow {
     id: appWindow
@@ -39,7 +40,31 @@ ApplicationWindow {
     }
     */
 
+    menuBar: MenuBar {
+        Menu {
+            title: qsTr("Datei")
 
+            MenuItem {
+                text: qsTr("Öffnen")
+                shortcut: "Ctrl+O"
+                onTriggered: invoice.open()
+            }
+            MenuItem {
+                text: qsTr("Speichern")
+                shortcut: "Ctrl+S"
+                onTriggered: invoice.save()
+            }
+        }
+        Menu {
+            title: qsTr("Tools")
+
+            MenuItem {
+                text: qsTr("PDF erzeugen")
+                shortcut: "Ctrl+C"
+                onTriggered: invoice.createPdf()
+            }
+        }
+    }
 
     Invoice {
         id: invoice
