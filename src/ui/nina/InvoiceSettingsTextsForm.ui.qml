@@ -1,5 +1,8 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Styles 1.4
+import "."
+
 
 Item {
     width: 400
@@ -18,19 +21,25 @@ Item {
             width: parent.width
             height: 200
             wrapMode: Text.WordWrap
+
+            background: Rectangle {
+                border.color: Style.bgBorderColor
+            }
         }
 
         Label {
             id: label1TextAfterPosition
             text: qsTr("Text nach Positionen")
         }
-
-
         TextArea {
             id: afterPositions
             width: parent.width
             height: 200
             wrapMode: Text.WordWrap
+
+            background: Rectangle {
+                border.color: Style.bgBorderColor
+            }
         }
     }
 }
