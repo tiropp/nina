@@ -12,9 +12,7 @@ Item {
 
 
     Row {
-        anchors.fill: parent.fill
-        height: parent.height
-        width: parent.width
+        anchors.fill: parent
 
         InvoicePositions {
             id: positions
