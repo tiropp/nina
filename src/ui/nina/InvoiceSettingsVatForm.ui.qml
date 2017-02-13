@@ -10,7 +10,6 @@ Item {
     property alias number: number
     property alias pricesInclVat: pricesInclVat
     property alias pricesExclVat: pricesExclVat
-    property alias showVat: show
 
     Column {
         CheckBox {
@@ -36,6 +35,8 @@ Item {
             height: childrenRect.height
             width: childrenRect.width
             spacing: 2
+            visible: show.checked
+
             Label {
                 id: labelVatNumber
                 text: qsTr("MwSt-Nummer")
@@ -52,6 +53,7 @@ Item {
             height: childrenRect.height
             width: childrenRect.width
             spacing: 2
+            visible: show.checked
 
             Label {
                 width: labelVatNumber.width
