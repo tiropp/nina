@@ -1,6 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
+import "."
 
 
 ApplicationWindow {
@@ -40,7 +42,21 @@ ApplicationWindow {
     }
     */
 
+
     menuBar: MenuBar {
+        style: MenuBarStyle {
+            background: Rectangle {
+                color: Style.bgColor
+                border.color: Style.bgBorderColor
+            }
+            menuStyle: MenuStyle {
+                frame: Rectangle {
+                    color: Style.bgColor
+                    border.color: Style.bgBorderColor
+                }
+            }
+        }
+
         Menu {
             title: qsTr("Datei")
 
@@ -66,12 +82,15 @@ ApplicationWindow {
         }
     }
 
-    Invoice {
-        id: invoice
-        width: parent.widh - settings.width
-    }
+    Rectangle {
+        color: "#ffffff"
+        anchors.fill: parent
 
-
+        Invoice {
+            id: invoice
+            width: parent.widh - settings.width
+        }
+   }
 
 
 }
