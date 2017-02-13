@@ -12,5 +12,27 @@
         <file>PositionsTableForm.ui.qml</file>
         <file>AddPositionDialog.qml</file>
         <file>ModifyPositionDialog.qml</file>
+        <file>InvoiceSettingsForm.ui.qml</file>
+        <file>InvoiceSettings.qml</file>
+        <file>AccordionItem.qml</file>
+        <file>img/arrow.png</file>
+        <file>InvoiceSettingsSender.qml</file>
+        <file>InvoiceSettingsSenderForm.ui.qml</file>
+        <file>InvoiceSettingsReceiver.qml</file>
+        <file>InvoiceSettingsReceiverForm.ui.qml</file>
+        <file>InvoiceSettingsTexts.qml</file>
+        <file>InvoiceSettingsTextsForm.ui.qml</file>
+        <file>InvoiceSettingsDate.qml</file>
+        <file>InvoiceSettingsDateForm.ui.qml</file>
+        <file>InvoiceSettingsBank.qml</file>
+        <file>InvoiceSettingsBankForm.ui.qml</file>
+        <file>InvoiceSettingsVat.qml</file>
+        <file>InvoiceSettingsVatForm.ui.qml</file>
+        <file>InvoiceSettingsFont.qml</file>
+        <file>InvoiceSettingsFontForm.ui.qml</file>
+        <file>InvoiceSettingsMisc.qml</file>
+        <file>InvoiceSettingsMiscForm.ui.qml</file>
+        <file>InvoicePositions.qml</file>
+        <file>InvoicePositionsForm.ui.qml</file>
     </qresource>
 </RCC>

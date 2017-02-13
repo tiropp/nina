@@ -39,15 +39,14 @@ ApplicationWindow {
     }
     */
 
-    Flickable {
-        anchors.fill: parent
-        contentHeight: invoice.height
 
-        ScrollBar.vertical: ScrollBar {}
 
-        Invoice {
-            id: invoice
-        }
-    }    
+    Invoice {
+        id: invoice
+        width: parent.widh - settings.width
+    }
+
+
+
 
 }

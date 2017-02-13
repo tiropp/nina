@@ -7,128 +7,121 @@ import com.nina.ui 1.0
 
 InvoiceForm {
 
-    AddPositionDialog {
-        id: addPositionDialog
-    }
-    ModifyPositionDialog {
-        id: modifyPositionDialog
-    }
-
     InvoiceModel {
         id: invoiceModel
 
-        title: invoiceForm.title.text
-        onTitleChanged: { invoiceForm.title.text = title }
+        title: settings.misc.title.text
+        onTitleChanged: { settings.misc.title.text = title }
 
         settings: SettingsModel {
-            isPhoneInBottomField: senderPhoneInBottomLine.checked
-            onIsPhoneInBottomFieldChanged: { invoiceForm.senderPhoneInBottomLine.checked = isPhoneInBottomField }
+            isPhoneInBottomField: settings.sender.phoneInBottomLine.checked
+            onIsPhoneInBottomFieldChanged: { settings.sender.phoneInBottomLine.checked = isPhoneInBottomField }
 
-            fontSize: parseInt(invoiceForm.fontSize.text)
-            onFontSizeChanged: { invoiceForm.fontSize.text = fontSize }
+            fontSize: parseInt(settings.font.fontSize.text)
+            onFontSizeChanged: { settings.font.fontSize.text = fontSize }
 
-            fontSkip: parseInt(invoiceForm.fontSkip.text)
-            onFontSkipChanged: { invoiceForm.fontSkip.text = fontSkip }
+            fontSkip: parseInt(settings.font.fontSkip.text)
+            onFontSkipChanged: { settings.font.fontSkip.text = fontSkip }
 
-            positionSkip: parseInt(invoiceForm.positionSkip.text)
-            onPositionSkipChanged: { invoiceForm.positionSkip.text = positionSkip }
+            positionSkip: parseInt(settings.font.positionSkip.text)
+            onPositionSkipChanged: { settings.font.positionSkip.text = positionSkip }
         }
 
         date: DateModel {      
-            useDateToday: invoiceForm.useDateToday.checked
+            useDateToday: settings.date.useToday.checked
             onUseDateTodayChanged: {
-                invoiceForm.useDateToday.checked = useDateToday
-                invoiceForm.useDateSpcified.checked = !useDateToday
+                settings.date.useToday.checked = useDateToday
+                settings.date.useSpecified.checked = !useDateToday
             }
 
-            day: parseInt(dateDay.text)
-            onDayChanged: { dateDay.text = day }
+            day: parseInt(settings.date.day.text)
+            onDayChanged: { settings.date.day.text = day }
 
-            month: parseInt(dateMonth.text)
-            onMonthChanged: { dateMonth.text = month }
+            month: parseInt(settings.date.month.text)
+            onMonthChanged: { settings.date.dmonth.text = month }
 
-            year: parseInt(dateYear.text)
-            onYearChanged: { dateYear.text = year }
+            year: parseInt(settings.date.year.text)
+            onYearChanged: { settings.date.year.text = year }
         }
 
         sender: SenderModel {
             address: AddressModel {
-                name: senderName.text
-                onNameChanged: { senderName.text = name }
+                name: settings.sender.name.text
+                onNameChanged: { settings.sender.name.text = name }
 
-                company: senderCompany.text
-                onCompanyChanged: { senderCompany.text = company }
+                company: settings.sender.company.text
+                onCompanyChanged: { settings.sender.company.text = company }
 
-                street: senderStreet.text
-                onStreetChanged: { senderStreet.text = street }
+                street: settings.sender.street.text
+                onStreetChanged: { settings.sender.street.text = street }
 
-                zipCode: parseInt(senderZipCode.text)
-                onZipCodeChanged: { senderZipCode.text = zipCode }
+                zipCode: parseInt(settings.sender.zipCode.text)
+                onZipCodeChanged: { settings.sender.zipCode.text = zipCode }
 
-                place: senderPlace.text
-                onPlaceChanged: { senderPlace.text = place }
+                place: settings.sender.place.text
+                onPlaceChanged: { settings.sender.place.text = place }
 
-                country: senderCountry.text
-                onCountryChanged: { senderCountry.text = country }
+                country: settings.sender.country.text
+                onCountryChanged: { settings.sender.country.text = country }
             }
             bank: BankModel {
-                name: bankName.text
-                onNameChanged: { bankName.text = name }
+                name: settings.bank.name.text
+                onNameChanged: { settings.bank.name.text = name }
 
-                account: bankAccount.text
-                onAccountChanged: { bankAccount.text = account }
+                account: settings.bank.account.text
+                onAccountChanged: { settings.bank.account.text = account }
 
-                bic: bankBic.text
-                onBicChanged: { bankBic.text = bic }
+                bic: settings.bank.bic.text
+                onBicChanged: { settings.bank.bic.text = bic }
 
-                iban: bankIban.text
-                onIbanChanged: { bankIban.text = iban }
+                iban: settings.bank.iban.text
+                onIbanChanged: { settings.bank.iban.text = iban }
             }
 
-            phone: senderPhone.text
-            onPhoneChanged: { senderPhone.text = phone }
+            phone: settings.sender.phone.text
+            onPhoneChanged: { settings.sender.phone.text = phone }
 
-            mobilePhone: senderMobilePhone.text
-            onMobilePhoneChanged: { senderMobilePhone.text = mobilePhone }
+            mobilePhone: settings.sender.mobilePhone.text
+            onMobilePhoneChanged: { settings.sender.mobilePhone.text = mobilePhone }
 
-            email: senderEmail.text
-            onEmailChanged: { senderEmail.text = email }
+            email: settings.sender.email.text
+            onEmailChanged: { settings.sender.email.text = email }
 
-            webpage: senderWebpage.text
-            onWebpageChanged: { senderWebpage.text = webpage }
+            webpage: settings.sender.webpage.text
+            onWebpageChanged: { settings.sender.webpage.text = webpage }
 
-            signature: invoiceForm.signature.text
-            onSignatureChanged: { invoiceForm.signature.text = signature }
+            signature: settings.misc.signature.text
+            onSignatureChanged: { settings.misc.signature.text = signature }
 
-            greetings: invoiceForm.greetings.text
-            onGreetingsChanged: { invoiceForm.greetings.text = greetings }
+            greetings: settings.misc.greetings.text
+            onGreetingsChanged: { settings.misc.greetings.text = greetings }
         }
 
         receiver: ReceiverModel {
-            salutation: recvSalutation.text
-            onSalutationChanged: { recvSalutation.text = salutation }
+            salutation: settings.receiver.salutation.text
+            onSalutationChanged: { settings.receiver.salutation.text = salutation }
 
             address: AddressModel {
-                name: recvName.text
-                onNameChanged: { recvName.text = name }
+                name: settings.receiver.name.text
+                onNameChanged: { settings.receiver.name.text = name }
 
-                company: recvCompany.text
-                onCompanyChanged: { recvCompany.text = company }
+                company: settings.receiver.company.text
+                onCompanyChanged: { settings.receiver.company.text = company }
 
-                street: recvStreet.text
-                onStreetChanged: { recvStreet.text = street }
+                street: settings.receiver.street.text
+                onStreetChanged: { settings.receiver.street.text = street }
 
-                zipCode: parseInt(recvZipCode.text)
-                onZipCodeChanged: { recvZipCode.text = zipCode }
+                zipCode: parseInt(settings.receiver.zipCode.text)
+                onZipCodeChanged: { settings.receiver.zipCode.text = zipCode }
 
-                place: recvPlace.text
-                onPlaceChanged: { recvPlace.text = place }
+                place: settings.receiver.place.text
+                onPlaceChanged: { settings.receiver.place.text = place }
 
-                country: recvCountry.text
-                onCountryChanged: { recvCountry.text = country }
+                country: settings.receiver.country.text
+                onCountryChanged: { settings.receiver.country.text = country }
 
-                usePoBox: recvUsePoBox.checked
-                onUsePoBoxChanged: { recvUsePoBox.checked = usePoBox }
+                usePoBox: settings.receiver.usePoBox.checked
+                onUsePoBoxChanged: { settings.receiver.usePoBox.checked = usePoBox }
             }
         }
 
@@ -139,50 +132,41 @@ InvoiceForm {
         vat: VatModel {
             id: vatModel
 
-            showVat: invoiceForm.showVat.checked
-            onShowVatChanged: { invoiceForm.showVat.checked = showVat }
+            showVat: settings.vat.show.checked
+            onShowVatChanged: { settings.vat.show.checked = showVat }
 
-            pricesInclVat: invoiceForm.pricesInclVat.checked
+            pricesInclVat: settings.vat.pricesInclVat.checked
             onPricesInclVatChanged: {
-                invoiceForm.pricesInclVat.checked = pricesInclVat
-                invoiceForm.pricesExclVat.checked = !pricesInclVat
+                settings.vat.pricesInclVat.checked = pricesInclVat
+                settings.vat.pricesExclVat.checked = !pricesInclVat
             }
 
-            vatNumber: invoiceForm.vatNumber.text
-            onVatNumberChanged: { invoiceForm.vatNumber.text = vatNumber }
+            vatNumber: settings.vat.number.text
+            onVatNumberChanged: { settings.vat.number.text = vatNumber }
 
             taxRate: 8.0
-            onTaxRateChanged: { invoiceForm.vatTaxRate.text = taxRate }
+            onTaxRateChanged: { settings.vat.taxRate.text = taxRate }
         }
 
-        textBeforePositions: invoiceForm.textBeforePositions.text
-        onTextBeforePositionsChanged: { invoiceForm.textBeforePositions.text = textBeforePositions }
+        textBeforePositions: settings.text.beforePositions.text
+        onTextBeforePositionsChanged: { settings.texts.beforePositions.text = textBeforePositions }
 
-        textAfterPositions: invoiceForm.textAfterPositions.text
-        onTextAfterPositionsChanged: { invoiceForm.textAfterPositions.text = textAfterPositions }
+        textAfterPositions: settings.text.afterPositions.text
+        onTextAfterPositionsChanged: { settings.texts.afterPositions.text = textAfterPositions }
     }
+
 
     /// \todo Change this to onEditingFinished but shomehow the current qt verion
     /// has trouble with it.
-    vatTaxRate.onTextChanged: {
-        var rate = parseFloat( vatTaxRate.text )
+    settings.vat.taxRate.onTextChanged: {
+        var rate = parseFloat( settings.vat.vatTaxRate.text )
         if( isNaN(rate) )
             invoiceModel.vat.taxRate = 0
         else
             invoiceModel.vat.taxRate = rate
     }
 
-    btnNewPos.onClicked: {
-        addPositionDialog.open()
-    }
 
-    btnModifyPos.onClicked: {
-        modifyPositionDialog.open( positions.getCurrentRow() )
-    }
-
-    btnDeletePos.onClicked: {
-        positionContainerModel.removeRow( positions.getCurrentRow() )
-    }
 
     MessageDialog {
         id: warningDialog
