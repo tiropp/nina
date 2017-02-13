@@ -62,12 +62,13 @@ Item {
         }
         Rectangle {
             id: contentsContainer
-            anchors.top: header.bottom
             width: parent.width
+            implicitHeight: placeholder.implicitHeight
             clip: true
 
             Item {
                 id: placeholder
+                implicitHeight: childrenRect.height
             }
         }
     }
