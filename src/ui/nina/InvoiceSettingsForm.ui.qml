@@ -7,7 +7,7 @@ Item {
     width:  300
     height: childrenRect.height
     property alias misc: misc
-    property alias font: font
+    property alias font: fonts
     property alias vat: vat
     property alias bank: bank
     property alias date: date
@@ -59,7 +59,7 @@ Item {
         AccordionItem {
             title: qsTr("Schriftgrösse")
             contents: InvoiceSettingsFont {
-                id: font
+                id: fonts
             }
         }
         AccordionItem {
