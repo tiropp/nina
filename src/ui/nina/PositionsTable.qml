@@ -33,7 +33,6 @@ Item {
                 // Will update all rowsm, s.t. the column conditions is correct for
                 // all of them
                 positionContainerModel.refresh()
-
             }
         }
 
