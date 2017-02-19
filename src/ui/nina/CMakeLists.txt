@@ -13,6 +13,7 @@ set(SOURCES
   filedialogbase.cpp
   fileopendialog.cpp
   vatmodel.cpp
+  miscmodel.cpp
   detail/conversion.cpp
   )
 qt5_add_resources(RESOURCES qml.qrc)

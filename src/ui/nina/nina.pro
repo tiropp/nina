@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     filedialogbase.cpp \
     fileopendialog.cpp \
     vatmodel.cpp \
-    detail/conversion.cpp
+    detail/conversion.cpp \
+    miscmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -84,7 +85,8 @@ HEADERS += \
     fileopendialog.h \
     vatmodel.h \
     detail/macros.h \
-    detail/conversion.h
+    detail/conversion.h \
+    miscmodel.h
 
 FORMS +=
 

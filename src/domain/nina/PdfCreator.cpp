@@ -105,7 +105,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         fs << "\\date {" << invoice.getDate().toString() << "}\n";
 
     // Title
-    fs << "\\subject {\\LARGE\\textbf{" << invoice.getTitle() << "}}\n"
+    fs << "\\subject {\\LARGE\\textbf{" << invoice.getMisc().getTitle() << "}}\n"
        << "\\renewcommand{\\signmsgnew}{}\n"
        << "\\renewcommand{\\yourmailmsg}{}\n"
        << "\\newcommand{\\thickhline}[1]{%\n"
@@ -224,8 +224,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
        << "\\selectfont\n";
 
     // Actual invoice
-    if( !invoice.getTextBeforePositions().empty() )
-        fs << invoice.getTextBeforePositions() << "\\\\\n\n";
+    if( !invoice.getMisc().getTextBeforePositions().empty() )
+        fs << invoice.getMisc().getTextBeforePositions() << "\\\\\n\n";
 
     fs << "\\newlength{\\beschwidth}\n"                 // definiere zuerst die Breite
        << "\\setlength{\\beschwidth}{0.6\\textwidth}\n" // des Besch-Feldes
@@ -315,8 +315,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
     }
     fs << "\\end{supertabular*}\n";
 
-    if( !invoice.getTextAfterPositions().empty() )
-        fs << "\\\\[.75cm]" << invoice.getTextAfterPositions() << "\\\\\n";
+    if( !invoice.getMisc().getTextAfterPositions().empty() )
+        fs << "\\\\[.75cm]" << invoice.getMisc().getTextAfterPositions() << "\\\\\n";
 
     fs << "\\\\[0.75cm]\n"
        << "\\center{\\large Danke f\"ur den Auftrag}\\flushleft\n"

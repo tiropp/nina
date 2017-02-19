@@ -10,9 +10,6 @@ InvoiceForm {
     InvoiceModel {
         id: invoiceModel
 
-        title: settings.misc.title.text
-        onTitleChanged: { settings.misc.title.text = title }
-
         settings: SettingsModel {
             isPhoneInBottomField: settings.sender.phoneInBottomLine.checked
             onIsPhoneInBottomFieldChanged: { settings.sender.phoneInBottomLine.checked = isPhoneInBottomField }
@@ -148,11 +145,18 @@ InvoiceForm {
             onTaxRateChanged: { settings.vat.taxRate.text = taxRate }
         }
 
-        textBeforePositions: settings.text.beforePositions.text
-        onTextBeforePositionsChanged: { settings.texts.beforePositions.text = textBeforePositions }
+        misc: MiscModel {
+            id: miscModel
 
-        textAfterPositions: settings.text.afterPositions.text
-        onTextAfterPositionsChanged: { settings.texts.afterPositions.text = textAfterPositions }
+            title: settings.misc.title.text
+            onTitleChanged: { settings.misc.title.text = title }
+
+            textBeforePositions: settings.texts.beforePositions.text
+            onTextBeforePositionsChanged: { settings.texts.beforePositions.text = textBeforePositions }
+
+            textAfterPositions: settings.texts.afterPositions.text
+            onTextAfterPositionsChanged: { settings.texts.afterPositions.text = textAfterPositions }
+        }
     }
 
 
