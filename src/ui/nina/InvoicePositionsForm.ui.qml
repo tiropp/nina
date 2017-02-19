@@ -8,6 +8,7 @@ Item {
     property alias btnDeletePos: btnDeletePos
     property alias btnModifyPos: btnModifyPos
     property alias btnNewPos: btnNewPos
+    property alias positions: positions
 
     PositionsTable {
         id: positions

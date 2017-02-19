@@ -9,7 +9,6 @@
         <file>PositionStandard.qml</file>
         <file>PositionStandardForm.ui.qml</file>
         <file>PositionsTable.qml</file>
-        <file>PositionsTableForm.ui.qml</file>
         <file>AddPositionDialog.qml</file>
         <file>ModifyPositionDialog.qml</file>
         <file>InvoiceSettingsForm.ui.qml</file>
@@ -37,5 +36,8 @@
         <file>Style.qml</file>
         <file>qmldir</file>
         <file>DefaultTextArea.qml</file>
+        <file>PositionsTableItem.qml</file>
+        <file>ColumnHelper.js</file>
+        <file>PositionsTableHeaderItem.qml</file>
     </qresource>
 </RCC>

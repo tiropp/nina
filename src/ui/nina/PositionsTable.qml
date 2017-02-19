@@ -1,15 +1,61 @@
 import QtQuick 2.4
+import QtQuick.Controls.Styles 1.0
+import "ColumnHelper.js" as ColumnHelper
 
-PositionsTableForm {
+
+Item {
+    width: 400
+    height: 400
+
     ModifyPositionDialog {
         id: modifyPositionDialog
     }
 
-    positions.onDoubleClicked: {
-        modifyPositionDialog.open( positions.__currentRow )
+    ListView {
+        id: positions
+        anchors.fill: parent
+        property variant columnWidths: ColumnHelper.calcColumnHeaderWidth(tabHeader, positions)
+        model: positionContainerModel
+        delegate: PositionsTableItem {}
+        header: tabHeader
+
+        Component {
+            id: tabHeader
+            PositionsTableHeaderItem {}
+        }
+
+        Connections {
+            target: positionContainerModel
+            onAppended: {
+                var widths = ColumnHelper.calcColumnWidths(positionContainerModel, positions)
+                positions.columnWidths = widths
+
+                // Will update all rowsm, s.t. the column conditions is correct for
+                // all of them
+                positionContainerModel.refresh()
+
+            }
+        }
+
+        highlight: Component {
+            Rectangle {
+            color:"lightsteelblue"
+            radius: 5
+            opacity: 0.7
+            }
+        }
+        focus: true
+
+        function modify(index) {
+            modifyPositionDialog.open( index )
+        }
     }
 
-    function getCurrentRow() {
-        return positions.__currentRow
+    function modifyCurrent() {
+        modifyPositionDialog.open( positions.currentIndex )
+    }
+
+    function removeCurrent() {
+        positionContainerModel.removeRow( positions.currentIndex )
     }
 }

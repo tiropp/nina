@@ -2,7 +2,7 @@
 #define POSITIONCONTAINERMODEL_H
 
 // Qt includes
-#include <QAbstractTableModel>
+#include <QAbstractListModel>
 #include <QVector>
 #include <QPointer>
 
@@ -14,7 +14,7 @@ class PositionModel;
 
 
 
-class PositionContainerModel: public QAbstractTableModel
+class PositionContainerModel: public QAbstractListModel
 {
     Q_OBJECT
 
@@ -55,20 +55,24 @@ class PositionContainerModel: public QAbstractTableModel
     Q_INVOKABLE bool setRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
     Q_INVOKABLE void removeRow(unsigned row);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void refresh();
 
 
-    /*****************************************************/
-    /*** QAbstractTableModel INTERFACE IMPLEMENTATIONS ***/
-    /*****************************************************/
+    /****************************************************/
+    /*** QAbstractListModel INTERFACE IMPLEMENTATIONS ***/
+    /****************************************************/
   public:
     virtual QHash<int, QByteArray> roleNames() const override;
-    virtual int columnCount(const QModelIndex& /*parent*/) const override { return 4; }
     virtual int rowCount(const QModelIndex& /*parnet*/) const { return m_positions.size(); }
     virtual QVariant data(const QModelIndex& index, int role) const override;
     virtual bool setData(const QModelIndex& index, const QVariant&  value, int role) override;
     virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
     virtual bool insertRows(int row, int count, const QModelIndex& parent) override;
     virtual bool removeRows(int row, int count, const QModelIndex& parent) override;
+
+
+  signals:
+    void appended();
 
   private:
     bool doSetRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);

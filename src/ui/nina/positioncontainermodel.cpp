@@ -6,7 +6,7 @@
 
 
 PositionContainerModel::PositionContainerModel(QObject *parent)
-    : QAbstractTableModel( parent )
+    : QAbstractListModel( parent )
 {
 }
 
@@ -71,7 +71,7 @@ PositionContainerModel::flags(const QModelIndex& index) const
     if( !index.isValid() )
         return Qt::ItemIsEnabled;
 
-    return QAbstractTableModel::flags(index) | Qt::ItemIsEnabled;
+    return QAbstractListModel::flags(index) | Qt::ItemIsEnabled;
 }
 
 bool
@@ -106,7 +106,9 @@ PositionContainerModel::append(const QString& description, const QString& unit, 
 {
     size_t idx = m_positions.size();
     insertRows(idx, 1, QModelIndex());
-    doSetRow(idx, description, unit, numUnits, pricePerUnit);
+    if( !doSetRow(idx, description, unit, numUnits, pricePerUnit) )
+        return;
+    emit appended();
 }
 
 PositionModel*
@@ -161,4 +163,11 @@ PositionContainerModel::set(const nina::domain::PositionContainer& positions)
                position.getNumUnits(),
                position.getPricePerUnit().toDouble()
             );
+}
+
+void
+PositionContainerModel::refresh()
+{
+    dataChanged(createIndex(0, 0),
+                createIndex(m_positions.size(), 0));
 }
