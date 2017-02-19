@@ -36,5 +36,6 @@
         <file>InvoicePositionsForm.ui.qml</file>
         <file>Style.qml</file>
         <file>qmldir</file>
+        <file>DefaultTextArea.qml</file>
     </qresource>
 </RCC>

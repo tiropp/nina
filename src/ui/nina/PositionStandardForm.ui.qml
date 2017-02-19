@@ -31,7 +31,7 @@ Item {
         text: qsTr("")
     }
 
-    TextArea {
+    DefaultTextArea {
         id: description
         x: 12
         y: 184

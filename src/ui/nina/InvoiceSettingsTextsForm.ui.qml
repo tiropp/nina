@@ -21,30 +21,20 @@ Item {
             id: labelTextBeforePositions
             text: qsTr("Text vor Positionen")
         }
-        TextArea {
+	DefaultTextArea {
             id: beforePositions
             width: parent.width
             height: 200
-            wrapMode: Text.WordWrap
-
-            background: Rectangle {
-                border.color: Style.bgBorderColor
-            }
         }
 
         Label {
             id: label1TextAfterPosition
             text: qsTr("Text nach Positionen")
         }
-        TextArea {
+        DefaultTextArea {
             id: afterPositions
             width: parent.width
             height: 200
-            wrapMode: Text.WordWrap
-
-            background: Rectangle {
-                border.color: Style.bgBorderColor
-            }
         }
     }
 }
