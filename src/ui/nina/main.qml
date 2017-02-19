@@ -43,6 +43,7 @@ ApplicationWindow {
     */
 
 
+
     menuBar: MenuBar {
         style: MenuBarStyle {
             background: Rectangle {
@@ -82,15 +83,34 @@ ApplicationWindow {
         }
     }
 
+
     Rectangle {
         color: "#ffffff"
         anchors.fill: parent
 
-        Invoice {
-            id: invoice
-            width: parent.widh - settings.width
+
+        Flickable {
+            id: scaleArea
+            anchors.fill: parent
+            transformOrigin: Item.TopLeft
+            contentHeight: height / scale
+            contentWidth:  width  / scale
+
+            Invoice {
+                id: invoice
+                anchors.fill: parent
+            }
         }
-   }
 
-
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.ControlModifier
+            onWheel: {
+                if( wheel.modifiers & Qt.ControlModifier ) {
+                    var change = wheel.angleDelta.y/120
+                    scaleArea.scale += change/10;
+                }
+            }
+        }
+    }
 }
