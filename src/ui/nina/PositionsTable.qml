@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import QtQuick.Controls.Styles 1.0
+import QtQuick.Controls 2.0
 import "ColumnHelper.js" as ColumnHelper
 
 
@@ -44,6 +44,8 @@ Item {
             }
         }
         focus: true
+
+        ScrollBar.vertical: ScrollBar {}
 
         function modify(index) {
             modifyPositionDialog.open( index )
