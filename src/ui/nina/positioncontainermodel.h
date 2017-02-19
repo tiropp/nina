@@ -36,7 +36,7 @@ class PositionContainerModel: public QAbstractListModel
     /******************/
   public:
     PositionContainerModel(QObject* parent = 0);
-
+    ~PositionContainerModel();
 
     /***************/
     /*** DOMAIN  ***/

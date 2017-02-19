@@ -29,6 +29,7 @@ class PositionModel: public QObject
         , m_numUnits( numUnits )
         , m_pricePerUnit( pricePerUnit )
     {}
+    ~PositionModel();
 
   public:
     nina::domain::Position createDomain() const;

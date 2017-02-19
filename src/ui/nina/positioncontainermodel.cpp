@@ -10,6 +10,10 @@ PositionContainerModel::PositionContainerModel(QObject *parent)
 {
 }
 
+PositionContainerModel::~PositionContainerModel()
+{
+}
+
 nina::domain::PositionContainer
 PositionContainerModel::createDomain() const
 {

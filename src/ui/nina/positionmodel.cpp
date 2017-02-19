@@ -6,6 +6,10 @@
 
 
 
+PositionModel::~PositionModel()
+{
+}
+
 nina::domain::Position
 PositionModel::createDomain() const
 {
