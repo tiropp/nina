@@ -3,7 +3,7 @@ import QtQuick 2.5
 
 Item {
     id: root
-    width: parent.width
+    width: 300
     height: header.height + contentsContainer.height
     property string title
     property int headerHeight: 30
@@ -69,6 +69,7 @@ Item {
             Item {
                 id: placeholder
                 height: childrenRect.height
+                width: parent.width
                 onHeightChanged: {
                     updateHeight()
                 }

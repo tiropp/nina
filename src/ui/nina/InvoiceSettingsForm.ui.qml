@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.1
 
 
 Item {
-    width: 400
-    height: 400
+    width:  300
+    height: childrenRect.height
     property alias misc: misc
     property alias font: font
     property alias vat: vat
@@ -33,6 +33,7 @@ Item {
         }
         AccordionItem {
             title: qsTr("Texte")
+            width: parent.width
             contents: InvoiceSettingsTexts {
                 id: texts
             }

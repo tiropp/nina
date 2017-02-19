@@ -5,13 +5,18 @@ import "."
 
 
 Item {
-    width: 400
+    width: 300
     height: childrenRect.height
     property alias afterPositions: afterPositions
     property alias beforePositions: beforePositions
 
     Column {
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
         width: parent.width
+
         Label {
             id: labelTextBeforePositions
             text: qsTr("Text vor Positionen")
