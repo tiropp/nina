@@ -1,5 +1,8 @@
 #include "positioncontainermodel.h"
 
+// Qt includes
+#include <QQmlEngine>
+
 // Nina includes
 #include <positionmodel.h>
 
@@ -118,7 +121,17 @@ PositionContainerModel::append(const QString& description, const QString& unit, 
 PositionModel*
 PositionContainerModel::getRow(unsigned row) const
 {
-    return m_positions.at( row );
+    position_model_ptr r = m_positions.at( row );
+
+    // We need to tell the "system" that this pointer is owned by this class,
+    // otherwise js may take ownership and at some point may delete it.
+    //
+    // See [1] for why this is needed in this particular case
+    //
+    // [1] http://doc.qt.io/qt-5/qqmlengine.html#ObjectOwnership-enum
+    QQmlEngine::setObjectOwnership(r, QQmlEngine::CppOwnership);
+
+    return r;
 }
 
 bool
