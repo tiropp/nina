@@ -11,7 +11,7 @@ Item {
     property alias vat: vat
     property alias bank: bank
     property alias date: date
-    property alias text: text
+    property alias texts: texts
     property alias receiver: receiver
     property alias sender: sender
 
@@ -34,7 +34,7 @@ Item {
         AccordionItem {
             title: qsTr("Texte")
             contents: InvoiceSettingsTexts {
-                id: text
+                id: texts
             }
         }
         AccordionItem {
