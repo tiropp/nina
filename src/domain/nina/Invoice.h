@@ -3,6 +3,8 @@
 
 // BOOST includes
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/split_member.hpp>
+#include <boost/serialization/version.hpp>
 
 // Nina includes
 #include <nina/Settings.h>
@@ -66,7 +68,32 @@ class Invoice
     /*********************/
   private:
     friend class boost::serialization::access;
-    template<class Archive> void serialize(Archive& ar, const unsigned /*version*/) {
+    template<class Archive> void load(Archive& ar, const unsigned int version) {
+        if( version == 0 )
+            loadVersion0(ar);
+        else
+            loadVersion1(ar);
+    }
+    template<class Archive> void loadVersion0(Archive& ar) {
+        std::string m_title;
+        std::string m_textBeforePositions;
+        std::string m_textAfterPositions;
+        NINA_SERIALIZE(ar, title);
+        NINA_SERIALIZE(ar, settings);
+        NINA_SERIALIZE(ar, date);
+        NINA_SERIALIZE(ar, sender);
+        NINA_SERIALIZE(ar, receiver);
+        NINA_SERIALIZE(ar, positions);
+        NINA_SERIALIZE(ar, vat);
+        NINA_SERIALIZE(ar, textBeforePositions);
+        NINA_SERIALIZE(ar, textAfterPositions);
+
+        m_misc.setTitle( m_title );
+        m_misc.setTextBeforePositions( m_textBeforePositions );
+        m_misc.setTextAfterPositions ( m_textAfterPositions );
+
+    }
+    template<class Archive> void loadVersion1(Archive& ar) {
         NINA_SERIALIZE(ar, settings);
         NINA_SERIALIZE(ar, date);
         NINA_SERIALIZE(ar, sender);
@@ -75,7 +102,17 @@ class Invoice
         NINA_SERIALIZE(ar, vat);
         NINA_SERIALIZE(ar, misc);
     }
-    
+    template<class Archive> void save(Archive& ar, const unsigned int /*version*/) const {
+        NINA_SERIALIZE(ar, settings);
+        NINA_SERIALIZE(ar, date);
+        NINA_SERIALIZE(ar, sender);
+        NINA_SERIALIZE(ar, receiver);
+        NINA_SERIALIZE(ar, positions);
+        NINA_SERIALIZE(ar, vat);
+        NINA_SERIALIZE(ar, misc);
+    }
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
 
     /***************/
     /*** MEMBERS ***/
@@ -90,7 +127,14 @@ class Invoice
     Misc m_misc;
 };
 
+
 } // End namespace domain
 } // End namespace nina
+
+
+// The current version used in the format
+BOOST_CLASS_VERSION(nina::domain::Invoice, 1)
+
+
 
 #endif  // NINA_DOMAIN_INVOICE_H
