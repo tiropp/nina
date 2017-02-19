@@ -23,9 +23,6 @@ Item {
 
     Grid {
         id: grid
-        y: 0
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
         anchors {
             left: parent.left
             right: parent.right
