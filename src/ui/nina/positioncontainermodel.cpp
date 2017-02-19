@@ -14,7 +14,7 @@ nina::domain::PositionContainer
 PositionContainerModel::createDomain() const
 {
     nina::domain::PositionContainer c;
-    Q_FOREACH(const QPointer<PositionModel>& p, m_positions)
+    Q_FOREACH(const auto& p, m_positions)
         c.add( p->createDomain() );
     return c;
 }
