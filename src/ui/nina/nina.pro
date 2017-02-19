@@ -2,6 +2,16 @@ QT += qml quick widgets
 
 CONFIG += c++11 qtquickcompiler
 
+
+CONFIG(debug, debug|release) {
+    CONFIG -= debug release
+    CONFIG += debug
+}
+CONFIG(release, debug|release) {
+    CONFIG -= debug release
+    CONFIG += release
+}
+
 SOURCES += main.cpp \
     invoicemodel.cpp \
     sendermodel.cpp \
@@ -31,14 +41,14 @@ INCLUDEPATH += $$PWD/../../domain
 
 ## Additional librarires
 linux {
-    CONFIG(debug):   LIBS += -L$$PWD/../../domain/_build/linux/debug/nina
-    CONFIG(release): LIBS += -L$$PWD/../../domain/_build/linux/release/nina
+    debug:   LIBS += -L$$PWD/../../../_build/linux/debug/src/domain/nina
+    release: LIBS += -L$$PWD/../../../_build/linux/release/src/domain/nina
     LIBS += -lnina_domain
     LIBS += -lboost_system -lboost_filesystem -lboost_serialization
 }
 win32 {
-    CONFIG(debug):   LIBS += -L$$PWD/../../domain/_build/windows/debug/nina
-    CONFIG(release): LIBS += -L$$PWD/../../domain/_build/windows/release/nina
+    debug:   LIBS += -L$$PWD/../../../_build/windows_shared/debug/src/domain/nina
+    release: LIBS += -L$$PWD/../../../_build/windows_shared/release/src/domain/nina
     LIBS += -lnina_domain
     LIBS += -lboost_system-mt -lboost_filesystem-mt -lboost_serialization-mt
 }
