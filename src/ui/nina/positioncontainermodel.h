@@ -78,7 +78,10 @@ class PositionContainerModel: public QAbstractListModel
     bool doSetRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
 
   private:
-    QVector<QPointer<PositionModel>> m_positions;
+    typedef QPointer<PositionModel> position_model_ptr;
+
+  private:
+    QVector<position_model_ptr> m_positions;
 };
 
 #endif // POSITIONCONTAINERMODEL_H
