@@ -85,6 +85,9 @@ class InvoiceModel: public QObject
     void vatChanged();
     void miscChanged();
 
+    /// \brief Signal raised if there is an error
+    void error(const QString& message);
+
   private:
     QPointer<SettingsModel> m_settings;
     QPointer<DateModel> m_date;

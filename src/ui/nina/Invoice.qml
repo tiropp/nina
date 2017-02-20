@@ -157,6 +157,10 @@ InvoiceForm {
             textAfterPositions: settings.texts.afterPositions.text
             onTextAfterPositionsChanged: { settings.texts.afterPositions.text = textAfterPositions }
         }
+
+        onError: {
+            showWarningDialog("Error", message)
+        }
     }
 
 
@@ -169,7 +173,6 @@ InvoiceForm {
         else
             invoiceModel.vat.taxRate = rate
     }
-
 
     MessageDialog {
         id: warningDialog
