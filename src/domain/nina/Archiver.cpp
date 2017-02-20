@@ -77,7 +77,7 @@ Archiver::load(const std::string& filename)
 void
 Archiver::saveDefaultSettings(const DefaultSettings& settings)
 {
-    domain::save(settings, "settings", getDefaultSettingsFilename().native());
+    domain::save(settings, "settings", getDefaultSettingsFilename().string());
 }
 
 DefaultSettings
@@ -87,7 +87,7 @@ Archiver::loadDefaultSettings()
     if( !bfs::exists(filename) )
         return DefaultSettings();
 
-    return domain::load<DefaultSettings>("settings", filename.native());
+    return domain::load<DefaultSettings>("settings", filename.string());
 }
 
 } // End namespace domain
