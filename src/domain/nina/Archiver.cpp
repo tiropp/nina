@@ -2,7 +2,11 @@
 
 // STL includes
 #include <fstream>
-#include <iostream>
+
+// System includes
+#if defined(_WIN32)
+# include <shlobj.h>
+#endif
 
 // BOOST includes
 #include <boost/archive/xml_oarchive.hpp>
@@ -49,14 +53,14 @@ load(const std::string& objName, const std::string& filename)
 bfs::path
 getDefaultSettingsFilename()
 {
-  #if defined(WIN32)
-    const char* homeEnv = "APPDATA";
+  #if defined(_WIN32)
+    char homeDir[MAX_PATH];
+    if( FAILED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, homeDir)) )
+        throw NoHomeDir();
   #else
     const char* homeEnv = "HOME";
-  #endif
     char* homeDir = getenv( homeEnv );
-    if( !homeDir )
-        throw NoHomeDir();
+  #endif
     bfs::path ninaDir = bfs::path( homeDir ) / ".nina";
     bfs::create_directory( ninaDir );
     return ninaDir / "settings";
