@@ -210,4 +210,9 @@ InvoiceForm {
     function open() {
         fileOpenDialog.open()
     }
+
+
+    Component.onCompleted: {
+        invoiceModel.loadDefaultSettings()
+    }
 }

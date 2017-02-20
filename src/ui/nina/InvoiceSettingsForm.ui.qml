@@ -68,5 +68,11 @@ Item {
                 id: misc
             }
         }
+        AccordionItem {
+            title: qsTr("Speichern")
+            contents: InvoiceSettingsSave {
+                id: save
+            }
+        }
     }
 }

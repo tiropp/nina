@@ -50,6 +50,13 @@ class InvoiceModel: public QObject
     /// \brief Load information from file
     Q_INVOKABLE void load(const QString& filename);
 
+    /// \brief Store current settings as default
+    Q_INVOKABLE void saveDefaultSettings();
+
+    /// \brief Load default settings if available
+    Q_INVOKABLE void loadDefaultSettings();
+
+
   public:
     SettingsModel* settings() const { return m_settings; }
     DateModel* date() const { return m_date; }

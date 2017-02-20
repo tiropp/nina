@@ -6,6 +6,7 @@
 
 // Nina domain includes
 #include <nina/Archiver.h>
+#include <nina/DefaultSettings.h>
 
 // Nina includes
 #include <detail/macros.h>
@@ -64,6 +65,27 @@ InvoiceModel::load(const QString& filename)
     nina::domain::Invoice invoice = nina::domain::Archiver::load( toString(filename) );
 
     set( invoice );
+}
+
+void
+InvoiceModel::saveDefaultSettings()
+{
+    nina::domain::Invoice invoice = createDomain();
+    nina::domain::DefaultSettings ds(invoice.getSettings(),
+                                     invoice.getSender(),
+                                     invoice.getVat(),
+                                     invoice.getMisc());
+    nina::domain::Archiver::saveDefaultSettings( ds );
+}
+
+void
+InvoiceModel::loadDefaultSettings()
+{
+    nina::domain::DefaultSettings ds = nina::domain::Archiver::loadDefaultSettings();
+    m_settings->set( ds.getSettings() );
+    m_sender  ->set( ds.getSender() );
+    m_vat     ->set( ds.getVat() );
+    m_misc    ->set( ds.getMisc() );
 }
 
 void

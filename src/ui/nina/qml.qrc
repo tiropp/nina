@@ -40,5 +40,7 @@
         <file>ColumnHelper.js</file>
         <file>PositionsTableHeaderItem.qml</file>
         <file>InsertPositionDialog.qml</file>
+        <file>InvoiceSettingsSave.qml</file>
+        <file>InvoiceSettingsSaveForm.ui.qml</file>
     </qresource>
 </RCC>
