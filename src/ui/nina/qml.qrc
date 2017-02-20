@@ -39,5 +39,6 @@
         <file>PositionsTableItem.qml</file>
         <file>ColumnHelper.js</file>
         <file>PositionsTableHeaderItem.qml</file>
+        <file>InsertPositionDialog.qml</file>
     </qresource>
 </RCC>

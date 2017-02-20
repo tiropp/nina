@@ -112,8 +112,14 @@ void
 PositionContainerModel::append(const QString& description, const QString& unit, double numUnits, double pricePerUnit)
 {
     size_t idx = m_positions.size();
-    insertRows(idx, 1, QModelIndex());
-    if( !doSetRow(idx, description, unit, numUnits, pricePerUnit) )
+    insert(idx, description, unit, numUnits, pricePerUnit);
+}
+
+void
+PositionContainerModel::insert(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit)
+{
+    insertRows(row, 1, QModelIndex());
+    if( !doSetRow(row, description, unit, numUnits, pricePerUnit) )
         return;
     emit appended();
 }

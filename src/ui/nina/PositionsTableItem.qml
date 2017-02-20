@@ -103,11 +103,11 @@ Component {
                 }
                 MenuItem {
                     text: qsTr("Einfühgen vor Zeile")
-                    onTriggered: console.debug("NOT IMPL")
+                    onTriggered: positions.insert( index )
                 }
                 MenuItem {
                     text: qsTr("Einfühgen nach Zeile")
-                    onTriggered: console.debug("NOT IMPL")
+                    onTriggered: positions.insert( index+1 )
                 }
             }
         }

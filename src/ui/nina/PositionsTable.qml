@@ -10,6 +10,9 @@ Item {
     ModifyPositionDialog {
         id: modifyPositionDialog
     }
+    InsertPositionDialog {
+        id: insertPositionDialog
+    }
 
     ListView {
         id: positions
@@ -52,6 +55,9 @@ Item {
         }
         function remove(index) {
             positionContainerModel.removeRow( index )
+        }
+        function insert(index) {
+            insertPositionDialog.open( index )
         }
     }
 

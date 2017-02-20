@@ -51,6 +51,7 @@ class PositionContainerModel: public QAbstractListModel
     /******************/
   public:
     Q_INVOKABLE void append(const QString& description, const QString& unit, double numUnits, double pricePerUnit);
+    Q_INVOKABLE void insert(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
     Q_INVOKABLE PositionModel* getRow(unsigned row) const;
     Q_INVOKABLE bool setRow(unsigned row, const QString& description, const QString& unit, double numUnits, double pricePerUnit);
     Q_INVOKABLE void removeRow(unsigned row);
