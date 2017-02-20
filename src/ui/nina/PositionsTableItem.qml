@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 
 
@@ -78,6 +79,36 @@ Component {
             }
             onDoubleClicked: {
                 positions.modify( index )
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.RightButton
+            onClicked: {
+                positions.currentIndex = index
+                menu.open()
+            }
+
+            Menu {
+                id: menu
+
+                MenuItem {
+                    text: qsTr("Entfernen")
+                    onTriggered: positions.remove( index )
+                }
+                MenuItem {
+                    text: qsTr("Ändern")
+                    onTriggered: positions.modify( index )
+                }
+                MenuItem {
+                    text: qsTr("Einfühgen vor Zeile")
+                    onTriggered: console.debug("NOT IMPL")
+                }
+                MenuItem {
+                    text: qsTr("Einfühgen nach Zeile")
+                    onTriggered: console.debug("NOT IMPL")
+                }
             }
         }
     }

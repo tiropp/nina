@@ -50,6 +50,9 @@ Item {
         function modify(index) {
             modifyPositionDialog.open( index )
         }
+        function remove(index) {
+            positionContainerModel.removeRow( index )
+        }
     }
 
     function modifyCurrent() {
