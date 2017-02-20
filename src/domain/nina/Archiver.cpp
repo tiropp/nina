@@ -2,6 +2,7 @@
 
 // STL includes
 #include <fstream>
+#include <iostream>
 
 // BOOST includes
 #include <boost/archive/xml_oarchive.hpp>
@@ -49,11 +50,14 @@ bfs::path
 getDefaultSettingsFilename()
 {
   #if defined(WIN32)
-    const char* baseDir = "APPDATA";
+    const char* homeEnv = "APPDATA";
   #else
-    const char* baseDir = "HOME";
+    const char* homeEnv = "HOME";
   #endif
-    bfs::path ninaDir = bfs::path( getenv(baseDir) ) / ".nina";
+    char* homeDir = getenv( homeEnv );
+    if( !homeDir )
+        throw NoHomeDir();
+    bfs::path ninaDir = bfs::path( homeDir ) / ".nina";
     bfs::create_directory( ninaDir );
     return ninaDir / "settings";
 }

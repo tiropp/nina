@@ -7,6 +7,7 @@
 // Nina domain includes
 #include <nina/Archiver.h>
 #include <nina/DefaultSettings.h>
+#include <nina/Exception.h>
 
 // Nina includes
 #include <detail/macros.h>
@@ -81,11 +82,16 @@ InvoiceModel::saveDefaultSettings()
 void
 InvoiceModel::loadDefaultSettings()
 {
-    nina::domain::DefaultSettings ds = nina::domain::Archiver::loadDefaultSettings();
-    m_settings->set( ds.getSettings() );
-    m_sender  ->set( ds.getSender() );
-    m_vat     ->set( ds.getVat() );
-    m_misc    ->set( ds.getMisc() );
+    try {
+        nina::domain::DefaultSettings ds = nina::domain::Archiver::loadDefaultSettings();
+        m_settings->set( ds.getSettings() );
+        m_sender  ->set( ds.getSender() );
+        m_vat     ->set( ds.getVat() );
+        m_misc    ->set( ds.getMisc() );
+    }
+    catch(nina::domain::Exception& e) {
+        emit error( e.what() );
+    }
 }
 
 void
@@ -107,3 +113,4 @@ NINA_SETPROPERTY(InvoiceModel, setReceiver,  ReceiverModel*,          receiver)
 NINA_SETPROPERTY(InvoiceModel, setPositions, PositionContainerModel*, positions)
 NINA_SETPROPERTY(InvoiceModel, setVat,       VatModel*,               vat)
 NINA_SETPROPERTY(InvoiceModel, setMisc,      MiscModel*,              misc)
+

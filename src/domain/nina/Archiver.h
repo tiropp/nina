@@ -28,9 +28,13 @@ class Archiver
 
     /// \brief Store default settings contained in \a invoice to default
     /// location
+    ///
+    /// Throws exception if home directory cannot be found
     static void saveDefaultSettings(const DefaultSettings& settings);
 
     /// \brief Loads the default settings from default location
+    ///
+    /// Throws exception if home directory cannot be found
     static DefaultSettings loadDefaultSettings();
 };
 

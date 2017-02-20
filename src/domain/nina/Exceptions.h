@@ -17,6 +17,14 @@ class SaveFailed: public Exception
     {}
 };
 
+class NoHomeDir: public Exception
+{
+  public:
+    NoHomeDir()
+        : Exception("Cannot find home directory")
+    {}
+};
+
 } // End namespace domain
 } // End namespace nina
 
