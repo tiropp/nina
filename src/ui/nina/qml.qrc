@@ -42,5 +42,6 @@
         <file>InsertPositionDialog.qml</file>
         <file>InvoiceSettingsSave.qml</file>
         <file>InvoiceSettingsSaveForm.ui.qml</file>
+        <file>ScaleArea.qml</file>
     </qresource>
 </RCC>
