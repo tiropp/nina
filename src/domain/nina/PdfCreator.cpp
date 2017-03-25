@@ -286,7 +286,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         else if( pos.isFlatPrice() )
             fs << " & & & " << pos.getPrice().toString(0.01) << "\\\\\n";
         else
-            fs << " & " << pos.getNumUnits() << " " << pos.getUnit() << " & " << pos.getPricePerUnit().toString(0.01) << " & " << pos.getPrice().toString(0.01) << "\\\\\n";
+            fs << " & " << pos.getNumUnits() << " " << latex::escape(pos.getUnit()) << " & " << pos.getPricePerUnit().toString(0.01) << " & " << pos.getPrice().toString(0.01) << "\\\\\n";
     }
 
 

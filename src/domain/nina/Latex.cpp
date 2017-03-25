@@ -17,6 +17,14 @@ escape(std::string& string)
     boost::replace_all(string, "&", "\\&");
 }
 
+std::string
+escape(const std::string& input)
+{
+    std::string result( input );
+    escape(result);
+    return result;
+}
+
 
 } // End namespace latex
 } // End namespace domain

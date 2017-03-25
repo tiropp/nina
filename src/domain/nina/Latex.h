@@ -11,9 +11,11 @@ namespace domain {
 namespace latex {
 
 
-/// \brief Latex escape string \a string and return it
+/// \brief Latex escape string \a string in place
 void escape(std::string& string);
 
+/// \brief Latex escape string \a input and return it
+std::string escape(const std::string& input);
 
 } // End namespace latex
 } // End namespace domain
