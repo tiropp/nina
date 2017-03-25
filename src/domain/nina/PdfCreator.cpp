@@ -11,6 +11,7 @@
 // Nina includes
 #include <nina/Invoice.h>
 #include <nina/BottomField.h>
+#include <nina/Latex.h>
 
 // Namespace aliases
 namespace fs = boost::filesystem;
@@ -267,7 +268,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
             else {
                 std::string descr = description.substr(k);
                 boost::trim(descr);
-                boost::replace_all(descr, "\n", "\\\\");
+                latex::escape( descr );
                 fs << "\\begin{minipage}{\\beschtmpwidth}"
                    << descr
                    << "\\end{minipage}";

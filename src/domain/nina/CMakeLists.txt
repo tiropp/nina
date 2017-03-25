@@ -8,6 +8,7 @@ SET(SOURCES
   Vat.cpp
   BottomField.cpp
   Money.cpp
+  Latex.cpp
   )
 add_library(nina_domain ${SOURCES})
 target_include_directories(nina_domain
