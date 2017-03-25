@@ -2,6 +2,7 @@
 
 // Qt includes
 #include <QFileDialog>
+#include <QDir>
 
 
 
@@ -12,7 +13,12 @@ FileSaveDialog::FileSaveDialog()
 void
 FileSaveDialog::open()
 {
-    QString fileUrl = QFileDialog::getSaveFileName(NULL, title(), folder(), getNameFiltersString());
+    QString fileUrl = QFileDialog::getSaveFileName(
+        NULL,
+        title(),
+        QDir::home().path(),
+        getNameFiltersString()
+        );
     if( fileUrl.isEmpty() )
         emit rejected();
     else {
