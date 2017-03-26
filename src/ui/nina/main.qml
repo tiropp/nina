@@ -88,6 +88,11 @@ ApplicationWindow {
         color: "#ffffff"
         anchors.fill: parent
 
+        Invoice {
+            id: invoice
+            anchors.fill: parent
+        }
+
         ScaleArea {
             anchors.fill: parent
         }

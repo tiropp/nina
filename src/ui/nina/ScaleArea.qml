@@ -7,11 +7,6 @@ Item {
          transformOrigin: Item.TopLeft
          contentHeight: height / scale
          contentWidth:  width  / scale
-
-         Invoice {
-             id: invoice
-             anchors.fill: parent
-         }
      }
 
      MouseArea {
