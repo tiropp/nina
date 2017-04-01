@@ -96,11 +96,10 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
        << "\\usepackage[ngerman]{babel}\n"
        << "\\usepackage{a4wide}\n"
        << "\\usepackage{units}\n"
-       << "\\usepackage{supertabular}\n"
-       << "\\usepackage{" << kRComName << "}\n"
-       << "\\usepackage{makecell}\n"
        << "\\setlength{\\textheight}{25cm}\n"
-       << "\\pagestyle{empty}\n";
+       << "\\pagestyle{empty}\n"
+       << "\\usepackage{supertabular}\n"
+       << "\\usepackage{" << kRComName << "}\n";
 
     // Date
     if( !invoice.getDate().useToday() )
@@ -269,8 +268,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
             else {
                 std::string descr = description.substr(k);
                 boost::trim(descr);
-                latex::escape( descr );
-                fs << "\\makecell[tl]{" << descr << "}";
+                latex::escapeTableContents( descr );
+                fs << descr;
                 if( posIndex < invoice.getPositions().getSize() - 1 )                          // nach jedem Posten einen Abst. von
                     fs << "\\vspace{" << invoice.getSettings().getPositionSkip() << "pt}";  // der Grösse posskip einfügen,
                                                                                               // nicht nach letzten

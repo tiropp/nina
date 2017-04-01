@@ -26,6 +26,14 @@ escape(const std::string& input)
     return result;
 }
 
+void
+escapeTableContents(std::string& string)
+{
+    boost::replace_all(string, "\n", "\\newline ");
+    boost::replace_all(string, "&", "\\&");
+    boost::replace_all(string, "%", "\\%");
+}
+
 } // End namespace latex
 } // End namespace domain
 } // End namespace nina
