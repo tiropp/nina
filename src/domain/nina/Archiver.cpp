@@ -2,6 +2,7 @@
 
 // STL includes
 #include <fstream>
+#include <codecvt>
 
 // System includes
 #if defined(_WIN32)
@@ -12,6 +13,9 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/filesystem.hpp>
+#if defined(_WIN32)
+# include <boost/locale.hpp>
+#endif
 
 // Nina domain includes
 #include <nina/Invoice.h>
@@ -20,7 +24,23 @@
 
 // Namespace aliases
 namespace bfs = boost::filesystem;
+namespace blc = boost::locale;
 
+
+namespace {
+
+bfs::path
+convertToPath(const std::string& path)
+{
+#if defined(_WIN32)
+    std::wstring pathUtf16 = blc::conv::to_utf<wchar_t>(path, "UTF-8");
+    return bfs::path( pathUtf16 );
+#else
+    return bfs::path( path );
+#endif
+}
+
+} // End unnamed namespace
 
 
 namespace nina {
@@ -34,7 +54,7 @@ template<class T>
 void
 save(const T& t, const std::string& objName, const std::string& filename)
 {
-    std::ofstream ofs( filename );
+    bfs::ofstream ofs( convertToPath(filename) );
     boost::archive::xml_oarchive oa( ofs );
     oa << boost::serialization::make_nvp(objName.c_str(), t);
 }
@@ -43,7 +63,7 @@ template<class T>
 T
 load(const std::string& objName, const std::string& filename)
 {
-    std::ifstream ifs( filename );
+    bfs::ifstream ifs( convertToPath(filename) );
     boost::archive::xml_iarchive ia( ifs );
     T t;
     ia >> boost::serialization::make_nvp(objName.c_str(), t);

@@ -81,10 +81,12 @@ if( WIN32 )
   find_library(boost_filesystem_dll     boost_filesystem-mt)
   find_library(boost_serialization_dll  boost_serialization-mt)
   find_library(boost_system_dll         boost_system-mt)
+  find_library(boost_locale_dll         boost_locale-mt)
   install(FILES
     ${boost_filesystem_dll}
     ${boost_serialization_dll}
     ${boost_system_dll}
+    ${boost_locale_dll}
     DESTINATION .
     )
 
