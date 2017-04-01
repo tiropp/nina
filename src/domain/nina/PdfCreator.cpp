@@ -268,10 +268,8 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
             else {
                 std::string descr = description.substr(k);
                 boost::trim(descr);
-                latex::escape( descr );
-                fs << "\\begin{minipage}{\\beschtmpwidth}"
-                   << descr
-                   << "\\end{minipage}";
+                latex::escapeTableContents( descr );
+                fs << descr;
                 if( posIndex < invoice.getPositions().getSize() - 1 )                          // nach jedem Posten einen Abst. von
                     fs << "\\vspace{" << invoice.getSettings().getPositionSkip() << "pt}";  // der Grösse posskip einfügen,
                                                                                               // nicht nach letzten
