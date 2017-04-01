@@ -9,8 +9,8 @@
         <file>PositionStandard.qml</file>
         <file>PositionStandardForm.ui.qml</file>
         <file>PositionsTable.qml</file>
-        <file>AddPositionDialog.qml</file>
-        <file>ModifyPositionDialog.qml</file>
+        <file>PositionDialogAdd.qml</file>
+        <file>PositionDialogModify.qml</file>
         <file>InvoiceSettingsForm.ui.qml</file>
         <file>InvoiceSettings.qml</file>
         <file>AccordionItem.qml</file>
@@ -39,7 +39,7 @@
         <file>PositionsTableItem.qml</file>
         <file>ColumnHelper.js</file>
         <file>PositionsTableHeaderItem.qml</file>
-        <file>InsertPositionDialog.qml</file>
+        <file>PositionDialogInsert.qml</file>
         <file>InvoiceSettingsSave.qml</file>
         <file>InvoiceSettingsSaveForm.ui.qml</file>
         <file>ScaleArea.qml</file>

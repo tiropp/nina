@@ -7,10 +7,10 @@ Item {
     width: 400
     height: 400
 
-    ModifyPositionDialog {
+    PositionDialogModify {
         id: modifyPositionDialog
     }
-    InsertPositionDialog {
+    PositionDialogInsert {
         id: insertPositionDialog
     }
 

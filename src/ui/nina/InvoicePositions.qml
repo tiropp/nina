@@ -1,7 +1,7 @@
 import QtQuick 2.4
 
 InvoicePositionsForm {
-    AddPositionDialog {
+    PositionDialogAdd {
         id: addPositionDialog
     }
 
