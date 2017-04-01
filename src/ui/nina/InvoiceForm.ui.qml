@@ -9,7 +9,6 @@ Item {
     height: 600
     property alias positions: positions
     property alias settings: settings
-    anchors.fill: parent
 
 
     SplitView {
