@@ -2,7 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 2.0
 
 Item {
-    id: item1
+    id: root
     width: 500
     height: 400
     property alias pricePerUnit: pricePerUnit
@@ -35,7 +35,7 @@ Item {
         id: description
         x: 12
         y: 184
-        height: 212
+        height: root.height - 190
         text: qsTr("")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10

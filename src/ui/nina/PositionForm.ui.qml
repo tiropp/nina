@@ -9,39 +9,42 @@ Item {
     property alias btnOK: btnOK
     property alias standard: standard
 
-    ColumnLayout {
-        id: columnLayout
+    ScaleArea {
         anchors.fill: parent
+        contentItem: ColumnLayout {
+            id: columnLayout
 
-        PositionStandard {
-            id: standard
-        }
-
-        ToolBar {
-            id: toolBar
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-
-            Button {
-                id: btnOK
-                x: 380
-                y: 0
-                text: qsTr("OK")
-                anchors.right: parent.right
-                anchors.rightMargin: 0
+            PositionStandard {
+                anchors.fill: parent
+                id: standard
             }
 
-            Button {
-                id: btnCancel
-                x: 274
-                y: 0
-                text: qsTr("Abbrechen")
+            ToolBar {
+                id: toolBar
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+                anchors.left: parent.left
+                anchors.leftMargin: 10
                 anchors.right: parent.right
-                anchors.rightMargin: 106
+                anchors.rightMargin: 10
+
+                Button {
+                    id: btnOK
+                    x: 380
+                    y: 0
+                    text: qsTr("OK")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                }
+
+                Button {
+                    id: btnCancel
+                    x: 274
+                    y: 0
+                    text: qsTr("Abbrechen")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 106
+                }
             }
         }
     }
