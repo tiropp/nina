@@ -24,7 +24,9 @@
 
 // Namespace aliases
 namespace bfs = boost::filesystem;
+#if defined(_WIN32)
 namespace blc = boost::locale;
+#endif
 
 
 namespace {
