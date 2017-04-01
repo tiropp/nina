@@ -41,6 +41,13 @@ if( WIN32 )
   install(TARGETS nina
     DESTINATION .
     )
+
+  ## Suffix for QT libraries
+  if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
+    set(dll_suffix "d")
+  else()
+    set(dll_suffix "")
+  endif()
   
   ## Install Qt libraries
   get_property(qt5_core_dll TARGET Qt5::Core PROPERTY LOCATION)
@@ -48,21 +55,21 @@ if( WIN32 )
   set(qt5_dir "${qt5_bin_dir}/..")
   
   install(FILES
-    ${qt5_bin_dir}/Qt5Core.dll
-    ${qt5_bin_dir}/Qt5Network.dll
-    ${qt5_bin_dir}/Qt5Qml.dll
-    ${qt5_bin_dir}/Qt5Gui.dll
-    ${qt5_bin_dir}/Qt5Quick.dll
-    ${qt5_bin_dir}/Qt5QuickControls2.dll
-    ${qt5_bin_dir}/Qt5QuickTemplates2.dll
-    ${qt5_bin_dir}/Qt5Svg.dll
-    ${qt5_bin_dir}/Qt5Widgets.dll
+    ${qt5_bin_dir}/Qt5Core${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Network${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Qml${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Gui${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Quick${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5QuickControls2${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5QuickTemplates2${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Svg${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5Widgets${dll_suffix}.dll
     DESTINATION .
     )
 
   ## Install Qt platform plugin
   install(FILES
-    ${qt5_dir}/plugins/platforms/qwindows.dll
+    ${qt5_dir}/plugins/platforms/qwindows${dll_suffix}.dll
     DESTINATION platforms
     )
 
