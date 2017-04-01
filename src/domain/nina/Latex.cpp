@@ -15,6 +15,7 @@ escape(std::string& string)
 {
     boost::replace_all(string, "\n", "\\\\");
     boost::replace_all(string, "&", "\\&");
+    boost::replace_all(string, "%", "\\%");
 }
 
 std::string
@@ -30,6 +31,7 @@ escapeTableContents(std::string& string)
 {
     boost::replace_all(string, "\n", "\\newline ");
     boost::replace_all(string, "&", "\\&");
+    boost::replace_all(string, "%", "\\%");
 }
 
 } // End namespace latex
