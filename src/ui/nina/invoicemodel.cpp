@@ -57,15 +57,24 @@ InvoiceModel::createPdf()
 void
 InvoiceModel::save(const QString& filename)
 {
-    nina::domain::Archiver::save(createDomain(), toString(filename));
+    try {
+        nina::domain::Archiver::save(createDomain(), toString(filename));
+    }
+    catch( std::exception& e ) {
+        emit error( tr("Schreiben der Datei '") + filename + tr("' fehlgeschlagen: ") + e.what() );
+    }
 }
 
 void
 InvoiceModel::load(const QString& filename)
 {
-    nina::domain::Invoice invoice = nina::domain::Archiver::load( toString(filename) );
-
-    set( invoice );
+    try {
+        nina::domain::Invoice invoice = nina::domain::Archiver::load( toString(filename) );
+        set( invoice );
+    }
+    catch( std::exception& e ) {
+        emit error( tr("Lesen der Datei '") + filename + tr("' fehlgeschlagen: ") + e.what() );
+    }
 }
 
 void
