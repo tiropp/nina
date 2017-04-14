@@ -229,16 +229,16 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         fs << invoice.getMisc().getTextBeforePositions() << "\\\\\n\n";
 
     fs << "\\newlength{\\beschwidth}\n"                 // definiere zuerst die Breite
-       << "\\setlength{\\beschwidth}{0.6\\textwidth}\n" // des Besch-Feldes
+       << "\\setlength{\\beschwidth}{0.55\\textwidth}\n" // des Besch-Feldes
        << "\\newlength{\\beschtmpwidth}\n"
        << "\\newlength{\\parindentbesch}\n"             // def. die Einschublänge
        << "\\setlength{\\parindentbesch}{5mm}\n"
 
        // vspace{12pt} erzeugt zusätzlichen Abst. nach Tabellenkopf
        << "\\tablefirsthead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} & "
-       << "\\multicolumn{1}{r}{\\textbf{Anzahl}} & "
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} & "
-       << "\\multicolumn{1}{r}{\\textbf{Fr./Pos.}}\\\\}\n"
+       << "\\multicolumn{1}{r}{\\textbf{Menge}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Einzelpreis}} & "
+       << "\\multicolumn{1}{r}{\\textbf{Gesamtpreis}}\\\\}\n"
        << "\\tablehead{\\multicolumn{1}{l}{\\hspace{-0.5em}\\textbf{Beschreibung}} & "
        << "\\multicolumn{1}{r}{\\textbf{Anzahl}} & "
        << "\\multicolumn{1}{r}{\\textbf{Fr./Einheit}} & "
