@@ -25,6 +25,7 @@ target_link_libraries(nina
   nina_domain
   Qt5::Qml
   Qt5::Widgets
+  Boost::filesystem
   )
 
 if( WIN32 )
@@ -58,6 +59,8 @@ if( WIN32 )
     ${qt5_bin_dir}/Qt5Core${dll_suffix}.dll
     ${qt5_bin_dir}/Qt5Network${dll_suffix}.dll
     ${qt5_bin_dir}/Qt5Qml${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5QmlModels${dll_suffix}.dll
+    ${qt5_bin_dir}/Qt5QmlWorkerScript${dll_suffix}.dll
     ${qt5_bin_dir}/Qt5Gui${dll_suffix}.dll
     ${qt5_bin_dir}/Qt5Quick${dll_suffix}.dll
     ${qt5_bin_dir}/Qt5QuickControls2${dll_suffix}.dll
@@ -76,52 +79,68 @@ if( WIN32 )
   ## Install qml components
   install(DIRECTORY "${qt5_dir}/qml/QtQuick"   DESTINATION .)  
   install(DIRECTORY "${qt5_dir}/qml/QtQuick.2" DESTINATION .)
-  
+
+  ## Add suffix '.dll' for library search
+  list(APPEND CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
+  message(STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
+
   ## Install BOOST librarires
-  find_library(boost_filesystem_dll     boost_filesystem-mt)
-  find_library(boost_serialization_dll  boost_serialization-mt)
-  find_library(boost_system_dll         boost_system-mt)
-  find_library(boost_locale_dll         boost_locale-mt)
+  find_library(boost_filesystem_dll     boost_filesystem-mt-x64    REQUIRED)
+  find_library(boost_serialization_dll  boost_serialization-mt-x64 REQUIRED)
+  find_library(boost_system_dll         boost_system-mt-x64        REQUIRED)
+  find_library(boost_locale_dll         boost_locale-mt-x64        REQUIRED)
   install(FILES
     ${boost_filesystem_dll}
     ${boost_serialization_dll}
     ${boost_system_dll}
     ${boost_locale_dll}
     DESTINATION .
-    )
+  )
 
   ## Install other libraries
-  find_library(bz2_dll bz2)
-  find_library(eay32_dll eay32)
-  find_library(freetype_dll freetype-6)
-  find_library(gcc_sljl_dll gcc_s_sjlj-1)
-  find_library(glib_dll glib-2.0-0)
-  find_library(harfbuzz_dll harfbuzz-0)
-  find_library(iconv_dll iconv-2)
-  find_library(intl_dll intl-8)
-  find_library(jpeg_dll jpeg-9)
-  find_library(pcre16_dll pcre16-0)
-  find_library(pcre_dll pcre-1)
-  find_library(png16 png16-16)
-  find_library(stdc++_dll stdc++-6)
-  find_library(ssley32_dll ssleay32)
-  find_library(zlib_dll zlib1)  
+  find_library(bz2_dll           bz2          PATHS bin REQUIRED)
+  find_library(winpthread_dll    winpthread-1 PATHS bin REQUIRED)
+  find_library(gcc_s_seh_dll     gcc_s_seh-1  PATHS bin REQUIRED)
+  find_library(stdc++_dll        stdc++-6     PATHS bin REQUIRED)
+  find_library(icuin_dll         icuin74      PATHS bin REQUIRED)
+  find_library(icuuc_dll         icuuc74      PATHS bin REQUIRED)
+  find_library(pcre1_dll         pcre-1       PATHS bin REQUIRED)
+  find_library(pcre2_dll         pcre2-16-0   PATHS bin REQUIRED)
+  find_library(zlib_dll          zlib1        PATHS bin REQUIRED)
+  find_library(zstd_dll          zstd         PATHS bin REQUIRED)
+  find_library(harfbuzz_dll      harfbuzz-0   PATHS bin REQUIRED)
+  find_library(png_dll           png16-16     PATHS bin REQUIRED)
+  find_library(iconv_dll         iconv-2      PATHS bin REQUIRED)
+  find_library(freetype_dll      freetype-6   PATHS bin REQUIRED)
+  find_library(glib_dll          glib-2.0-0   PATHS bin REQUIRED)
+  find_library(intl_dll          intl-8       PATHS bin REQUIRED)
+  find_library(icudt_dll         icudt74      PATHS bin REQUIRED)
+  find_library(crypto_dll        crypto-3-x64 PATHS bin REQUIRED)
+  find_library(ssl_dll           ssl-3-x64    PATHS bin REQUIRED)
+  find_library(brotlidec_dll     brotlidec    PATHS bin REQUIRED)
+  find_library(brotlicommon_dll  brotlicommon PATHS bin REQUIRED)
   install(FILES
     ${bz2_dll}
-    ${eay32_dll}
-    ${freetype_dll}
-    ${gcc_sljl_dll}
-    ${glib_dll}
-    ${harfbuzz_dll}
-    ${iconv_dll}
-    ${intl_dll}
-    ${jpeg_dll}
-    ${pcre16_dll}
-    ${pcre_dll}
-    ${png16}
+    ${winpthread_dll}
+    ${gcc_s_seh_dll}
     ${stdc++_dll}
-    ${ssley32_dll}
+    ${icuin_dll}
+    ${icuuc_dll}
+    ${pcre1_dll}
+    ${pcre2_dll}
     ${zlib_dll}
+    ${zstd_dll}
+    ${harfbuzz_dll}
+    ${png_dll}
+    ${iconv_dll}
+    ${freetype_dll}
+    ${glib_dll}
+    ${intl_dll}
+    ${icudt_dll}
+    ${crypto_dll}
+    ${ssl_dll}
+    ${brotlidec_dll}
+    ${brotlicommon_dll}
     DESTINATION .
     )
 else()

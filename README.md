@@ -1,2 +1,106 @@
 # nina
 A simple invoice creation tool
+
+
+## Getting started ...
+
+### .. on Linux
+Create Makefiles with
+```
+cmake -S . --preset linux-default
+```
+
+This will create the Makefiles for debug configuration in directory `_build/linux/debug` and the release configuration in `_build/linux/release`.
+
+Compile the application with for debug configuration with
+```
+cmake --build --preset linux-default-debug -- -j
+```
+and for release configuration with
+```
+cmake --build --preset linux-default-release -- -j
+```
+
+Finally, run the application, compiled for debug configuration with
+```
+_build/linux/src/ui/nina/Debug/nina
+```
+and for release configuration with
+```
+_build/linux/src/ui/nina/Relase/nina
+```
+
+
+### .. on Windows
+
+#### Cross compilation in Linux for Windows
+The following steps show how to setup an environment to compile the nina application for Windows within Linux.
+
+1. Clone [MXE](https://github.com/mxe/mxe) repository:
+   ```
+   git clone --branch master --single-branch https://github.com/mxe/mxe.git
+   ```
+
+2. Build necessary libraries with MXE with
+   ```
+   cd mxe
+   make qtbase_CONFIGURE_OPTS="-debug-and-release -no-opengl" qt5 boost -j MXE_TARGETS='x86_64-w64-mingw32.shared'
+   ```
+   This will create release and debug libraries for Qt.
+
+   If a release configuration is sufficient one can use instead:
+   ```
+   make qtbase_CONFIGURE_OPTS="-no-opengl" qt5 boost -j MXE_TARGETS='x86_64-w64-mingw32.shared
+   ```
+
+3. Get source code
+   ```
+   cd ..
+   git clone --recurse-submodules https://github.com/tiropp/nina.git
+   cd nina
+   ```
+
+4. Create build configuration
+   ```
+   cmake -S . --preset win-cross-default -DMXE_DIR=`pwd`/../mxe
+   ```
+
+5. Build application
+   ```
+   cmake --build --preset win-cross-default-release
+   ```
+
+6. Create app installer with
+   ```
+   cpack --preset win-cross-default
+   ```
+
+   The installer is to be found at
+   ```
+   _build/win-linux/nina-0.2.3-win64.exe
+   ```
+
+
+#### Native compilation on Windows
+
+**WORK IN PROGRESS**
+
+1. Install Mingw-w64 toolchain, see [ Using Mingw-w64 natively on Windows](https://learn.microsoft.com/en-us/vcpkg/users/platforms/mingw#mingw-native).
+   The following commands are executed in MSYS2 shell.
+2. Install additional tools with:
+   ```
+   pacman -S --needed cmake ninja
+   ```
+2. Get source code
+   ```
+   git clone --recurse-submodules https://github.com/tiropp/nina.git
+   cd nina
+   ```
+3. Setup vcpkg with
+   ```
+   extern/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+   ```
+3. Configure project with
+   ```
+   cmake -S . --preset win-default
+   ```

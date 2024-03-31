@@ -1,0 +1,65 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 23,
+		"patch": 0
+	},
+	"configurePresets": [
+		{
+			"name": "linux-default",
+			"displayName": "Linux Default Config",
+			"description": "Linux Default Config",
+			"generator": "Ninja Multi-Config",
+			"binaryDir": "_build/linux"
+		},
+		{
+			"name": "win-cross-default",
+			"displayName": "Windows Cross Default Config",
+			"description": "Cross compile from Linux for Windows",
+			"generator": "Ninja Multi-Config",
+			"binaryDir": "_build/win-linux",
+			"cacheVariables": {
+				"CMAKE_TOOLCHAIN_FILE": "${sourceDir}/toolchain/toolchain_mingw32_shared.cmake"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "linux-default-release",
+			"configurePreset": "linux-default",
+			"displayName": "Build Linux (release)",
+			"description": "Build with ninja/vcpkg (release)",
+			"configuration": "Release"
+		},
+		{
+			"name": "linux-default-debug",
+			"configurePreset": "linux-default",
+			"displayName": "Build Linux (debug)",
+			"description": "Build with ninja/vcpkg (debug)",
+			"configuration": "Debug"
+		},
+
+		{
+			"name": "win-cross-default-release",
+			"configurePreset": "win-cross-default",
+			"displayName": "Build Windoes Cross (release)",
+			"description": "Build with ninja (release)",
+			"configuration": "Release"
+		},
+		{
+			"name": "win-cross-default-debug",
+			"configurePreset": "win-cross-default",
+			"displayName": "Build Windoes Cross (debug)",
+			"description": "Build with ninja (debug)",
+			"configuration": "Debug"
+		}
+	],
+	"packagePresets": [
+		{
+			"name": "win-cross-default",
+			"configurePreset": "win-cross-default",
+			"generators": ["NSIS"]
+		}
+	]
+}

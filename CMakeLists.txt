@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.7.0)
-project(nina VERSION 0.2.2 LANGUAGES CXX)
+project(nina VERSION 0.2.3 LANGUAGES CXX)
 
 
 ######################
@@ -8,19 +8,24 @@ project(nina VERSION 0.2.2 LANGUAGES CXX)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
 
-###########
-## BOOST ##
-###########
-find_package(Boost COMPONENTS unit_test_framework filesystem serialization locale)
-add_library(boost INTERFACE IMPORTED)
-set_property(TARGET boost PROPERTY
-  INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-  )
+###############
+## Libraries ##
+##############
+
+##
+## BOOST
+##
+find_package(Boost REQUIRED
+  COMPONENTS unit_test_framework filesystem serialization locale)
+# add_library(boost INTERFACE IMPORTED)
+# set_property(TARGET boost PROPERTY
+#   INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+#   )
 
 
-########
-## QT ##
-########
+##
+## QT
+##
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 
@@ -63,7 +68,4 @@ set(CPACK_PACKAGE_VENDOR "tiropp")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-if( WIN32 )
-  set(CPACK_GENERATOR "NSIS")
-endif()
 include(CPack)

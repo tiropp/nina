@@ -9,6 +9,5 @@ target_include_directories(unitTest
   )
 target_link_libraries(unitTest
   nina_domain
-  boost
   )
 
