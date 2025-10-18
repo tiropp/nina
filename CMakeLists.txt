@@ -15,7 +15,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 ##
 ## BOOST
 ##
-find_package(Boost REQUIRED
+find_package(Boost CONFIG REQUIRED
   COMPONENTS unit_test_framework filesystem serialization locale)
 # add_library(boost INTERFACE IMPORTED)
 # set_property(TARGET boost PROPERTY
