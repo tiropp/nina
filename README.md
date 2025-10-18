@@ -104,3 +104,8 @@ The following steps show how to setup an environment to compile the nina applica
    ```
    cmake -S . --preset win-default
    ```
+
+## Dependencies
+The application depends on `pdflatex` to create the final document. Please ensure that the `pdflatex` application is installed on the system and can be found by `nina`.
+
+For Windows, one can use e.g. [MiKTex](https://miktex.org/download).
