@@ -38,7 +38,7 @@ class PdfCreator
     void removeWorkingDir();
     void writeRComFile();
     boost::filesystem::path WriteLatexFile(const Invoice& invoice);
-    std::string CreatePdf(const boost::filesystem::path& path);
+    std::string createPdf(const boost::filesystem::path& path);
 
   private:
     boost::filesystem::path m_workingDir;

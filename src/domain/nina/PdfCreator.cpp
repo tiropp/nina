@@ -78,7 +78,7 @@ fs::path
 PdfCreator::operator()(const Invoice& invoice, std::string& errorMsg)
 {
     auto latexFile = WriteLatexFile( invoice );
-    errorMsg = CreatePdf( latexFile );
+    errorMsg = createPdf( latexFile );
 
     auto pdfFile( latexFile );
     pdfFile.replace_extension("pdf");
@@ -327,7 +327,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
 }
 
 std::string
-PdfCreator::CreatePdf(const fs::path& path)
+PdfCreator::createPdf(const fs::path& path)
 {
     std::string msg;
 
