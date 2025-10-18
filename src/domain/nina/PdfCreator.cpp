@@ -318,7 +318,7 @@ PdfCreator::WriteLatexFile(const Invoice& invoice)
         fs << "\\\\[.75cm]" << invoice.getMisc().getTextAfterPositions() << "\\\\\n";
 
     fs << "\\\\[0.75cm]\n"
-       << "\\center{\\large Danke f\"ur den Auftrag}\\flushleft\n"
+       << "\\center{\\large Danke für den Auftrag}\\flushleft\n"
        << "\\closing{" << invoice.getSender().getGreetings() << "}\n"
        << "\\end{letter}\n"
        << "\\end{document}\n";
