@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.7.0)
-project(nina VERSION 0.2.3 LANGUAGES CXX)
+project(nina VERSION 0.2.4 LANGUAGES CXX)
 
 
 ######################
