@@ -1,4 +1,4 @@
-name: Create build container: Linux Windows Crosscompilation
+name: 'Create build container: Linux Windows Crosscompilation'
 
 on:
   push:
