@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - 'container/LinuxWinCross.docker'
+      - '.github/workflows/create-build-container.yaml'
 
   pull_request:
     paths:
       - 'container/LinuxWinCross.docker'
+      - '.github/workflows/create-build-container.yaml'
 
 jobs:
   build:
