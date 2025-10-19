@@ -1,15 +1,15 @@
-name: 'Create build container: Linux Windows Crosscompilation'
+name: 'Create build container Window (Linux cross compilation)'
 
 on:
   push:
     paths:
       - 'container/LinuxWinCross.docker'
-      - '.github/workflows/create-build-container.yaml'
+      - '.github/workflows/create-build-container-win.yaml'
 
   pull_request:
     paths:
       - 'container/LinuxWinCross.docker'
-      - '.github/workflows/create-build-container.yaml'
+      - '.github/workflows/create-build-container-win.yaml'
 
 jobs:
   build:
@@ -38,5 +38,5 @@ jobs:
           context: .
           file: container/LinuxWinCross.docker
           push: true
-          tags: ${{ github.repository }}/nina-linux-win-cross:latest
+          tags: ${{ github.repository }}/nina-build-container-win:latest
 
