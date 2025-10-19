@@ -13,5 +13,5 @@ RUN \
     cd / && \
     git clone --branch master --single-branch https://github.com/mxe/mxe.git && \
     cd mxe && \
-    make boost -j MXE_TARGETS='x86_64-w64-mingw32.shared'
+    make boost -j MXE_TARGETS='x86_64-w64-mingw32.shared' && \
     make qtbase_CONFIGURE_OPTS="-debug-and-release -no-opengl" qtdeclarative qtquickcontrols2 qtsvg -j MXE_TARGETS='x86_64-w64-mingw32.shared'
