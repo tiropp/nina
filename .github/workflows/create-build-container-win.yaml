@@ -40,6 +40,6 @@ jobs:
         with:
           context: .
           file: container/linux_win_cross.Dockerfile
-          push: true
-          tags: ${{ github.repository }}/nina/build-container-win:latest
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: ghcr.io/${{ github.repository }}/build-container-win:latest
 
