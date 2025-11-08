@@ -56,10 +56,10 @@ class Address
     std::string m_name;
     std::string m_company;
     std::string m_street;
-    std::size_t m_zipCode;
+    std::size_t m_zipCode = 0;
     std::string m_place;
     std::string m_country;
-    bool        m_usePoBox;
+    bool        m_usePoBox = false;
 };
 
 } // End namespace domain
