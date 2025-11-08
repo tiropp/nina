@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: read
-      contents: read
+      # Need contents write permission to upload data for a release
+      contents: write
     container:
       image: ghcr.io/${{ github.repository }}/build-container-win:latest
 
