@@ -1,7 +1,15 @@
+// STL includes
+#include <iostream>
+
 // Qt includes
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
+// Boost includes
+#include <boost/stacktrace.hpp>
+#include <boost/exception/all.hpp>
+#include <boost/stacktrace/stacktrace_fwd.hpp>
 
 // Nina includes
 #include <settingsmodel.h>
@@ -19,9 +27,8 @@
 #include <fileopendialog.h>
 
 
-
 int
-main(int argc, char *argv[])
+run(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::addLibraryPath("./");
@@ -42,9 +49,30 @@ main(int argc, char *argv[])
     qmlRegisterType<MiscModel>("com.nina.ui", 1, 0, "MiscModel");
     qmlRegisterType<InvoiceModel>("com.nina.ui", 1, 0, "InvoiceModel");
     qmlRegisterType<FileSaveDialog>("com.nina.ui", 1, 0, "FileSaveDialog");
-    qmlRegisterType<FileOpenDialog>("com.nina.ui", 1, 0, "FileOpenDialog");    
+    qmlRegisterType<FileOpenDialog>("com.nina.ui", 1, 0, "FileOpenDialog");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
 
     return app.exec();
+}
+
+int
+main(int argc, char *argv[])
+{
+    using traced = boost::error_info<struct tag_stacktrace, boost::stacktrace::stacktrace>;
+
+    try {
+        return run(argc, argv);
+    } catch(const std::exception& e) {
+        std::cerr << "Uncaught exception " << typeid(e).name() << ": " << e.what() << "\n";
+
+        const auto* trace = boost::get_error_info<traced>(e);
+        if(trace) {
+            std::cerr << "Stack backtrace:\n" << *trace << "\n";
+        } else {
+            std::cerr << "Stack backtrace:\n" << boost::stacktrace::stacktrace() << "\n";
+        }
+    } catch(...) {
+        std::cerr << "Stack backtrace:\n" << boost::stacktrace::stacktrace() << "\n";
+    }
 }
