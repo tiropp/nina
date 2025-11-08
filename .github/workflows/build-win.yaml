@@ -21,7 +21,7 @@ jobs:
       packages: read
       contents: read
     container:
-      image: ${{ github.repository }}/nina-build-container-win:latest
+      image: ghcr.io/${{ github.repository }}/nina/build-container-win:latest
 
     steps:
       - name: Checkout repository
