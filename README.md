@@ -1,4 +1,6 @@
 # nina
+[![Build Windows](https://github.com/tiropp/nina/actions/workflows/build-win.yaml/badge.svg)](https://github.com/tiropp/nina/actions/workflows/build-win.yaml)
+
 A simple invoice creation tool
 
 
