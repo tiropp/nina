@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ${{ github.repository }}/nina-build-container-win:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
