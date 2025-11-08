@@ -85,15 +85,17 @@ if( WIN32 )
   message(STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
 
   ## Install BOOST librarires
-  find_library(boost_filesystem_dll     boost_filesystem-mt-x64    REQUIRED)
-  find_library(boost_serialization_dll  boost_serialization-mt-x64 REQUIRED)
-  find_library(boost_system_dll         boost_system-mt-x64        REQUIRED)
-  find_library(boost_locale_dll         boost_locale-mt-x64        REQUIRED)
+  find_library(boost_filesystem_dll       boost_filesystem-mt-x64       REQUIRED)
+  find_library(boost_serialization_dll    boost_serialization-mt-x64    REQUIRED)
+  find_library(boost_system_dll           boost_system-mt-x64           REQUIRED)
+  find_library(boost_locale_dll           boost_locale-mt-x64           REQUIRED)
+  find_library(boost_stacktrace_basic_dll boost_stacktrace_basic-mt-x64 REQUIRED)
   install(FILES
     ${boost_filesystem_dll}
     ${boost_serialization_dll}
     ${boost_system_dll}
     ${boost_locale_dll}
+    ${boost_stacktrace_basic_dll}
     DESTINATION .
   )
 
