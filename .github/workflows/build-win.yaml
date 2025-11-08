@@ -1,0 +1,40 @@
+name: Build Windows
+
+on:
+  push:
+    paths-ignore:
+      - 'container/linux_win_cross.Dockerfile'
+      - '.github/workflows/create-build-container-win.yaml'
+
+  pull_request:
+    paths-ignore:
+      - 'container/linux_win_cross.Dockerfile'
+      - '.github/workflows/create-build-container-win.yaml'
+
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ github.repository }}/nina-build-container-win:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Build
+        run: |
+          cmake -S . --preset win-cross-default -DMXE_DIR=/mxe
+          cmake --build --preset win-cross-default-release
+          cpack --preset win-cross-default
+
+      - name: Create release data
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '_build/win-linux/nina-*-win64.exe'
