@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.30.0)
+cmake_minimum_required (VERSION 3.25.0)
 project(nina VERSION 0.2.4 LANGUAGES CXX)
 
 
@@ -16,7 +16,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 ## BOOST
 ##
 find_package(Boost CONFIG REQUIRED
-  COMPONENTS unit_test_framework filesystem serialization locale)
+  COMPONENTS unit_test_framework filesystem serialization locale stacktrace_basic)
 # add_library(boost INTERFACE IMPORTED)
 # set_property(TARGET boost PROPERTY
 #   INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
@@ -37,7 +37,7 @@ find_package(Qt5 COMPONENTS Quick Qml Widgets QuickControls2)
 if( MINGW )
   set_property(TARGET Qt5::Core
     APPEND 
-    PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm -lpcre16"
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lz -lws2_32 -lwinmm -lpcre2-16"
     )
   set_property(TARGET Qt5::Widgets
     APPEND 
@@ -49,7 +49,7 @@ if( MINGW )
     )
   set_property(TARGET Qt5::Gui
     APPEND 
-    PROPERTY INTERFACE_LINK_LIBRARIES "-lharfbuzz -lpng -lpcre16"
+    PROPERTY INTERFACE_LINK_LIBRARIES "-lharfbuzz -lpng -lpcre2-16"
     )
 endif()
 

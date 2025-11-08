@@ -85,15 +85,17 @@ if( WIN32 )
   message(STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
 
   ## Install BOOST librarires
-  find_library(boost_filesystem_dll     boost_filesystem-mt-x64    REQUIRED)
-  find_library(boost_serialization_dll  boost_serialization-mt-x64 REQUIRED)
-  find_library(boost_system_dll         boost_system-mt-x64        REQUIRED)
-  find_library(boost_locale_dll         boost_locale-mt-x64        REQUIRED)
+  find_library(boost_filesystem_dll       boost_filesystem-mt-x64       REQUIRED)
+  find_library(boost_serialization_dll    boost_serialization-mt-x64    REQUIRED)
+  find_library(boost_system_dll           boost_system-mt-x64           REQUIRED)
+  find_library(boost_locale_dll           boost_locale-mt-x64           REQUIRED)
+  find_library(boost_stacktrace_basic_dll boost_stacktrace_basic-mt-x64 REQUIRED)
   install(FILES
     ${boost_filesystem_dll}
     ${boost_serialization_dll}
     ${boost_system_dll}
     ${boost_locale_dll}
+    ${boost_stacktrace_basic_dll}
     DESTINATION .
   )
 
@@ -104,8 +106,8 @@ if( WIN32 )
   find_library(stdc++_dll        stdc++-6     PATHS bin REQUIRED)
   find_library(icuin_dll         icuin74      PATHS bin REQUIRED)
   find_library(icuuc_dll         icuuc74      PATHS bin REQUIRED)
-  find_library(pcre1_dll         pcre-1       PATHS bin REQUIRED)
-  find_library(pcre2_dll         pcre2-16-0   PATHS bin REQUIRED)
+  find_library(pcre2_16_dll      pcre2-16-0   PATHS bin REQUIRED)
+  find_library(pcre2_8_dll       pcre2-8-0    PATHS bin REQUIRED)
   find_library(zlib_dll          zlib1        PATHS bin REQUIRED)
   find_library(zstd_dll          zstd         PATHS bin REQUIRED)
   find_library(harfbuzz_dll      harfbuzz-0   PATHS bin REQUIRED)
@@ -127,7 +129,8 @@ if( WIN32 )
     ${icuin_dll}
     ${icuuc_dll}
     ${pcre1_dll}
-    ${pcre2_dll}
+    ${pcre2_8_dll}
+    ${pcre2_16_dll}
     ${zlib_dll}
     ${zstd_dll}
     ${harfbuzz_dll}
